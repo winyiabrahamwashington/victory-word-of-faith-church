@@ -1,0 +1,2661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Victory Word of Faith Church</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✝️</text></svg>">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6AB;
+            --gold-dark: #B7950B;
+            --red: #AA0101;
+            --red-dark: #800000;
+            --red-light: #E8C8C8;
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --black: #333333;
+            --gray: #666666;
+            --light-gray: #EEEEEE;
+            --green: #28a745;
+            --blue: #007bff;
+            
+            --header-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: var(--off-white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: var(--header-font);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--red-dark);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--red-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--green), #1e7e34);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #bd2130);
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--red-dark), var(--red));
+        }
+        
+        .login-box {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-hover);
+            width: 100%;
+            max-width: 400px;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-logo h1 {
+            font-size: 2rem;
+            color: var(--red-dark);
+        }
+        
+        .login-logo span {
+            color: var(--gold);
+        }
+        
+        .login-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .login-tab {
+            flex: 1;
+            padding: 0.75rem;
+            background: none;
+            border: none;
+            font-family: var(--body-font);
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .login-tab.active {
+            color: var(--red-dark);
+            border-bottom: 3px solid var(--gold);
+        }
+        
+        .login-form {
+            display: none;
+        }
+        
+        .login-form.active {
+            display: block;
+        }
+        
+        /* Admin Header */
+        .admin-header {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-logo {
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-logo span {
+            color: var(--gold);
+        }
+        
+        .admin-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .admin-user i {
+            color: var(--gold);
+        }
+        
+        .logout-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.4rem 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .logout-btn:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        /* Admin Main */
+        .admin-main {
+            padding: 2rem 0;
+            min-height: calc(100vh - 140px);
+        }
+        
+        .admin-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 2rem;
+        }
+        
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            font-family: var(--body-font);
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .tab-btn:hover {
+            color: var(--red-dark);
+        }
+        
+        .tab-btn.active {
+            color: var(--red-dark);
+        }
+        
+        .tab-btn.active:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--gold);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Forms */
+        .admin-form {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--red-dark);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-family: var(--body-font);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Preview Sections */
+        .preview-section {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        /* Event List */
+        .event-list, .gallery-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .event-item, .gallery-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--off-white);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--gold);
+        }
+        
+        .event-info, .gallery-info {
+            flex: 1;
+        }
+        
+        .event-title, .gallery-title {
+            font-weight: 600;
+            color: var(--red-dark);
+            margin-bottom: 0.25rem;
+        }
+        
+        .event-date, .gallery-type {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .event-actions, .gallery-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            padding: 0.4rem 0.75rem;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .edit-btn {
+            background-color: var(--gold-light);
+            color: var(--red-dark);
+        }
+        
+        .edit-btn:hover {
+            background-color: var(--gold);
+        }
+        
+        .delete-btn {
+            background-color: var(--red-light);
+            color: var(--red-dark);
+        }
+        
+        .delete-btn:hover {
+            background-color: var(--red);
+            color: var(--white);
+        }
+        
+        /* Gallery Grid Preview */
+        .gallery-grid-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .gallery-preview-item {
+            height: 120px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+        
+        .gallery-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-preview-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .gallery-preview-item:hover .gallery-preview-overlay {
+            opacity: 1;
+        }
+        
+        .preview-type-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: var(--red);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--gold);
+        }
+        
+        .file-upload i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        
+        .upload-preview {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .upload-preview img {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+        }
+        
+        /* Success/Error Messages */
+        .message {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .message.loading {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+            display: block;
+        }
+        
+        /* Footer */
+        .admin-footer {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 1rem 0;
+            text-align: center;
+        }
+        
+        .admin-footer p {
+            color: var(--gold-light);
+            font-size: 0.85rem;
+        }
+        
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* File Upload Preview Grid */
+        .file-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .file-preview-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 120px;
+        }
+        
+        .file-preview-item img, .file-preview-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-file-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Upload Progress */
+        .upload-progress {
+            margin-top: 10px;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: var(--light-gray);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--green);
+            transition: width 0.3s ease;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .gallery-grid-preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .event-item, .gallery-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .event-actions, .gallery-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .file-preview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gallery-grid-preview {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-tabs {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                text-align: left;
+            }
+            
+            .file-preview-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-box {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page (Hidden by default) -->
+    <div id="loginPage" class="login-container" style="display: none;">
+        <div class="login-box">
+            <div class="login-logo">
+                <h1>VWF<span>CI</span> Admin</h1>
+                <p>Admin Panel Access</p>
+            </div>
+            
+            <div class="login-tabs">
+                <button class="login-tab active" id="loginTabBtn">Login</button>
+                <button class="login-tab" id="signupTabBtn">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="login-form active">
+                <div id="loginMessage" class="message"></div>
+                
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" required placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Enter your password">
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signupForm" class="login-form">
+                <div id="signupMessage" class="message"></div>
+                
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" required placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required placeholder="Create a password (min. 6 characters)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required placeholder="Confirm your password">
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Admin Panel (Hidden by default) -->
+    <div id="adminPanel" style="display: none;">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="container admin-header-content">
+                <div class="admin-logo">
+                    VWF<span>CI</span> Admin Panel
+                </div>
+                <div class="admin-nav">
+                    <div class="admin-user">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="userEmail">Loading...</span>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Admin Main Content -->
+        <main class="admin-main">
+            <div class="container">
+                <h1>Website Content Management</h1>
+                <p>Manage events and gallery content for the Victory Word of Faith Church website.</p>
+                
+                <!-- Tabs -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="events">Events Management</button>
+                    <button class="tab-btn" data-tab="gallery">Gallery Management</button>
+                    <button class="tab-btn" data-tab="preview">Live Preview</button>
+                </div>
+                
+                <!-- Events Management Tab -->
+                <div class="tab-content active" id="events-tab">
+                    <!-- Add Event Form -->
+                    <div class="admin-form">
+                        <h2>Add New Event</h2>
+                        <div id="eventMessage" class="message"></div>
+                        
+                        <form id="eventForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="eventTitle">Event Title *</label>
+                                    <input type="text" id="eventTitle" name="eventTitle" required placeholder="E.g., Easter Sunday Celebration">
+                                </div>
+                                <div class="form-group">
+                                    <label for="eventCategory">Category *</label>
+                                    <input type="text" id="eventCategory" name="eventCategory" required placeholder="E.g., Worship Service, Conference, etc.">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="eventDate">Event Date *</label>
+                                    <input type="date" id="eventDate" name="eventDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="eventTime">Event Time *</label>
+                                    <input type="time" id="eventTime" name="eventTime" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="eventLocation">Location *</label>
+                                    <input type="text" id="eventLocation" name="eventLocation" required placeholder="E.g., Main Sanctuary">
+                                </div>
+                                <div class="form-group">
+                                    <label for="eventAudience">Audience *</label>
+                                    <input type="text" id="eventAudience" name="eventAudience" required placeholder="E.g., All Ages, Adults Only, Youth, etc.">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="eventDescription">Event Description *</label>
+                                <textarea id="eventDescription" name="eventDescription" required placeholder="Provide a detailed description of the event..."></textarea>
+                            </div>
+                            
+                            <!-- Event Image Upload -->
+                            <div class="form-group">
+                                <label for="eventImageUpload">Event Image (Optional)</label>
+                                <div class="file-upload" id="eventImageUploadArea">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Click to upload event image or drag & drop</p>
+                                    <input type="file" id="eventImageFile" accept="image/*">
+                                    <small>Max file size: 5MB. Supported: JPG, PNG, GIF, WebP</small>
+                                </div>
+                                <div class="upload-preview" id="eventImagePreview"></div>
+                                <input type="hidden" id="eventImageUrl" name="eventImageUrl">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="eventFeatured" name="eventFeatured">
+                                    Mark as Featured Event
+                                </label>
+                            </div>
+                            
+                            <div style="display: flex; gap: 1rem;">
+                                <button type="submit" class="btn btn-success" id="eventSubmitBtn">
+                                    <i class="fas fa-plus-circle"></i> Add Event
+                                </button>
+                                <button type="button" class="btn btn-outline" id="clearEventForm">
+                                    <i class="fas fa-eraser"></i> Clear Form
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Existing Events -->
+                    <div class="preview-section">
+                        <div class="preview-header">
+                            <h2>Existing Events</h2>
+                            <div>
+                                <span id="eventCount">0</span> Events
+                            </div>
+                        </div>
+                        
+                        <div class="event-list" id="eventList">
+                            <!-- Events will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Management Tab -->
+                <div class="tab-content" id="gallery-tab">
+                    <!-- Add Gallery Item Form -->
+                    <div class="admin-form">
+                        <h2>Add Gallery Items</h2>
+                        <div id="galleryMessage" class="message"></div>
+                        
+                        <form id="galleryForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="galleryAlbum">Album/Folder Name (Optional)</label>
+                                    <input type="text" id="galleryAlbum" name="galleryAlbum" placeholder="E.g., Sunday Service, Christmas 2024">
+                                </div>
+                            </div>
+                            
+                            <!-- Gallery File Upload -->
+                            <div class="form-group">
+                                <label>Upload Images & Videos *</label>
+                                <div class="file-upload" id="galleryUploadArea">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Click to upload files or drag & drop multiple files</p>
+                                    <input type="file" id="galleryFiles" accept="image/*,video/*" multiple>
+                                    <small>Max file size: 10MB each. Images: JPG, PNG, GIF, WebP. Videos: MP4, WebM, MOV</small>
+                                </div>
+                                
+                                <!-- Upload Progress -->
+                                <div class="upload-progress" id="galleryUploadProgress" style="display: none;">
+                                    <div>Uploading: <span id="uploadStatus">0%</span></div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="uploadProgressFill" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- File Preview Grid -->
+                                <div class="file-preview-grid" id="galleryFilesPreview">
+                                    <!-- Files preview will be loaded here -->
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 1rem;">
+                                <button type="submit" class="btn btn-success" id="gallerySubmitBtn">
+                                    <i class="fas fa-plus-circle"></i> Add to Gallery
+                                </button>
+                                <button type="button" class="btn btn-outline" id="clearGalleryForm">
+                                    <i class="fas fa-eraser"></i> Clear Form
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Existing Gallery Items -->
+                    <div class="preview-section">
+                        <div class="preview-header">
+                            <h2>Gallery Items</h2>
+                            <div>
+                                <span id="galleryCount">0</span> Items
+                            </div>
+                        </div>
+                        
+                        <div class="gallery-grid-preview" id="galleryPreview">
+                            <!-- Gallery items will be loaded here -->
+                        </div>
+                        
+                        <div class="gallery-list" id="galleryList">
+                            <!-- Gallery list will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Live Preview Tab -->
+                <div class="tab-content" id="preview-tab">
+                    <div class="preview-section">
+                        <h2>Events Page Preview</h2>
+                        <p>This shows how events will appear on the events.html page</p>
+                        
+                        <div id="eventsPreview">
+                            <!-- Events preview will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section">
+                        <h2>Homepage Gallery Preview</h2>
+                        <p>This shows how gallery items will appear on the index.html page</p>
+                        
+                        <div class="gallery-grid-preview" id="homeGalleryPreview">
+                            <!-- Home gallery preview will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Admin Footer -->
+        <footer class="admin-footer">
+            <div class="container">
+                <p>&copy; <span id="currentYear"></span> Victory Word of Faith Church International. Admin Panel v1.0</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ====================
+        // INITIALIZATION
+        // ====================
+        
+        // Prevent multiple initializations
+        if (window.adminPanelInitialized) {
+            console.log('Admin panel already initialized');
+        } else {
+            window.adminPanelInitialized = true;
+            
+            // Current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // ====================
+            // SUPABASE CONFIGURATION
+            // ====================
+            
+            // Supabase configuration
+            const supabaseUrl = 'https://lgosscisacpafjwkhngb.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxnb3NzY2lzYWNwYWZqd2tobmdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwNzcyOTQsImV4cCI6MjA4NTY1MzI5NH0.uxQZSFdI1C_yWheUpRHsaHCV7ejrnK0oiFxZZPDf718';
+            
+            // Initialize Supabase client with Auth
+            let supabase;
+            let currentUser = null;
+            
+            try {
+                if (window.supabase && window.supabase.createClient) {
+                    supabase = window.supabase.createClient(supabaseUrl, supabaseKey, {
+                        auth: {
+                            persistSession: true,
+                            autoRefreshToken: true,
+                            detectSessionInUrl: false
+                        }
+                    });
+                    console.log('Supabase client with Auth initialized successfully');
+                } else {
+                    throw new Error('Supabase library not loaded');
+                }
+            } catch (error) {
+                console.error('Failed to initialize Supabase:', error);
+                showMessage('loginMessage', 'Error: Failed to connect to database. Please refresh the page.', 'error');
+                showMessage('signupMessage', 'Error: Failed to connect to database. Please refresh the page.', 'error');
+            }
+            
+            // ====================
+            // AUTHENTICATION SYSTEM
+            // ====================
+            
+            // Check for existing session on page load
+            async function checkAuth() {
+                if (!supabase) return false;
+                
+                try {
+                    const { data: { session }, error } = await supabase.auth.getSession();
+                    
+                    if (error) {
+                        console.error('Error checking session:', error);
+                        return false;
+                    }
+                    
+                    if (session) {
+                        currentUser = session.user;
+                        console.log('User is authenticated:', currentUser.email);
+                        return true;
+                    }
+                    
+                    return false;
+                } catch (error) {
+                    console.error('Error checking auth:', error);
+                    return false;
+                }
+            }
+            
+            // Initialize page based on auth status
+            async function initializePage() {
+                const isAuthenticated = await checkAuth();
+                
+                if (isAuthenticated) {
+                    // Show admin panel
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('adminPanel').style.display = 'block';
+                    
+                    // Display user email
+                    document.getElementById('userEmail').textContent = currentUser.email;
+                    
+                    // Check if user is authorized (must be pastordorothy2002@yahoo.co.uk)
+                    if (currentUser.email.toLowerCase() !== 'pastordorothy2002@yahoo.co.uk') {
+                        showMessage('eventMessage', 'Error: Unauthorized access. Only pastordorothy2002@yahoo.co.uk can access this admin panel.', 'error');
+                        showMessage('galleryMessage', 'Error: Unauthorized access. Only pastordorothy2002@yahoo.co.uk can access this admin panel.', 'error');
+                        
+                        // Disable all forms
+                        document.querySelectorAll('form').forEach(form => {
+                            form.querySelectorAll('input, textarea, button, select').forEach(element => {
+                                element.disabled = true;
+                            });
+                        });
+                        
+                        return;
+                    }
+                    
+                    // Load data
+                    await loadData();
+                } else {
+                    // Show login page
+                    document.getElementById('loginPage').style.display = 'flex';
+                    document.getElementById('adminPanel').style.display = 'none';
+                }
+            }
+            
+            // Load all data for admin panel
+            async function loadData() {
+                if (supabase && currentUser) {
+                    showMessage('eventMessage', 'Loading events from database...', 'loading');
+                    showMessage('galleryMessage', 'Loading gallery items from database...', 'loading');
+                    
+                    await loadEvents();
+                    await loadGallery();
+                    updateCounts();
+                    
+                    hideMessage('eventMessage');
+                    hideMessage('galleryMessage');
+                }
+            }
+            
+            // Login function
+            async function handleLogin(email, password) {
+                if (!supabase) {
+                    showMessage('loginMessage', 'Error: Database connection not available.', 'error');
+                    return false;
+                }
+                
+                try {
+                    showMessage('loginMessage', 'Logging in...', 'loading');
+                    
+                    const { data, error } = await supabase.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    if (data.user) {
+                        currentUser = data.user;
+                        
+                        // Check if user is authorized
+                        if (currentUser.email.toLowerCase() !== 'pastordorothy2002@yahoo.co.uk') {
+                            showMessage('loginMessage', 'Error: Unauthorized email. Only pastordorothy2002@yahoo.co.uk can access this admin panel.', 'error');
+                            await supabase.auth.signOut();
+                            return false;
+                        }
+                        
+                        showMessage('loginMessage', 'Login successful! Redirecting...', 'success');
+                        
+                        // Reload page to show admin panel
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                        
+                        return true;
+                    }
+                    
+                    return false;
+                    
+                } catch (error) {
+                    console.error('Login error:', error);
+                    showMessage('loginMessage', `Login failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            // Signup function
+            async function handleSignup(email, password) {
+                if (!supabase) {
+                    showMessage('signupMessage', 'Error: Database connection not available.', 'error');
+                    return false;
+                }
+                
+                // Only allow pastordorothy2002@yahoo.co.uk to sign up
+                if (email.toLowerCase() !== 'pastordorothy2002@yahoo.co.uk') {
+                    showMessage('signupMessage', 'Error: Only pastordorothy2002@yahoo.co.uk can create an account.', 'error');
+                    return false;
+                }
+                
+                try {
+                    showMessage('signupMessage', 'Creating account...', 'loading');
+                    
+                    const { data, error } = await supabase.auth.signUp({
+                        email: email,
+                        password: password,
+                        options: {
+                            emailRedirectTo: window.location.origin
+                        }
+                    });
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    if (data.user) {
+                        showMessage('signupMessage', 'Account created successfully! Please check your email to confirm your account.', 'success');
+                        return true;
+                    }
+                    
+                    return false;
+                    
+                } catch (error) {
+                    console.error('Signup error:', error);
+                    showMessage('signupMessage', `Signup failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            // Logout function
+            async function handleLogout() {
+                if (!supabase) return;
+                
+                try {
+                    const { error } = await supabase.auth.signOut();
+                    
+                    if (error) {
+                        throw error;
+                    }
+                    
+                    currentUser = null;
+                    location.reload();
+                    
+                } catch (error) {
+                    console.error('Logout error:', error);
+                    alert('Logout failed: ' + error.message);
+                }
+            }
+            
+            // ====================
+            // LOGIN/SIGNUP UI
+            // ====================
+            
+            // Login/Signup tab switching
+            document.getElementById('loginTabBtn').addEventListener('click', function() {
+                document.getElementById('loginTabBtn').classList.add('active');
+                document.getElementById('signupTabBtn').classList.remove('active');
+                document.getElementById('loginForm').classList.add('active');
+                document.getElementById('signupForm').classList.remove('active');
+                hideMessage('loginMessage');
+                hideMessage('signupMessage');
+            });
+            
+            document.getElementById('signupTabBtn').addEventListener('click', function() {
+                document.getElementById('signupTabBtn').classList.add('active');
+                document.getElementById('loginTabBtn').classList.remove('active');
+                document.getElementById('signupForm').classList.add('active');
+                document.getElementById('loginForm').classList.remove('active');
+                hideMessage('loginMessage');
+                hideMessage('signupMessage');
+            });
+            
+            // Login form submission
+            document.getElementById('loginForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value.trim();
+                const password = document.getElementById('loginPassword').value;
+                
+                if (!email || !password) {
+                    showMessage('loginMessage', 'Please enter both email and password.', 'error');
+                    return;
+                }
+                
+                await handleLogin(email, password);
+            });
+            
+            // Signup form submission
+            document.getElementById('signupForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('signupEmail').value.trim();
+                const password = document.getElementById('signupPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (!email || !password || !confirmPassword) {
+                    showMessage('signupMessage', 'Please fill in all fields.', 'error');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showMessage('signupMessage', 'Password must be at least 6 characters.', 'error');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    showMessage('signupMessage', 'Passwords do not match.', 'error');
+                    return;
+                }
+                
+                await handleSignup(email, password);
+            });
+            
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    handleLogout();
+                }
+            });
+            
+            // ====================
+            // UTILITY FUNCTIONS
+            // ====================
+            
+            function showMessage(elementId, text, type) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                
+                element.textContent = text;
+                element.className = `message ${type}`;
+                element.style.display = 'block';
+                
+                // Auto-hide success messages after 5 seconds
+                if (type === 'success') {
+                    setTimeout(() => {
+                        element.style.display = 'none';
+                    }, 5000);
+                }
+            }
+            
+            function hideMessage(elementId) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.style.display = 'none';
+                }
+            }
+            
+            function setLoading(button, isLoading) {
+                if (!button) return;
+                
+                if (isLoading) {
+                    button.disabled = true;
+                    const originalHTML = button.innerHTML;
+                    button.setAttribute('data-original-html', originalHTML);
+                    button.innerHTML = `<span class="spinner"></span>Processing...`;
+                } else {
+                    button.disabled = false;
+                    const originalHTML = button.getAttribute('data-original-html');
+                    if (originalHTML) {
+                        button.innerHTML = originalHTML;
+                    }
+                }
+            }
+            
+            function escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            
+            // Detect file type from file name or MIME type
+            function detectFileType(file) {
+                if (file.type) {
+                    if (file.type.startsWith('image/')) return 'image';
+                    if (file.type.startsWith('video/')) return 'video';
+                }
+                
+                // Fallback to file extension
+                const extension = file.name.split('.').pop().toLowerCase();
+                const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'];
+                const videoExtensions = ['mp4', 'webm', 'mov', 'avi', 'mkv'];
+                
+                if (imageExtensions.includes(extension)) return 'image';
+                if (videoExtensions.includes(extension)) return 'video';
+                
+                return 'unknown';
+            }
+            
+            // ====================
+            // TAB MANAGEMENT
+            // ====================
+            
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.getAttribute('data-tab');
+                    
+                    // Update active tab button
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Show active tab content
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-tab`) {
+                            content.classList.add('active');
+                        }
+                    });
+                    
+                    // If preview tab is selected, update previews
+                    if (tabId === 'preview') {
+                        updateEventsPreview();
+                        updateHomeGalleryPreview();
+                    }
+                });
+            });
+            
+            // ====================
+            // EVENT MANAGEMENT
+            // ====================
+            
+            // Initialize event date to today
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('eventDate').value = formattedDate;
+            document.getElementById('eventTime').value = '10:30';
+            
+            // Event Image Upload Handling
+            const eventImageUploadArea = document.getElementById('eventImageUploadArea');
+            const eventImageFile = document.getElementById('eventImageFile');
+            const eventImagePreview = document.getElementById('eventImagePreview');
+            const eventImageUrlInput = document.getElementById('eventImageUrl');
+            
+            eventImageUploadArea.addEventListener('click', () => {
+                eventImageFile.click();
+            });
+            
+            eventImageUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                eventImageUploadArea.style.borderColor = 'var(--gold)';
+                eventImageUploadArea.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+            });
+            
+            eventImageUploadArea.addEventListener('dragleave', () => {
+                eventImageUploadArea.style.borderColor = 'var(--light-gray)';
+                eventImageUploadArea.style.backgroundColor = 'transparent';
+            });
+            
+            eventImageUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                eventImageUploadArea.style.borderColor = 'var(--light-gray)';
+                eventImageUploadArea.style.backgroundColor = 'transparent';
+                
+                if (e.dataTransfer.files.length) {
+                    handleEventImageSelect(e.dataTransfer.files[0]);
+                }
+            });
+            
+            eventImageFile.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    handleEventImageSelect(e.target.files[0]);
+                }
+            });
+            
+            async function handleEventImageSelect(file) {
+                // Check file type
+                const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+                
+                if (!validImageTypes.includes(file.type)) {
+                    showMessage('eventMessage', 'Please select an image file (JPEG, PNG, GIF, WebP).', 'error');
+                    return;
+                }
+                
+                // Check file size (5MB limit)
+                if (file.size > 5 * 1024 * 1024) {
+                    showMessage('eventMessage', 'File size too large. Please select an image smaller than 5MB.', 'error');
+                    return;
+                }
+                
+                // Create preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    eventImagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 300px; border-radius: 8px;">`;
+                    
+                    // Store file for upload
+                    eventImagePreview.setAttribute('data-file', JSON.stringify({
+                        name: file.name,
+                        size: file.size,
+                        type: file.type,
+                        data: e.target.result
+                    }));
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            // Upload event image to Supabase Storage
+            async function uploadEventImage(file) {
+                if (!supabase || !currentUser) {
+                    throw new Error('Not authenticated');
+                }
+                
+                try {
+                    // Generate unique file name
+                    const fileName = `event-${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, '-')}`;
+                    
+                    // Upload to Supabase Storage
+                    const { data, error } = await supabase.storage
+                        .from('church-media')
+                        .upload(`events/${fileName}`, file);
+                    
+                    if (error) throw error;
+                    
+                    // Get public URL
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('church-media')
+                        .getPublicUrl(`events/${fileName}`);
+                    
+                    return publicUrl;
+                    
+                } catch (error) {
+                    console.error('Error uploading event image:', error);
+                    throw error;
+                }
+            }
+            
+            // Event form submission
+            document.getElementById('eventForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                if (!supabase || !currentUser) {
+                    showMessage('eventMessage', 'Please login to add events.', 'error');
+                    return;
+                }
+                
+                const submitBtn = document.getElementById('eventSubmitBtn');
+                setLoading(submitBtn, true);
+                hideMessage('eventMessage');
+                
+                // Get form values
+                const title = document.getElementById('eventTitle').value.trim();
+                const category = document.getElementById('eventCategory').value.trim();
+                const date = document.getElementById('eventDate').value;
+                const time = document.getElementById('eventTime').value;
+                const location = document.getElementById('eventLocation').value.trim();
+                const audience = document.getElementById('eventAudience').value.trim();
+                const description = document.getElementById('eventDescription').value.trim();
+                const featured = document.getElementById('eventFeatured').checked;
+                
+                // Validation
+                if (!title || !category || !date || !time || !location || !audience || !description) {
+                    showMessage('eventMessage', 'Please fill in all required fields.', 'error');
+                    setLoading(submitBtn, false);
+                    return;
+                }
+                
+                let imageUrl = null;
+                
+                // Handle image upload if present
+                const fileData = eventImagePreview.getAttribute('data-file');
+                if (fileData) {
+                    try {
+                        showMessage('eventMessage', 'Uploading image...', 'loading');
+                        
+                        const fileInfo = JSON.parse(fileData);
+                        // Convert base64 to blob
+                        const response = await fetch(fileInfo.data);
+                        const blob = await response.blob();
+                        const file = new File([blob], fileInfo.name, { type: fileInfo.type });
+                        
+                        // Upload to Supabase
+                        imageUrl = await uploadEventImage(file);
+                        
+                        showMessage('eventMessage', 'Image uploaded successfully!', 'success');
+                        
+                    } catch (error) {
+                        console.error('Error uploading image:', error);
+                        showMessage('eventMessage', `Error uploading image: ${error.message}. Using default image.`, 'error');
+                        // Use default image if upload fails
+                        imageUrl = "https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
+                    }
+                }
+                
+                // Use default image if not provided
+                if (!imageUrl) {
+                    imageUrl = "https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
+                }
+                
+                // Create new event object
+                const newEvent = {
+                    title: escapeHtml(title),
+                    category: escapeHtml(category),
+                    date: date,
+                    time: time,
+                    location: escapeHtml(location),
+                    audience: escapeHtml(audience),
+                    description: escapeHtml(description),
+                    image: imageUrl,
+                    featured: featured,
+                    created_at: new Date().toISOString()
+                };
+                
+                showMessage('eventMessage', 'Saving event to database...', 'loading');
+                
+                try {
+                    // Insert event into Supabase
+                    const { data, error } = await supabase
+                        .from('events')
+                        .insert([newEvent])
+                        .select();
+                    
+                    if (error) throw error;
+                    
+                    showMessage('eventMessage', 'Event added successfully!', 'success');
+                    
+                    // Reload events list
+                    await loadEvents();
+                    updateCounts();
+                    
+                    // Clear form
+                    this.reset();
+                    document.getElementById('eventDate').value = formattedDate;
+                    document.getElementById('eventTime').value = '10:30';
+                    eventImagePreview.innerHTML = '';
+                    eventImagePreview.removeAttribute('data-file');
+                    
+                } catch (error) {
+                    console.error('Error adding event:', error);
+                    showMessage('eventMessage', `Error adding event: ${error.message}`, 'error');
+                } finally {
+                    setLoading(submitBtn, false);
+                }
+            });
+            
+            // Clear event form
+            document.getElementById('clearEventForm').addEventListener('click', function() {
+                document.getElementById('eventForm').reset();
+                document.getElementById('eventDate').value = formattedDate;
+                document.getElementById('eventTime').value = '10:30';
+                eventImagePreview.innerHTML = '';
+                eventImagePreview.removeAttribute('data-file');
+                hideMessage('eventMessage');
+            });
+            
+            // Load events from Supabase
+            async function loadEvents() {
+                const eventList = document.getElementById('eventList');
+                if (!eventList) return;
+                
+                eventList.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--gray);">Loading events...</p>';
+                
+                try {
+                    if (!supabase || !currentUser) throw new Error('Not authenticated');
+                    
+                    // Fetch events from Supabase
+                    const { data: events, error } = await supabase
+                        .from('events')
+                        .select('*')
+                        .order('date', { ascending: false });
+                    
+                    if (error) {
+                        console.error('Supabase error details:', error);
+                        throw error;
+                    }
+                    
+                    eventList.innerHTML = '';
+                    
+                    if (!events || events.length === 0) {
+                        eventList.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--gray);">No events added yet.</p>';
+                        return;
+                    }
+                    
+                    events.forEach(event => {
+                        const eventDate = new Date(event.date);
+                        const formattedDate = eventDate.toLocaleDateString('en-US', { 
+                            weekday: 'short', 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric' 
+                        });
+                        
+                        const eventItem = document.createElement('div');
+                        eventItem.className = 'event-item';
+                        eventItem.innerHTML = `
+                            <div class="event-info">
+                                <div class="event-title">${escapeHtml(event.title)} ${event.featured ? '<span style="color: var(--gold); font-size: 0.8rem;">(Featured)</span>' : ''}</div>
+                                <div class="event-date">${formattedDate} at ${event.time} | ${escapeHtml(event.location)} | ${escapeHtml(event.category)} | ${escapeHtml(event.audience)}</div>
+                            </div>
+                            <div class="event-actions">
+                                <button class="action-btn edit-btn" data-id="${event.id}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" data-id="${event.id}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        `;
+                        
+                        eventList.appendChild(eventItem);
+                    });
+                    
+                    // Add event listeners to edit/delete buttons
+                    attachEventButtonListeners();
+                    
+                } catch (error) {
+                    console.error('Error loading events:', error);
+                    eventList.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--red);">Error loading events: ' + error.message + '</p>';
+                }
+            }
+            
+            // Attach event listeners to event buttons
+            function attachEventButtonListeners() {
+                document.querySelectorAll('.event-actions .edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const eventId = this.getAttribute('data-id');
+                        editEvent(eventId);
+                    });
+                });
+                
+                document.querySelectorAll('.event-actions .delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const eventId = this.getAttribute('data-id');
+                        deleteEvent(eventId);
+                    });
+                });
+            }
+            
+            // Edit event
+            async function editEvent(id) {
+                try {
+                    if (!supabase || !currentUser) throw new Error('Not authenticated');
+                    
+                    // Fetch the event from Supabase
+                    const { data: event, error } = await supabase
+                        .from('events')
+                        .select('*')
+                        .eq('id', id)
+                        .single();
+                    
+                    if (error) throw error;
+                    
+                    // Fill form with event data
+                    document.getElementById('eventTitle').value = event.title;
+                    document.getElementById('eventCategory').value = event.category;
+                    document.getElementById('eventDate').value = event.date;
+                    document.getElementById('eventTime').value = event.time;
+                    document.getElementById('eventLocation').value = event.location;
+                    document.getElementById('eventAudience').value = event.audience;
+                    document.getElementById('eventDescription').value = event.description;
+                    document.getElementById('eventFeatured').checked = event.featured;
+                    
+                    // Clear image preview since we can't re-upload through edit
+                    eventImagePreview.innerHTML = '';
+                    eventImagePreview.removeAttribute('data-file');
+                    
+                    // Change form to update mode
+                    const form = document.getElementById('eventForm');
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Event';
+                    submitBtn.classList.remove('btn-success');
+                    submitBtn.classList.add('btn');
+                    
+                    // Remove previous update listener if exists
+                    if (form._updateHandler) {
+                        form._updateHandler.remove();
+                        form._updateHandler = null;
+                    }
+                    
+                    // Add update event listener
+                    const updateHandler = async function(e) {
+                        e.preventDefault();
+                        
+                        const submitBtn = document.getElementById('eventSubmitBtn');
+                        setLoading(submitBtn, true);
+                        hideMessage('eventMessage');
+                        
+                        // Get updated values
+                        const updatedEvent = {
+                            title: escapeHtml(document.getElementById('eventTitle').value.trim()),
+                            category: escapeHtml(document.getElementById('eventCategory').value.trim()),
+                            date: document.getElementById('eventDate').value,
+                            time: document.getElementById('eventTime').value,
+                            location: escapeHtml(document.getElementById('eventLocation').value.trim()),
+                            audience: escapeHtml(document.getElementById('eventAudience').value.trim()),
+                            description: escapeHtml(document.getElementById('eventDescription').value.trim()),
+                            featured: document.getElementById('eventFeatured').checked,
+                            updated_at: new Date().toISOString()
+                        };
+                        
+                        // Check if new image was uploaded
+                        const fileData = eventImagePreview.getAttribute('data-file');
+                        if (fileData) {
+                            try {
+                                showMessage('eventMessage', 'Uploading new image...', 'loading');
+                                
+                                const fileInfo = JSON.parse(fileData);
+                                // Convert base64 to blob
+                                const response = await fetch(fileInfo.data);
+                                const blob = await response.blob();
+                                const file = new File([blob], fileInfo.name, { type: fileInfo.type });
+                                
+                                // Upload to Supabase
+                                updatedEvent.image = await uploadEventImage(file);
+                                
+                                showMessage('eventMessage', 'New image uploaded successfully!', 'success');
+                                
+                            } catch (error) {
+                                console.error('Error uploading image:', error);
+                                showMessage('eventMessage', `Error uploading new image: ${error.message}. Keeping existing image.`, 'error');
+                            }
+                        }
+                        
+                        showMessage('eventMessage', 'Updating event in database...', 'loading');
+                        
+                        try {
+                            // Update event in Supabase
+                            const { error } = await supabase
+                                .from('events')
+                                .update(updatedEvent)
+                                .eq('id', id);
+                            
+                            if (error) throw error;
+                            
+                            showMessage('eventMessage', 'Event updated successfully!', 'success');
+                            await loadEvents();
+                            await updateCounts();
+                            
+                            // Reset form
+                            form.reset();
+                            document.getElementById('eventDate').value = formattedDate;
+                            document.getElementById('eventTime').value = '10:30';
+                            eventImagePreview.innerHTML = '';
+                            eventImagePreview.removeAttribute('data-file');
+                            submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add Event';
+                            submitBtn.classList.add('btn-success');
+                            submitBtn.classList.remove('btn');
+                            
+                            // Remove update listener
+                            if (form._updateHandler) {
+                                form._updateHandler.remove();
+                                form._updateHandler = null;
+                            }
+                            
+                        } catch (error) {
+                            console.error('Error updating event:', error);
+                            showMessage('eventMessage', `Error updating event: ${error.message}`, 'error');
+                        } finally {
+                            setLoading(submitBtn, false);
+                        }
+                    };
+                    
+                    form.addEventListener('submit', updateHandler);
+                    form._updateHandler = { remove: () => form.removeEventListener('submit', updateHandler) };
+                    
+                    showMessage('eventMessage', `Editing: ${event.title}`, 'success');
+                    
+                    // Scroll to form
+                    document.getElementById('events-tab').scrollIntoView({ behavior: 'smooth' });
+                    
+                } catch (error) {
+                    console.error('Error fetching event:', error);
+                    showMessage('eventMessage', `Error loading event: ${error.message}`, 'error');
+                }
+            }
+            
+            // Delete event
+            async function deleteEvent(id) {
+                if (!confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
+                    return;
+                }
+                
+                showMessage('eventMessage', 'Deleting event...', 'loading');
+                
+                try {
+                    if (!supabase || !currentUser) throw new Error('Not authenticated');
+                    
+                    // Delete event from Supabase
+                    const { error } = await supabase
+                        .from('events')
+                        .delete()
+                        .eq('id', id);
+                    
+                    if (error) throw error;
+                    
+                    showMessage('eventMessage', 'Event deleted successfully!', 'success');
+                    
+                    // Wait for events to reload
+                    await loadEvents();
+                    await updateCounts();
+                    
+                } catch (error) {
+                    console.error('Error deleting event:', error);
+                    showMessage('eventMessage', `Error deleting event: ${error.message}`, 'error');
+                }
+            }
+            
+            // ====================
+            // GALLERY MANAGEMENT
+            // ====================
+            
+            // Gallery file handling variables
+            const galleryUploadArea = document.getElementById('galleryUploadArea');
+            const galleryFilesInput = document.getElementById('galleryFiles');
+            const galleryFilesPreview = document.getElementById('galleryFilesPreview');
+            const galleryUploadProgress = document.getElementById('galleryUploadProgress');
+            const uploadStatus = document.getElementById('uploadStatus');
+            const uploadProgressFill = document.getElementById('uploadProgressFill');
+            
+            let galleryFiles = [];
+            
+            // Gallery upload area handling
+            galleryUploadArea.addEventListener('click', () => {
+                galleryFilesInput.click();
+            });
+            
+            galleryUploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                galleryUploadArea.style.borderColor = 'var(--gold)';
+                galleryUploadArea.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+            });
+            
+            galleryUploadArea.addEventListener('dragleave', () => {
+                galleryUploadArea.style.borderColor = 'var(--light-gray)';
+                galleryUploadArea.style.backgroundColor = 'transparent';
+            });
+            
+            galleryUploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                galleryUploadArea.style.borderColor = 'var(--light-gray)';
+                galleryUploadArea.style.backgroundColor = 'transparent';
+                
+                if (e.dataTransfer.files.length) {
+                    handleGalleryFilesSelect(Array.from(e.dataTransfer.files));
+                }
+            });
+            
+            galleryFilesInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    handleGalleryFilesSelect(Array.from(e.target.files));
+                }
+            });
+            
+            function handleGalleryFilesSelect(files) {
+                const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+                const validVideoTypes = ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime'];
+                
+                let validFiles = [];
+                let invalidFiles = [];
+                
+                files.forEach(file => {
+                    if ((validImageTypes.includes(file.type) || validVideoTypes.includes(file.type)) && file.size <= 10 * 1024 * 1024) {
+                        validFiles.push(file);
+                    } else {
+                        invalidFiles.push(file.name);
+                    }
+                });
+                
+                if (invalidFiles.length > 0) {
+                    showMessage('galleryMessage', `Some files were skipped (invalid type or >10MB): ${invalidFiles.join(', ')}`, 'error');
+                }
+                
+                // Add valid files to galleryFiles array
+                validFiles.forEach(file => {
+                    if (!galleryFiles.some(f => f.name === file.name && f.size === file.size && f.lastModified === file.lastModified)) {
+                        galleryFiles.push(file);
+                    }
+                });
+                
+                updateGalleryFilesPreview();
+            }
+            
+            function updateGalleryFilesPreview() {
+                galleryFilesPreview.innerHTML = '';
+                
+                if (galleryFiles.length === 0) {
+                    return;
+                }
+                
+                galleryFiles.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const fileType = detectFileType(file);
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'file-preview-item';
+                        
+                        if (fileType === 'image') {
+                            previewItem.innerHTML = `
+                                <img src="${e.target.result}" alt="${file.name}">
+                                <button class="remove-file-btn" data-index="${index}">×</button>
+                            `;
+                        } else if (fileType === 'video') {
+                            previewItem.innerHTML = `
+                                <video muted>
+                                    <source src="${e.target.result}" type="${file.type}">
+                                </video>
+                                <button class="remove-file-btn" data-index="${index}">×</button>
+                            `;
+                        } else {
+                            previewItem.innerHTML = `
+                                <div style="background: var(--light-gray); height: 100%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-file" style="font-size: 2rem; color: var(--gray);"></i>
+                                </div>
+                                <button class="remove-file-btn" data-index="${index}">×</button>
+                            `;
+                        }
+                        
+                        galleryFilesPreview.appendChild(previewItem);
+                        
+                        // Add remove button event listener
+                        previewItem.querySelector('.remove-file-btn').addEventListener('click', function() {
+                            const removeIndex = parseInt(this.getAttribute('data-index'));
+                            galleryFiles.splice(removeIndex, 1);
+                            updateGalleryFilesPreview();
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+            
+            // Upload multiple files to Supabase Storage
+            async function uploadGalleryFiles(files, albumName = '') {
+                if (!supabase || !currentUser) {
+                    throw new Error('Not authenticated');
+                }
+                
+                const uploadedFiles = [];
+                const totalFiles = files.length;
+                let uploadedCount = 0;
+                
+                // Show progress bar
+                galleryUploadProgress.style.display = 'block';
+                uploadProgressFill.style.width = '0%';
+                uploadStatus.textContent = '0%';
+                
+                for (const file of files) {
+                    try {
+                        // Generate unique file name
+                        const fileType = detectFileType(file);
+                        const extension = file.name.split('.').pop();
+                        const fileName = `${fileType}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${extension}`;
+                        
+                        // Upload to Supabase Storage
+                        const { data, error } = await supabase.storage
+                            .from('church-media')
+                            .upload(`gallery/${albumName ? albumName + '/' : ''}${fileName}`, file);
+                        
+                        if (error) throw error;
+                        
+                        // Get public URL
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('church-media')
+                            .getPublicUrl(`gallery/${albumName ? albumName + '/' : ''}${fileName}`);
+                        
+                        uploadedFiles.push({
+                            url: publicUrl,
+                            type: fileType,
+                            name: file.name,
+                            size: file.size,
+                            mimeType: file.type
+                        });
+                        
+                    } catch (error) {
+                        console.error('Error uploading file:', error);
+                        // Continue with other files even if one fails
+                    }
+                    
+                    // Update progress
+                    uploadedCount++;
+                    const progress = Math.round((uploadedCount / totalFiles) * 100);
+                    uploadProgressFill.style.width = `${progress}%`;
+                    uploadStatus.textContent = `${progress}%`;
+                }
+                
+                // Hide progress bar
+                galleryUploadProgress.style.display = 'none';
+                
+                return uploadedFiles;
+            }
+            
+            // Gallery form submission
+            document.getElementById('galleryForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                if (!supabase || !currentUser) {
+                    showMessage('galleryMessage', 'Please login to add gallery items.', 'error');
+                    return;
+                }
+                
+                const submitBtn = document.getElementById('gallerySubmitBtn');
+                setLoading(submitBtn, true);
+                hideMessage('galleryMessage');
+                
+                // Get form values
+                const albumName = document.getElementById('galleryAlbum').value.trim();
+                
+                // Validation
+                if (galleryFiles.length === 0) {
+                    showMessage('galleryMessage', 'Please select at least one file to upload.', 'error');
+                    setLoading(submitBtn, false);
+                    return;
+                }
+                
+                showMessage('galleryMessage', 'Uploading files to storage...', 'loading');
+                
+                try {
+                    // Upload files to Supabase Storage
+                    const uploadedFiles = await uploadGalleryFiles(galleryFiles, albumName);
+                    
+                    if (uploadedFiles.length === 0) {
+                        throw new Error('No files were uploaded successfully');
+                    }
+                    
+                    showMessage('galleryMessage', `Successfully uploaded ${uploadedFiles.length} file(s). Saving to database...`, 'loading');
+                    
+                    // Prepare gallery items for database
+                    const galleryItems = uploadedFiles.map(file => {
+                        const title = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, ' ');
+                        const alt = `${title} - ${albumName ? albumName + ' ' : ''}Gallery`;
+                        
+                        return {
+                            title: escapeHtml(title),
+                            type: file.type,
+                            url: file.url,
+                            alt: escapeHtml(alt),
+                            album_name: albumName || null,
+                            file_name: file.name,
+                            file_size: file.size,
+                            mime_type: file.mimeType,
+                            created_at: new Date().toISOString()
+                        };
+                    });
+                    
+                    // Insert gallery items into Supabase
+                    const { data, error } = await supabase
+                        .from('gallery')
+                        .insert(galleryItems)
+                        .select();
+                    
+                    if (error) throw error;
+                    
+                    showMessage('galleryMessage', `Successfully added ${galleryItems.length} item(s) to the gallery!`, 'success');
+                    await loadGallery();
+                    await updateCounts();
+                    
+                    // Clear form
+                    this.reset();
+                    galleryFiles = [];
+                    updateGalleryFilesPreview();
+                    
+                } catch (error) {
+                    console.error('Error adding gallery items:', error);
+                    showMessage('galleryMessage', `Error adding gallery items: ${error.message}`, 'error');
+                } finally {
+                    setLoading(submitBtn, false);
+                }
+            });
+            
+            // Clear gallery form
+            document.getElementById('clearGalleryForm').addEventListener('click', function() {
+                document.getElementById('galleryForm').reset();
+                galleryFiles = [];
+                updateGalleryFilesPreview();
+                galleryUploadProgress.style.display = 'none';
+                hideMessage('galleryMessage');
+            });
+            
+            // Load gallery items from Supabase
+            async function loadGallery() {
+                const galleryList = document.getElementById('galleryList');
+                const galleryPreview = document.getElementById('galleryPreview');
+                
+                if (!galleryList || !galleryPreview) return;
+                
+                galleryList.innerHTML = '<p style="text-align: center; padding: 1rem; color: var(--gray);">Loading gallery items...</p>';
+                galleryPreview.innerHTML = '<p style="text-align: center; padding: 1rem; color: var(--gray);">Loading preview...</p>';
+                
+                try {
+                    if (!supabase || !currentUser) throw new Error('Not authenticated');
+                    
+                    // Fetch gallery items from Supabase
+                    const { data: galleryItems, error } = await supabase
+                        .from('gallery')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+                    
+                    if (error) {
+                        console.error('Supabase error details:', error);
+                        throw error;
+                    }
+                    
+                    galleryList.innerHTML = '';
+                    galleryPreview.innerHTML = '';
+                    
+                    if (!galleryItems || galleryItems.length === 0) {
+                        galleryList.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--gray);">No gallery items added yet.</p>';
+                        galleryPreview.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--gray);">No gallery items to preview.</p>';
+                        return;
+                    }
+                    
+                    // Create preview grid
+                    galleryItems.forEach(item => {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'gallery-preview-item';
+                        
+                        if (item.type === 'image') {
+                            previewItem.innerHTML = `
+                                <img src="${escapeHtml(item.url)}" alt="${escapeHtml(item.alt)}" loading="lazy">
+                                <div class="preview-type-badge">Image</div>
+                                <div class="gallery-preview-overlay">
+                                    <span style="color: white; font-weight: 600;">${escapeHtml(item.title)}</span>
+                                </div>
+                            `;
+                        } else {
+                            previewItem.innerHTML = `
+                                <video muted>
+                                    <source src="${escapeHtml(item.url)}" type="video/mp4">
+                                </video>
+                                <div class="preview-type-badge">Video</div>
+                                <div class="gallery-preview-overlay">
+                                    <span style="color: white; font-weight: 600;">${escapeHtml(item.title)}</span>
+                                </div>
+                            `;
+                            
+                            // Auto-play video on hover
+                            previewItem.addEventListener('mouseenter', function() {
+                                const video = this.querySelector('video');
+                                if (video) video.play().catch(e => console.log('Video play failed:', e));
+                            });
+                            
+                            previewItem.addEventListener('mouseleave', function() {
+                                const video = this.querySelector('video');
+                                if (video) {
+                                    video.pause();
+                                    video.currentTime = 0;
+                                }
+                            });
+                        }
+                        
+                        galleryPreview.appendChild(previewItem);
+                    });
+                    
+                    // Create list view
+                    galleryItems.forEach(item => {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.className = 'gallery-item';
+                        const fileSize = item.file_size ? ` | ${Math.round(item.file_size / 1024)}KB` : '';
+                        const albumInfo = item.album_name ? ` | Album: ${escapeHtml(item.album_name)}` : '';
+                        
+                        galleryItem.innerHTML = `
+                            <div class="gallery-info">
+                                <div class="gallery-title">${escapeHtml(item.title)}</div>
+                                <div class="gallery-type">${item.type.toUpperCase()}${fileSize}${albumInfo}</div>
+                            </div>
+                            <div class="gallery-actions">
+                                <button class="action-btn edit-btn" data-id="${item.id}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="action-btn delete-btn" data-id="${item.id}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        `;
+                        
+                        galleryList.appendChild(galleryItem);
+                    });
+                    
+                    // Add event listeners to edit/delete buttons
+                    attachGalleryButtonListeners();
+                    
+                } catch (error) {
+                    console.error('Error loading gallery:', error);
+                    galleryList.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--red);">Error loading gallery items: ' + error.message + '</p>';
+                    galleryPreview.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--red);">Error loading preview.</p>';
+                }
+            }
+            
+            // Attach event listeners to gallery buttons
+            function attachGalleryButtonListeners() {
+                document.querySelectorAll('.gallery-actions .edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const itemId = this.getAttribute('data-id');
+                        editGalleryItem(itemId);
+                    });
+                });
+                
+                document.querySelectorAll('.gallery-actions .delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const itemId = this.getAttribute('data-id');
+                        deleteGalleryItem(itemId);
+                    });
+                });
+            }
+            
+            // Edit gallery item
+            async function editGalleryItem(id) {
+                try {
+                    if (!supabase || !currentUser) throw new Error('Not authenticated');
+                    
+                    // Fetch the gallery item from Supabase
+                    const { data: item, error } = await supabase
+                        .from('gallery')
+                        .select('*')
+                        .eq('id', id)
+                        .single();
+                    
+                    if (error) throw error;
+                    
+                    // Fill form with item data
+                    document.getElementById('galleryAlbum').value = item.album_name || '';
+                    
+                    // Clear file selection since we can't re-upload through edit
+                    galleryFiles = [];
+                    updateGalleryFilesPreview();
+                    
+                    // Change form to update mode
+                    const form = document.getElementById('galleryForm');
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Item';
+                    submitBtn.classList.remove('btn-success');
+                    submitBtn.classList.add('btn');
+                    
+                    // Update form title
+                    document.querySelector('#gallery-tab .admin-form h2').textContent = 'Edit Gallery Item';
+                    
+                    // Remove previous update listener if exists
+                    if (form._updateHandler) {
+                        form._updateHandler.remove();
+                        form._updateHandler = null;
+                    }
+                    
+                    // Add update event listener
+                    const updateHandler = async function(e) {
+                        e.preventDefault();
+                        
+                        const submitBtn = document.getElementById('gallerySubmitBtn');
+                        setLoading(submitBtn, true);
+                        hideMessage('galleryMessage');
+                        
+                        // Get updated values
+                        const updatedItem = {
+                            album_name: document.getElementById('galleryAlbum').value.trim() || null,
+                            updated_at: new Date().toISOString()
+                        };
+                        
+                        // Check if new files were uploaded
+                        if (galleryFiles.length > 0) {
+                            showMessage('galleryMessage', 'Uploading new file(s)...', 'loading');
+                            
+                            try {
+                                const uploadedFiles = await uploadGalleryFiles(galleryFiles, updatedItem.album_name);
+                                
+                                if (uploadedFiles.length > 0) {
+                                    // Update with first uploaded file (for simplicity, in real app you might want to handle multiple)
+                                    const file = uploadedFiles[0];
+                                    updatedItem.url = file.url;
+                                    updatedItem.type = file.type;
+                                    updatedItem.file_name = file.name;
+                                    updatedItem.file_size = file.size;
+                                    updatedItem.mime_type = file.mimeType;
+                                    updatedItem.title = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, ' ');
+                                    updatedItem.alt = `${updatedItem.title} - ${updatedItem.album_name ? updatedItem.album_name + ' ' : ''}Gallery`;
+                                    
+                                    showMessage('galleryMessage', 'New file uploaded successfully!', 'success');
+                                }
+                            } catch (error) {
+                                console.error('Error uploading new file:', error);
+                                showMessage('galleryMessage', `Error uploading new file: ${error.message}. Keeping existing file.`, 'error');
+                            }
+                        }
+                        
+                        showMessage('galleryMessage', 'Updating gallery item...', 'loading');
+                        
+                        try {
+                            // Update item in Supabase
+                            const { error } = await supabase
+                                .from('gallery')
+                                .update(updatedItem)
+                                .eq('id', id);
+                            
+                            if (error) throw error;
+                            
+                            showMessage('galleryMessage', 'Gallery item updated successfully!', 'success');
+                            await loadGallery();
+                            await updateCounts();
+                            
+                            // Reset form
+                            form.reset();
+                            galleryFiles = [];
+                            updateGalleryFilesPreview();
+                            galleryUploadProgress.style.display = 'none';
+                            submitBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Add to Gallery';
+                            submitBtn.classList.add('btn-success');
+                            submitBtn.classList.remove('btn');
+                            document.querySelector('#gallery-tab .admin-form h2').textContent = 'Add Gallery Items';
+                            
+                            // Remove update listener
+                            if (form._updateHandler) {
+                                form._updateHandler.remove();
+                                form._updateHandler = null;
+                            }
+                            
+                        } catch (error) {
+                            console.error('Error updating gallery item:', error);
+                            showMessage('galleryMessage', `Error updating gallery item: ${error.message}`, 'error');
+                        } finally {
+                            setLoading(submitBtn, false);
+                        }
+                    };
+                    
+                    form.addEventListener('submit', updateHandler);
+                    form._updateHandler = { remove: () => form.removeEventListener('submit', updateHandler) };
+                    
+                    showMessage('galleryMessage', `Editing: ${item.title}`, 'success');
+                    
+                    // Scroll to form
+                    document.getElementById('gallery-tab').scrollIntoView({ behavior: 'smooth' });
+                    
+                } catch (error) {
+                    console.error('Error fetching gallery item:', error);
+                    showMessage('galleryMessage', `Error loading gallery item: ${error.message}`, 'error');
+                }
+            }
+            
+            // Delete gallery item
+            async function deleteGalleryItem(id) {
+                if (!confirm('Are you sure you want to delete this gallery item? This action cannot be undone.')) {
+                    return;
+                }
+                
+                showMessage('galleryMessage', 'Deleting gallery item...', 'loading');
+                
+                try {
+                    if (!supabase || !currentUser) throw new Error('Not authenticated');
+                    
+                    // Delete gallery item from Supabase
+                    const { error } = await supabase
+                        .from('gallery')
+                        .delete()
+                        .eq('id', id);
+                    
+                    if (error) throw error;
+                    
+                    showMessage('galleryMessage', 'Gallery item deleted successfully!', 'success');
+                    
+                    // Wait for gallery to reload
+                    await loadGallery();
+                    await updateCounts();
+                    
+                } catch (error) {
+                    console.error('Error deleting gallery item:', error);
+                    showMessage('galleryMessage', `Error deleting gallery item: ${error.message}`, 'error');
+                }
+            }
+            
+            // ====================
+            // PREVIEW FUNCTIONS
+            // ====================
+            
+            // Update counts from Supabase
+            async function updateCounts() {
+                try {
+                    if (!supabase || !currentUser) return;
+                    
+                    // Get event count
+                    const { count: eventCount, error: eventError } = await supabase
+                        .from('events')
+                        .select('*', { count: 'exact', head: true });
+                    
+                    if (eventError) throw eventError;
+                    
+                    // Get gallery count
+                    const { count: galleryCount, error: galleryError } = await supabase
+                        .from('gallery')
+                        .select('*', { count: 'exact', head: true });
+                    
+                    if (galleryError) throw galleryError;
+                    
+                    document.getElementById('eventCount').textContent = eventCount || 0;
+                    document.getElementById('galleryCount').textContent = galleryCount || 0;
+                    
+                } catch (error) {
+                    console.error('Error updating counts:', error);
+                    document.getElementById('eventCount').textContent = 'Error';
+                    document.getElementById('galleryCount').textContent = 'Error';
+                }
+            }
+            
+            // Update events preview
+            async function updateEventsPreview() {
+                const eventsPreview = document.getElementById('eventsPreview');
+                if (!eventsPreview) return;
+                
+                eventsPreview.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--gray);">Loading preview...</p>';
+                
+                try {
+                    if (!supabase || !currentUser) throw new Error('Not authenticated');
+                    
+                    // Fetch events from Supabase
+                    const { data: events, error } = await supabase
+                        .from('events')
+                        .select('*')
+                        .order('date', { ascending: false })
+                        .limit(3);
+                    
+                    if (error) throw error;
+                    
+                    eventsPreview.innerHTML = '';
+                    
+                    if (!events || events.length === 0) {
+                        eventsPreview.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--gray);">No events to preview.</p>';
+                        return;
+                    }
+                    
+                    events.forEach(event => {
+                        const eventDate = new Date(event.date);
+                        const formattedDate = eventDate.toLocaleDateString('en-US', { 
+                            month: 'short', 
+                            day: 'numeric', 
+                            year: 'numeric'
+                        });
+                        
+                        const eventElement = document.createElement('div');
+                        eventElement.className = 'event-item';
+                        eventElement.style.marginBottom = '1rem';
+                        eventElement.innerHTML = `
+                            <div class="event-info">
+                                <div class="event-title">${escapeHtml(event.title)} ${event.featured ? '<span style="color: var(--gold);">(Featured)</span>' : ''}</div>
+                                <div class="event-date">${formattedDate} | ${event.time} | ${escapeHtml(event.location)} | ${escapeHtml(event.category)}</div>
+                                <p style="margin-top: 0.5rem; font-size: 0.9rem;">${escapeHtml(event.description.substring(0, 150))}...</p>
+                            </div>
+                        `;
+                        
+                        eventsPreview.appendChild(eventElement);
+                    });
+                    
+                    // Get total count for message
+                    const { count: totalEvents } = await supabase
+                        .from('events')
+                        .select('*', { count: 'exact', head: true });
+                    
+                    if (totalEvents > 3) {
+                        eventsPreview.innerHTML += `<p style="text-align: center; margin-top: 1rem;">...and ${totalEvents - 3} more events</p>`;
+                    }
+                    
+                } catch (error) {
+                    console.error('Error loading events preview:', error);
+                    eventsPreview.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--red);">Error loading events preview: ' + error.message + '</p>';
+                }
+            }
+            
+            // Update home gallery preview
+            async function updateHomeGalleryPreview() {
+                const homeGalleryPreview = document.getElementById('homeGalleryPreview');
+                if (!homeGalleryPreview) return;
+                
+                homeGalleryPreview.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--gray);">Loading preview...</p>';
+                
+                try {
+                    if (!supabase || !currentUser) throw new Error('Not authenticated');
+                    
+                    // Fetch images from Supabase (only images for homepage gallery)
+                    const { data: galleryItems, error } = await supabase
+                        .from('gallery')
+                        .select('*')
+                        .eq('type', 'image')
+                        .order('created_at', { ascending: false })
+                        .limit(4);
+                    
+                    if (error) throw error;
+                    
+                    homeGalleryPreview.innerHTML = '';
+                    
+                    if (!galleryItems || galleryItems.length === 0) {
+                        homeGalleryPreview.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--gray);">No gallery items to preview.</p>';
+                        return;
+                    }
+                    
+                    galleryItems.forEach(item => {
+                        const galleryItem = document.createElement('div');
+                        galleryItem.className = 'gallery-preview-item';
+                        galleryItem.innerHTML = `
+                            <img src="${escapeHtml(item.url)}" alt="${escapeHtml(item.alt)}" loading="lazy">
+                            <div class="gallery-preview-overlay">
+                                <span style="color: white; font-weight: 600;">${escapeHtml(item.title)}</span>
+                            </div>
+                        `;
+                        
+                        homeGalleryPreview.appendChild(galleryItem);
+                    });
+                    
+                } catch (error) {
+                    console.error('Error loading gallery preview:', error);
+                    homeGalleryPreview.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--red);">Error loading gallery preview: ' + error.message + '</p>';
+                }
+            }
+            
+            // Database debugging function
+            async function debugDatabase() {
+                console.log('Debugging database connection...');
+                
+                try {
+                    // Test events table
+                    const { data: eventsTest, error: eventsError } = await supabase
+                        .from('events')
+                        .select('id')
+                        .limit(1);
+                    
+                    console.log('Events table test:', eventsError ? 'FAILED: ' + eventsError.message : 'SUCCESS');
+                    
+                    // Test gallery table
+                    const { data: galleryTest, error: galleryError } = await supabase
+                        .from('gallery')
+                        .select('id')
+                        .limit(1);
+                    
+                    console.log('Gallery table test:', galleryError ? 'FAILED: ' + galleryError.message : 'SUCCESS');
+                    
+                    // Test storage bucket
+                    try {
+                        const { data: storageTest, error: storageError } = await supabase.storage
+                            .from('church-media')
+                            .list('', { limit: 1 });
+                        
+                        console.log('Storage bucket test:', storageError ? 'FAILED: ' + storageError.message : 'SUCCESS');
+                    } catch (storageError) {
+                        console.log('Storage bucket test: FAILED - Make sure "church-media" bucket exists in Supabase Storage');
+                    }
+                    
+                } catch (error) {
+                    console.error('Debug error:', error);
+                }
+            }
+            
+            // ====================
+            // INITIALIZE PAGE
+            // ====================
+            
+            // Initialize the page on load
+            document.addEventListener('DOMContentLoaded', async function() {
+                await initializePage();
+            });
+        }
+    </script>
+</body>
+</html>

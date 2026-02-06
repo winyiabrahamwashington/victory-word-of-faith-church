@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Victory Word of Faith Church International</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6AB;
+            --gold-dark: #B7950B;
+            --red: #AA0101;
+            --red-dark: #800000;
+            --red-light: #E8C8C8;
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --black: #333333;
+            --gray: #171717;
+            --light-gray: #EEEEEE;
+            
+            --header-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: var(--off-white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: var(--header-font);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--red-dark);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+            position: relative;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--white); /* Changed to white */
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white); /* Ensure stays white on hover */
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--white); /* Changed to white */
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Navigation - MATCHING INDEX */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--red-dark);
+            padding: 0.75rem 0;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+        
+        /* Services Hero Section */
+        .services-hero {
+            height: 70vh;
+            min-height: 450px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('r.jpeg') no-repeat center center/cover;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            margin-top: 0;
+            padding-top: 60px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+        
+        .hero-content h1 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content p {
+            color: var(--white);
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--red-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin: 0.5rem;
+        }
+        
+        /* Weekly Services Section */
+        .weekly-services {
+            background-color: var(--white);
+        }
+        
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border-top: 4px solid var(--gold);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .service-card.featured {
+            border: 3px solid var(--gold);
+        }
+        
+        .service-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--red);
+            color: var(--white);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+        
+        .service-time {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: var(--gold);
+            color: var(--red-dark);
+            padding: 0.6rem 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-top-right-radius: 8px;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            color: var(--red-dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+        
+        .service-details {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .detail-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .detail-item i {
+            color: var(--gold-dark);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .detail-item span {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        /* Special Services Section */
+        .special-services {
+            background-color: var(--off-white);
+        }
+        
+        .special-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .special-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--gold);
+        }
+        
+        .special-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .special-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            color: var(--red-dark);
+        }
+        
+        .special-date {
+            display: inline-block;
+            background-color: var(--red-light);
+            color: var(--red-dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            margin: 0.5rem 0;
+            font-size: 0.85rem;
+        }
+        
+        /* Online Services Section */
+        .online-services {
+            background-color: var(--white);
+        }
+        
+        .online-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .online-image img {
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .platform-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .platform-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--off-white);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--red-dark);
+        }
+        
+        .platform-badge i {
+            color: var(--gold-dark);
+        }
+        
+        /* What to Expect Section */
+        .expect-section {
+            background-color: var(--off-white);
+        }
+        
+        .expect-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Changed to 4 columns */
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .expect-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .expect-icon {
+            font-size: 2.5rem;
+            color: var(--gold-dark);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Service Times Table */
+        .times-section {
+            background-color: var(--white);
+        }
+        
+        .times-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .times-table th {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .times-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .times-table tr:hover {
+            background-color: var(--off-white);
+        }
+        
+        .times-table .day {
+            font-weight: 600;
+            color: var(--red-dark);
+            width: 20%;
+        }
+        
+        .times-table .time {
+            color: var(--gold-dark);
+            font-weight: 600;
+            width: 25%;
+        }
+        
+        /* Footer - MATCHING INDEX */
+        footer {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: var(--white);
+            opacity: 0.8;
+            transition: var(--transition);
+            margin-bottom: 0.4rem;
+            display: block;
+            font-size: 0.85rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--gold);
+            padding-left: 3px;
+        }
+        
+        .footer-column i {
+            margin-right: 0.5rem;
+            color: var(--gold);
+            width: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        
+        .social-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white) !important;
+            opacity: 0.9;
+            font-size: 0.8rem;
+        }
+
+        .copyright p {
+            color: var(--white) !important;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .expect-cards {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .online-content,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-cards,
+            .special-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            html {
+                font-size: 15px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--red-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                transition: var(--transition);
+                padding: 1.5rem 0;
+                overflow-y: auto;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .services-hero {
+                margin-top: 0;
+                height: 60vh;
+                min-height: 400px;
+                padding-top: 60px;
+            }
+            
+            .service-details {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .times-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .service-cards,
+            .special-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .expect-cards {
+                grid-template-columns: 1fr; /* 1 column on mobile */
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 2rem 0;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 1rem;
+            }
+            
+            .services-hero {
+                height: 50vh;
+                min-height: 350px;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .service-cards,
+            .special-grid,
+            .expect-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .online-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .online-image {
+                order: -1;
+            }
+            
+            .footer-column {
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .services-hero {
+                padding-top: 60px;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.6rem;
+            }
+            
+            .hero-badge {
+                display: block;
+                margin: 0.5rem auto;
+                max-width: 250px;
+            }
+            
+            .service-content,
+            .special-card,
+            .expect-card {
+                padding: 1.25rem;
+            }
+            
+            .footer-column {
+                padding: 0 0.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container container">
+            <a href="index.html" class="nav-logo">VWF<span>CI</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="ministries.html">Ministries</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="leaders.html">Leaders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Services Hero Section -->
+    <section class="services-hero">
+        <div class="hero-content">
+            <h1>Our Worship Services</h1>
+            <p>Experience the power of God's presence through dynamic worship, spirit-filled prayer, and life-changing teaching at Victory Word of Faith Church International.</p>
+            <div>
+                <span class="hero-badge"><i class="fas fa-clock"></i> Sundays 8AM & 10:30AM</span>
+                <span class="hero-badge"><i class="fas fa-child"></i> Children's Ministry Available</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Weekly Services Section -->
+    <section class="weekly-services">
+        <div class="container">
+            <h2>Weekly Services</h2>
+            <p class="text-center" style="max-width: 800px; margin: 0 auto 1rem;">
+                Join us throughout the week for powerful gatherings that will strengthen your faith and connect you with God's family.
+            </p>
+            
+            <div class="service-cards">
+                <!-- Sunday Worship -->
+                <div class="service-card featured">
+                    <div class="service-badge">Main Service</div>
+                    <div class="service-image">
+                        <img src="d.jpeg" alt="Sunday Worship Service">
+                        <div class="service-time">Sundays 8:00 AM & 9:30 AM</div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Main Sunday Service</h3>
+                        <p>Our main weekly gathering featuring powerful worship, prayer, and dynamic teaching from God's Word. Experience the presence of God in a life-changing way.</p>
+                        
+                        <div class="service-details">
+                            <div class="detail-item">
+                                <i class="fas fa-microphone"></i>
+                                <span>Dynamic Preaching</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-music"></i>
+                                <span>Live Worship</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-hands-praying"></i>
+                                <span>Prayer Ministry</span>
+                            </div>
+                        </div>
+                        
+                        <a href="contact.html" class="btn" style="margin-top: 1rem; width: 100%;">Plan Your Visit</a>
+                    </div>
+                </div>
+                
+                <!-- Wednesday Bible Study -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="b.jpeg" alt="Bible Study">
+                        <div class="service-time">Wednesdays 6:00 PM</div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Wednesday Bible Study</h3>
+                        <p>Deep dive into Scripture with practical teaching that applies God's Word to everyday life. Grow in your understanding and relationship with God.</p>
+                        
+                        <div class="service-details">
+                            <div class="detail-item">
+                                <i class="fas fa-book-bible"></i>
+                                <span>Verse by Verse</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-users"></i>
+                                <span>Small Groups</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Q&A Session</span>
+                            </div>
+                        </div>
+                        
+                        <a href="contact.html" class="btn" style="margin-top: 1rem; width: 100%;">Join Study Group</a>
+                    </div>
+                </div>
+                
+                <!-- Friday Prayer -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="f.jpeg" alt="Prayer Meeting">
+                        <div class="service-time">Fridays 6:00 PM</div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Friday Night Prayer</h3>
+                        <p>A powerful time of corporate prayer and intercession. Seek God's face for personal needs, family, church, community, and national revival.</p>
+                        
+                        <div class="service-details">
+                            <div class="detail-item">
+                                <i class="fas fa-fire"></i>
+                                <span>Fire Prayer</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-heart-circle-check"></i>
+                                <span>Healing Ministry</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-globe"></i>
+                                <span>Nation Prayer</span>
+                            </div>
+                        </div>
+                        
+                        <a href="contact.html" class="btn" style="margin-top: 1rem; width: 100%;">Submit Prayer Request</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Online Services Section -->
+    <section class="online-services">
+        <div class="container">
+            <h2>Join Us Online</h2>
+            <div class="online-content">
+                <div class="online-text">
+                    <h3>Live & On-Demand Services</h3>
+                    <p>Can't join us in person? Connect with our services online from anywhere in the world. We stream all our main services live and provide on-demand access to previous messages.</p>
+                    
+                    <div class="platform-badges">
+                        <div class="platform-badge">
+                            <i class="fab fa-facebook"></i>
+                            <span>Facebook Live</span>
+                        </div>
+                        <div class="platform-badge">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                        </div>
+                        <div class="platform-badge">
+                            <i class="fas fa-tv"></i>
+                            <span>Church Online</span>
+                        </div>
+                    </div>
+                    
+                    <p><strong>Live Streaming Schedule:</strong></p>
+                    <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem; color: var(--gray);">
+                        <li>Sunday 8:00 AM & 9:00 AM (East Africa Time)</li>
+                    </ul>
+                    
+                    <div class="note" style="margin-top: 1.5rem; background-color: var(--gold-light); padding: 1rem; border-radius: 6px; color: var(--red-dark); font-size: 0.85rem;">
+                        <strong>Online Access:</strong> You can join us from anywhere with internet connection. All our services are streamed on Facebook and YouTube.
+                    </div>
+                    
+                    <a href="https://www.youtube.com/channel/UCoKA8sqPGdydNkciG8uex0A" target="_blank" class="btn">Watch Live Now</a>
+                </div>
+                
+                <div class="online-image">
+                    <img src="l.jpeg" alt="Online Church Service">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- What to Expect Section -->
+    <section class="expect-section">
+        <div class="container">
+            <h2>What to Expect When You Visit</h2>
+            <div class="expect-cards">
+                <div class="expect-card">
+                    <div class="expect-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>Warm Welcome</h3>
+                    <p>Our hospitality team will greet you with a smile and help you feel at home from the moment you arrive.</p>
+                </div>
+                
+                <div class="expect-card">
+                    <div class="expect-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Powerful Worship</h3>
+                    <p>Experience passionate worship that ushers you into God's presence.</p>
+                </div>
+                
+                <div class="expect-card">
+                    <div class="expect-icon">
+                        <i class="fas fa-book-bible"></i>
+                    </div>
+                    <h3>Biblical Teaching</h3>
+                    <p>Receive practical, life-applicable messages from God's Word that will transform your life.</p>
+                </div>
+                
+                <div class="expect-card">
+                    <div class="expect-icon">
+                        <i class="fas fa-hands-praying"></i>
+                    </div>
+                    <h3>Prayer Ministry</h3>
+                    <p>Receive personal prayer and ministry at the altar after every service for your specific needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Service Times Table -->
+    <section class="times-section">
+        <div class="container">
+            <h2>Complete Service Schedule</h2>
+            
+            <table class="times-table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Service</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="day">Sunday</td>
+                        <td>Morning Worship (Early Service)</td>
+                        <td class="time">8:00 AM - 9:00 AM</td>
+                        <td>Main Sanctuary</td>
+                    </tr>
+                    <tr>
+                        <td class="day">Sunday</td>
+                        <td>Morning Worship (Late Service)</td>
+                        <td class="time">9:30 AM - 1:00 PM</td>
+                        <td>Main Sanctuary</td>
+                    </tr>
+                    <tr>
+                        <td class="day">Sunday</td>
+                        <td>Youth Service</td>
+                        <td class="time">3:00 PM - 5:00 PM</td>
+                        <td>Main Sanctuary</td>
+                    </tr>
+                    <tr>
+                        <td class="day">Wednesday</td>
+                        <td>Bible Study</td>
+                        <td class="time">6:00 PM - 8:00 AM</td>
+                        <td>Main Sanctuary</td>
+                    </tr>
+                    <tr>
+                        <td class="day">Friday</td>
+                        <td>Friday Evening Altar</td>
+                        <td class="time">6:00 PM - 8:00 PM</td>
+                        <td>Main Sanctuary</td>
+                    </tr>
+                    <tr>
+                        <td class="day">Monthly</td>
+                        <td>Overnight (2nd Friday)</td>
+                        <td class="time">6:00 PM - 6:00 AM</td>
+                        <td>Main Sanctuary</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="note" style="margin-top: 2rem; text-align: center; background-color: var(--gold-light); padding: 1rem; border-radius: 6px; color: var(--red-dark); font-size: 0.85rem;">
+                <strong>Note:</strong> All our services welcome everyone. We provide assistance when needed.
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Nabbingo, Kampala, Uganda</p>
+                    <p><i class="fas fa-phone"></i> +256 776 924 398</p>
+                    <p><i class="fas fa-phone"></i> +256 706 098 195</p>
+                    <p><i class="fas fa-envelope"></i> pastordorothy2002@yahoo.co.uk</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri 9AM-5PM</p>
+                    <a href="contact.html" class="btn btn-outline" style="margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.85rem;">Get Directions</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="ministries.html">Ministries</a>
+                    <a href="events.html">Events</a>
+                    <a href="leaders.html">Our Leaders</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday:</strong> 8:00 AM to 9:00 AM</p>
+                    <p><strong>Sunday:</strong> 9:30 AM to 1:00 PM</p>
+                    <p><strong>Wednesday:</strong> 4:00 PM to 8:00 PM</p>
+                    <p><strong>Friday:</strong> 6:00 PM to 10:00 PM</p>
+                    <p><strong>2nd Friday of the month:</strong> Overnight Prayer</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+    <a href="https://www.facebook.com/pastordorothybinwe" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://x.com/prdorothybinwe?lang=en" class="social-link" target="_blank"><i class="fa-brands fa-x"></i></a>
+    <a href="https://www.instagram.com/pastordorothybinwe_.dr/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/channel/UCoKA8sqPGdydNkciG8uex0A" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/256776924398" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Victory Word of Faith Church International. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Sticky navbar on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const scrolled = window.scrollY > 50;
+            nav.style.backgroundColor = scrolled ? 'var(--red-dark)' : 'var(--red-dark)';
+            nav.style.padding = scrolled ? '0.5rem 0' : '0.75rem 0';
+        });
+        
+        // Set current year
+        const now = new Date();
+        document.getElementById('currentYear').textContent = now.getFullYear();
+        
+        // Highlight current page in navigation
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        // Service time formatting
+        const serviceTimes = document.querySelectorAll('.service-time');
+        serviceTimes.forEach(time => {
+            const timeText = time.textContent;
+            const today = new Date().getDay();
+            const serviceDay = timeText.includes('Sunday') ? 0 : 
+                              timeText.includes('Wednesday') ? 3 : 
+                              timeText.includes('Friday') ? 5 : 
+                              timeText.includes('Saturday') ? 6 : -1;
+            
+            if (serviceDay === today) {
+                time.style.backgroundColor = 'var(--red)';
+                time.style.color = 'var(--white)';
+                time.innerHTML = '<i class="fas fa-bell"></i> TODAY: ' + timeText;
+            }
+        });
+        
+        // Handle window resize for better mobile experience
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

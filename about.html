@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Victory Word of Faith Church International</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6AB;
+            --gold-dark: #B7950B;
+            --red: #AA0101;
+            --red-dark: #800000;
+            --red-light: #E8C8C8;
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --black: #333333;
+            --gray: #383838;
+            --light-gray: #EEEEEE;
+            
+            --header-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: var(--off-white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: var(--header-font);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--red-dark);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+            position: relative;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--red-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Navigation - EXACTLY SAME AS INDEX */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--red-dark);
+            padding: 0.75rem 0;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+        
+        /* About Hero Section */
+        .about-hero {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('Screenshot%202026-02-06%20064226.png') no-repeat center center/cover;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            margin-top: 0;
+            padding-top: 60px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .about-hero h1 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .about-hero p {
+            color: var(--white);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        /* Welcome Section */
+        .welcome-section {
+            background-color: var(--white);
+        }
+        
+        .welcome-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .welcome-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .welcome-text h2 {
+            text-align: left;
+            margin: 0 0 1.5rem;
+        }
+        
+        .welcome-text h2:after {
+            margin: 0.5rem 0;
+        }
+        
+        .highlight {
+            color: var(--red-dark);
+            font-weight: 600;
+        }
+        
+        .key-points {
+            margin-top: 2rem;
+        }
+        
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .key-point-icon {
+            background-color: var(--gold-light);
+            color: var(--red-dark);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        /* Beliefs Section - REMOVED */
+        
+        /* Vision & Mission */
+        .vision-mission-section {
+            background-color: var(--off-white);
+        }
+        
+        .vm-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .vm-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .vm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .vm-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.25rem;
+            color: var(--white);
+        }
+        
+        /* Our Story */
+        .story-section {
+            background-color: var(--white);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--gold);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .timeline-content {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 45%;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+        }
+        
+        .timeline-content:before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 15px;
+            height: 15px;
+            background-color: var(--red);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--gold-light);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content:before {
+            left: -25px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content:before {
+            right: -25px;
+        }
+        
+        .timeline-year {
+            color: var(--red-dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Values Section */
+        .values-section {
+            background-color: var(--off-white);
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .value-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .value-icon {
+            font-size: 1.75rem;
+            color: var(--gold-dark);
+            margin-bottom: 1rem;
+        }
+        
+        /* Ministry Impact */
+        .impact-section {
+            background-color: var(--white);
+        }
+        
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-box {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--red-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Leadership Preview */
+        .leadership-preview {
+            background-color: var(--white);
+        }
+        
+        .leader-preview {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            background-color: var(--off-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+        
+        .leader-preview-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .leader-preview-content {
+            padding: 1.5rem;
+        }
+        
+        .position {
+            color: var(--gold-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* CTA Section - REMOVED */
+        
+        /* Footer - EXACTLY SAME AS INDEX */
+        footer {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: var(--white);
+            opacity: 0.8;
+            transition: var(--transition);
+            margin-bottom: 0.4rem;
+            display: block;
+            font-size: 0.85rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--gold);
+            padding-left: 3px;
+        }
+        
+        .footer-column i {
+            margin-right: 0.5rem;
+            color: var(--gold);
+            width: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        
+        .social-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--white) !important; /* ADD !important to force white color */
+    opacity: 0.9;
+    font-size: 0.8rem;
+}
+
+.copyright p {
+    color: var(--white) !important; /* ADD this to override paragraph color */
+}
+        
+        /* Responsive Styles - EXACTLY SAME AS INDEX */
+        @media (max-width: 992px) {
+            .vm-cards,
+            .values-grid,
+            .beliefs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--red-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                transition: var(--transition);
+                padding: 1.5rem 0;
+                overflow-y: auto;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .welcome-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .welcome-text h2 {
+                text-align: center;
+            }
+            
+            .welcome-text h2:after {
+                margin: 0.5rem auto;
+            }
+            
+            .cta-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .cta-buttons .btn {
+                flex: 0 0 calc(50% - 0.5rem);
+                max-width: calc(50% - 0.5rem);
+                text-align: center;
+            }
+            
+            .cta-buttons .events-btn {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-top: 0.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .footer-content {
+                gap: 1rem;
+            }
+            
+            .about-hero {
+                height: auto;
+                min-height: 50vh;
+                padding: 70px 0 2rem;
+            }
+            
+            .about-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .leader-preview {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline:before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+            
+            .timeline-content:before {
+                left: -40px !important;
+                right: auto !important;
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .vm-cards,
+            .values-grid,
+            .beliefs-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .impact-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 2rem 0;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 1rem;
+            }
+            
+            .vm-cards,
+            .values-grid,
+            .beliefs-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .about-hero {
+                height: auto;
+                min-height: 50vh;
+                padding: 70px 0 2rem;
+            }
+            
+            .about-hero h1 {
+                font-size: 1.7rem;
+            }
+            
+            .footer-column {
+                margin-bottom: 0.5rem;
+            }
+            
+            .welcome-image img {
+                height: 250px;
+            }
+            
+            .vm-card,
+            .value-card,
+            .belief-card {
+                padding: 1.25rem;
+            }
+            
+            .impact-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .about-hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .cta-buttons .btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .vm-card,
+            .value-card,
+            .belief-card {
+                padding: 1rem;
+            }
+            
+            .footer-column {
+                padding: 0 0.5rem;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .about-hero h1 {
+                font-size: 1.4rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-logo {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation - EXACTLY SAME AS INDEX -->
+    <nav id="navbar">
+        <div class="nav-container container">
+            <a href="index.html" class="nav-logo">VWF<span>CI</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="ministries.html">Ministries</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="leaders.html">Leaders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>About Victory Word of Faith Church Nabbingo International</h1>
+                <p>A Christ-centered church equipping people to live victoriously through God’s Word and faith.</p>
+                <div class="cta-buttons">
+                    <a href="#story" class="btn">Explore Our Journey</a>
+                    <a href="#values" class="btn btn-outline">Our Core Values</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Welcome Section -->
+    <section id="welcome" class="welcome-section">
+        <div class="container">
+            <h2>Our Journey & History</h2>
+            <div class="welcome-content">
+                <div class="welcome-image">
+                    <img src="ongoing-project-42.jpg" alt="VWFCI Church Congregation">
+                </div>
+                <div class="welcome-text">
+                    <p>Victory Word of Faith Church began with humble beginnings rooted in prayer, faith, and obedience to God's call. In the early 1990s, Pastor Dorothy Binwe Namahe — the founder — began meeting with a small group of believers in her living room in Nabbingo. Out of that intimate fellowship, a fire for God's kingdom was ignited. With just a handful of people, God's vision for a thriving church was born.</p>
+                    
+                    <p>Through years of faith, perseverance, and spiritual growth, the ministry grew steadily. In 2005, God enabled Pastor Dorothy to acquire land specifically for the ministry, marking a defining moment in the church's journey from a living‑room fellowship to an established house of worship. Since then, the church has seen exponential growth, with many coming to the saving grace of our Lord and Savior Jesus Christ.</p>
+                    
+                    <div class="key-points">
+                        <div class="key-point">
+                            <div class="key-point-icon">
+                                <i class="fas fa-cross"></i>
+                            </div>
+                            <div>
+                                <h3>Christ-Centered Community</h3>
+                                <p>Everything we do revolves around Jesus Christ—His life, death, resurrection, and imminent return.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="key-point">
+                            <div class="key-point-icon">
+                                <i class="fas fa-hands-praying"></i>
+                            </div>
+                            <div>
+                                <h3>Spirit-Empowered Living</h3>
+                                <p>We embrace the full ministry of the Holy Spirit, including the operation of spiritual gifts for today's church.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="key-point">
+                            <div class="key-point-icon">
+                                <i class="fas fa-people-group"></i>
+                            </div>
+                            <div>
+                                <h3>Multi-Generational Impact</h3>
+                                <p>We intentionally build bridges between generations, valuing both wisdom and fresh vision.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Vision & Mission Section -->
+    <section id="vision" class="vision-mission-section">
+        <div class="container">
+            <h2>Our Vision & Mission</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                We exist to equip believers through the Word of God, empower them through spiritual impartation, and deploy them for kingdom impact locally and globally.
+            </p>
+            
+            <div class="vm-cards">
+                <div class="vm-card">
+                    <div class="vm-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To preach & teach the uncompromised Word of Faith, liberate people from oppression of the devil and empower believers to fulfill their highest calling of God in every area of their lives.</p>
+                </div>
+                
+                <div class="vm-card">
+                    <div class="vm-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To raise generations of men and women who will come into their inheritance to fulfill God's purpose.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Our Story Section -->
+    <section id="story" class="story-section">
+        <div class="container">
+            <h2>Our Journey Through The Years</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Victory Word of Faith Church Nabbingo International is a story of faith, perseverance, and God's unwavering guidance.
+            </p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">Early 1990s</div>
+                        <h3>Humble Beginnings</h3>
+                        <p>What began in the early 1990s as a small living‑room fellowship with just a handful of believers has grown into a thriving ministry impacting countless lives locally and globally.</p>
+                        <p>In those early days, Pastor Dorothy Binwe Namahe, guided by God's vision, met with people in her home, sharing the Word of God and ministering to a community grappling with spiritual challenges, including false religions, witchcraft, and immorality.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1990s - 2000s</div>
+                        <h3>Growth Through Faith</h3>
+                        <p>Through prayer, fasting, and unwavering faith, the ministry steadily gained momentum. The church grew from intimate home gatherings to larger meetings as more people experienced the transforming power of God's Word.</p>
+                        <p>This period was marked by deep spiritual foundations being laid, with an emphasis on prayer, biblical teaching, and personal discipleship.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2005</div>
+                        <h3>A Defining Milestone</h3>
+                        <p>God blessed the ministry with land dedicated specifically for the church — a significant milestone that marked the transition from a home fellowship to an established house of worship.</p>
+                        <p>This became a center for spiritual growth, discipleship, and community transformation. The acquisition of land was a testament to God's faithfulness and provision for His vision.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2005 - Present</div>
+                        <h3>Exponential Growth</h3>
+                        <p>Since 2005, the church has witnessed remarkable growth: from small gatherings to large congregations, from a handful of members to a flourishing community of believers.</p>
+                        <p>Every year brought new milestones — expanded ministries, outreach programs, and lives transformed through the power of Christ. Through it all, God's faithfulness remained evident.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">Today</div>
+                        <h3>A Beacon of Spiritual Victory</h3>
+                        <p>Today, Victory Word of Faith Church stands as a beacon of spiritual victory and a testament to what God can accomplish when faith is surrendered to Him.</p>
+                        <p>The church continues to touch hearts, restore hope, and equip believers for victorious living. Our journey through the years is not just a history — it is a living testimony of God's power to bring life, hope, and transformation to all who seek Him.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Core Values Section -->
+    <section id="values" class="values-section">
+        <div class="container">
+            <h2>Our Core Values</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                These values define who we are and guide everything we do as a church community.
+            </p>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-bible"></i>
+                    </div>
+                    <h3>Commitment To The Bible</h3>
+                    <p>We are committed to the Bible as the ultimate authority in all matters of faith and life. It is our foundation and guide for everything we believe and do.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Personal Spiritual Growth</h3>
+                    <p>We value the ongoing spiritual development of every believer, encouraging daily prayer, Bible study, and growth in Christ-like character.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-hands-praying"></i>
+                    </div>
+                    <h3>Passionate Worship</h3>
+                    <p>We engage in heartfelt, passionate worship that honors God and invites His presence. Worship is both a lifestyle and a corporate expression of our love for God.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Serving Others</h3>
+                    <p>Following Christ's example, we actively serve our community and each other with humility, love, and compassion.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart-circle-check"></i>
+                    </div>
+                    <h3>Unity in Spirit</h3>
+                    <p>Being of one mind, same love, one accord & united in one spirit to fulfill the joy of the Lord. We pursue harmony and unity as the body of Christ.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Ministry Impact Section -->
+    <section class="impact-section">
+        <div class="container">
+            <h2>A Church for All People</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Whether you are exploring faith for the first time, seeking a place to grow spiritually, or longing for deeper community, Victory Word of Faith Church Nabbingo International welcomes you with open arms.
+            </p>
+            
+            <div class="impact-stats">
+                <div class="stat-box">
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-number">33</div>
+                    <div class="stat-label">Years of Ministry</div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Nations Reached</div>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-number">35+</div>
+                    <div class="stat-label">Ministries & Programs</div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p>Here, every life matters, and every story is precious. Through passionate worship, sound teaching, and compassionate outreach, we strive to shine the light of Christ into hearts and homes everywhere. Join us as we continue to proclaim the goodness of God, build up disciples, and impact nations with the life‑changing message of Jesus Christ.</p>
+                <a href="ministries.html" class="btn">Explore Our Ministries</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Leadership Preview -->
+    <section id="leadership" class="leadership-preview">
+        <div class="container">
+            <h2>Meet Our Founding Pastor</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Visionary leadership has been instrumental in our growth and impact.
+            </p>
+            
+            <div class="leader-preview">
+                <div class="leader-preview-img">
+                    <img src="10.jpeg" alt="Pastor Dorothy Binwe Namahe">
+                </div>
+                <div class="leader-preview-content">
+                    <h3>Pastor Dorothy Binwe Namahe</h3>
+                    <p class="position">Senior Pastor & Founder</p>
+                    <p>In 1992, Pastor Dorothy received a life-changing call to Christian ministry. For years, she had suffered from a debilitating illness that no medical or traditional treatment could heal. One evening, during a prayer and fasting session at a local church, she experienced a miraculous healing that left her completely restored. That moment marked her rebirth as a born-again Christian and ignited a deep passion to serve God.</p>
+                    
+                    <p>Guided by God's direction, Pastor Dorothy began ministering in her community, addressing the spiritual and moral challenges around her—including witchcraft, false religions, drunkenness, and immorality. She started humbly, going door to door to share the message of salvation, and soon gatherings began in her living room.</p>
+                    
+                    <p>From these small beginnings, the seeds of Victory Word of Faith Church Nabbingo International were sown—a ministry founded on faith, prayer, and the transformative power of God's Word. Today, the church stands as a beacon of hope and spiritual victory, impacting countless lives both locally and internationally.</p>
+                    
+                    <a href="leaders.html" class="btn">Meet Our Full Leadership Team</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer - EXACTLY SAME AS INDEX -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Nabbingo, Kampala, Uganda</p>
+                    <p><i class="fas fa-phone"></i> +256 776 924 398</p>
+                    <p><i class="fas fa-phone"></i> +256 706 098 195</p>
+                    <p><i class="fas fa-envelope"></i> pastordorothy2002@yahoo.co.uk</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri 9AM-5PM</p>
+                    <a href="contact.html" class="btn btn-outline" style="margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.85rem;">Get Directions</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="ministries.html">Ministries</a>
+                    <a href="events.html">Events</a>
+                    <a href="leaders.html">Leaders</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday:</strong> 8:00 AM to 9:00 AM</p>
+                    <p><strong>Sunday:</strong> 9:30 AM to 1:00 PM</p>
+                    <p><strong>Wednesday:</strong> 4:00 PM to 8:00 PM</p>
+                    <p><strong>Friday:</strong> 6:00 PM to 10:00 PM</p>
+                    <p><strong>2nd Friday of the month:</strong> Overnight Prayer</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+    <a href="https://www.facebook.com/pastordorothybinwe" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://x.com/prdorothybinwe?lang=en" class="social-link" target="_blank"><i class="fa-brands fa-x"></i></a>
+    <a href="https://www.instagram.com/pastordorothybinwe_.dr/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/channel/UCoKA8sqPGdydNkciG8uex0A" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/256776924398" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Victory Word of Faith Church International. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Navigation - EXACTLY SAME AS INDEX
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Set current year only (date removed as requested)
+        const now = new Date();
+        document.getElementById('currentYear').textContent = now.getFullYear();
+        
+        // Highlight current page in navigation - EXACTLY SAME AS INDEX
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for anchor links - EXACTLY SAME AS INDEX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                
+                if (targetId.startsWith('#') && targetId !== '#') {
+                    e.preventDefault();
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Handle window resize for better mobile experience - EXACTLY SAME AS INDEX
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

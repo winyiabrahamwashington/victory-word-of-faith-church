@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - VWFCI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6AB;
+            --gold-dark: #B7950B;
+            --red: #AA0101;
+            --red-dark: #800000;
+            --red-light: #E8C8C8;
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --black: #333333;
+            --gray: #383838;
+            --light-gray: #EEEEEE;
+            
+            --header-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: var(--off-white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: var(--header-font);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--red-dark);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+            position: relative;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--red-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Navigation - SAME AS INDEX */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--red-dark);
+            padding: 0.75rem 0;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1509099836639-18ba1795216d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: var(--white);
+            padding: 7rem 0 3rem;
+            text-align: center;
+            margin-top: 0;
+        }
+        
+        .page-header h1 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Folders Grid */
+        .folders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .folder-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+        }
+        
+        .folder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--gold);
+        }
+        
+        .folder-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--white);
+            font-size: 1.75rem;
+        }
+        
+        .folder-count {
+            display: inline-block;
+            background: var(--red-light);
+            color: var(--red-dark);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        /* Folder View Modal */
+        .folder-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        
+        .folder-modal.active {
+            display: block;
+        }
+        
+        .modal-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            z-index: 2001;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            color: var(--white);
+            font-size: 1.25rem;
+            margin: 0;
+        }
+        
+        .close-modal {
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            background: var(--red-dark);
+            transform: rotate(90deg);
+        }
+        
+        .folder-content {
+            padding: 6rem 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .media-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+        
+        .media-item img,
+        .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .media-item:hover img,
+        .media-item:hover video {
+            transform: scale(1.05);
+        }
+        
+        .media-type-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        /* Lightbox Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox-modal.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .lightbox-media {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: var(--border-radius);
+        }
+        
+        .lightbox-caption {
+            color: var(--white);
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .lightbox-nav:hover {
+            background: rgba(212, 175, 55, 0.8);
+        }
+        
+        .lightbox-prev {
+            left: 1rem;
+        }
+        
+        .lightbox-next {
+            right: 1rem;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(170, 1, 1, 0.8);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .lightbox-close:hover {
+            background: var(--red);
+            transform: rotate(90deg);
+        }
+        
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+        }
+        
+        .loading-spinner {
+            border: 3px solid var(--light-gray);
+            border-top: 3px solid var(--gold);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+            grid-column: 1/-1;
+        }
+        
+        /* Footer - SAME AS INDEX */
+        footer {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 2rem 0 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: var(--white);
+            opacity: 0.8;
+            transition: var(--transition);
+            margin-bottom: 0.4rem;
+            display: block;
+            font-size: 0.85rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--gold);
+            padding-left: 3px;
+        }
+        
+        .footer-column i {
+            margin-right: 0.5rem;
+            color: var(--gold);
+            width: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        
+        .social-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white) !important;
+            opacity: 0.9;
+            font-size: 0.8rem;
+        }
+        
+        .copyright p {
+            color: var(--white) !important;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .folders-grid,
+            .media-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--red-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                transition: var(--transition);
+                padding: 1.5rem 0;
+                overflow-y: auto;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .folders-grid,
+            .media-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .page-header {
+                padding: 6rem 0 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 2rem 0;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .page-header {
+                padding: 5rem 0 1.5rem;
+            }
+            
+            .folder-card,
+            .media-item {
+                padding: 1.25rem;
+            }
+            
+            .media-grid {
+                gap: 0.75rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .folder-card,
+            .media-item {
+                padding: 1rem;
+            }
+            
+            .folder-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container container">
+            <a href="index.html" class="nav-logo">VWF<span>CI</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="ministries.html">Ministries</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="leaders.html">Leaders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Church Gallery</h1>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto; color: var(--white); opacity: 0.9;">
+                Browse through our collection of photos and videos from church events, services, and fellowship.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Folders Section -->
+    <section id="folders">
+        <div class="container">
+            <h2>Browse by Folders</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Click on any folder to view all photos and videos inside.
+            </p>
+            
+            <div class="folders-grid" id="foldersGrid">
+                <!-- Folders will be loaded dynamically from Supabase -->
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading folders...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Folder View Modal -->
+    <div class="folder-modal" id="folderModal">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modalTitle">Folder Name</h3>
+            <button class="close-modal" id="closeFolderModal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="folder-content">
+            <div class="media-grid" id="mediaGrid">
+                <!-- Media items will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <button class="lightbox-close" id="closeLightbox">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-nav lightbox-prev" id="prevMedia">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" class="lightbox-media" src="" alt="" style="display: none;">
+            <video id="lightboxVideo" class="lightbox-media" controls style="display: none;">
+                Your browser does not support the video tag.
+            </video>
+            <p class="lightbox-caption" id="lightboxCaption"></p>
+        </div>
+        <button class="lightbox-nav lightbox-next" id="nextMedia">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Nabbingo, Kampala, Uganda</p>
+                    <p><i class="fas fa-phone"></i> +256 776 924 398</p>
+                    <p><i class="fas fa-phone"></i> +256 706 098 195</p>
+                    <p><i class="fas fa-envelope"></i> pastordorothy2002@yahoo.co.uk</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri 9AM-5PM</p>
+                    <a href="contact.html" class="btn btn-outline" style="margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.85rem;">Get Directions</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="ministries.html">Ministries</a>
+                    <a href="events.html">Events</a>
+                    <a href="leaders.html">Leaders</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday:</strong> 8:00 AM to 9:00 AM</p>
+                    <p><strong>Sunday:</strong> 9:30 AM to 1:00 PM</p>
+                    <p><strong>Wednesday:</strong> 4:00 PM to 8:00 PM</p>
+                    <p><strong>Friday:</strong> 6:00 PM to 10:00 PM</p>
+                    <p><strong>2nd Friday of the month:</strong> Overnight Prayer</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+    <a href="https://www.facebook.com/pastordorothybinwe" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://x.com/prdorothybinwe?lang=en" class="social-link" target="_blank"><i class="fa-brands fa-x"></i></a>
+    <a href="https://www.instagram.com/pastordorothybinwe_.dr/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/channel/UCoKA8sqPGdydNkciG8uex0A" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/256776924398" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Victory Word of Faith Church International. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // ====================
+        // SUPABASE CONFIGURATION
+        // ====================
+        
+        // Supabase configuration (same as admin.html)
+        const supabaseUrl = 'https://lgosscisacpafjwkhngb.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxnb3NzY2lzYWNwYWZqd2tobmdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwNzcyOTQsImV4cCI6MjA4NTY1MzI5NH0.uxQZSFdI1C_yWheUpRHsaHCV7ejrnK0oiFxZZPDf718';
+        
+        // Initialize Supabase client
+        let supabaseClient;
+        
+        try {
+            if (window.supabase && window.supabase.createClient) {
+                supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+                console.log('Supabase client initialized successfully');
+            } else {
+                console.error('Supabase library not loaded');
+            }
+        } catch (error) {
+            console.error('Failed to initialize Supabase:', error);
+        }
+        
+        // ====================
+        // GLOBAL VARIABLES
+        // ====================
+        
+        let currentFolderName = '';
+        let currentMediaItems = [];
+        let currentMediaIndex = 0;
+        
+        // ====================
+        // DATA FETCHING FUNCTIONS
+        // ====================
+        
+        // Function to load folders from Supabase
+        async function loadFolders() {
+            try {
+                if (!supabase) {
+                    console.log('Supabase not initialized');
+                    showError('Database connection failed');
+                    return;
+                }
+                
+                // Fetch all gallery items from the database
+                const { data: galleryItems, error } = await supabase
+                    .from('gallery')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) {
+                    console.error('Error fetching gallery items:', error);
+                    showError('Failed to load gallery items');
+                    return;
+                }
+                
+                const foldersGrid = document.getElementById('foldersGrid');
+                if (!foldersGrid) return;
+                
+                // Clear existing content
+                foldersGrid.innerHTML = '';
+                
+                if (!galleryItems || galleryItems.length === 0) {
+                    // If no gallery items, show empty state
+                    foldersGrid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-folder-open" style="font-size: 3rem; color: var(--gold-light); margin-bottom: 1rem;"></i>
+                            <h3>No Gallery Items Yet</h3>
+                            <p>Gallery items will appear here once uploaded from the admin panel.</p>
+                            <p>Upload at least 4 photos to see them displayed here.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Group items by album_name (folder name)
+                const folders = {};
+                
+                // First, count items in each album
+                galleryItems.forEach(item => {
+                    const albumName = item.album_name || 'Uncategorized';
+                    if (!folders[albumName]) {
+                        folders[albumName] = {
+                            count: 0,
+                            items: []
+                        };
+                    }
+                    folders[albumName].count++;
+                    folders[albumName].items.push(item);
+                });
+                
+                // Check if we have at least 4 items total across all folders
+                const totalItems = galleryItems.length;
+                
+                if (totalItems < 4) {
+                    foldersGrid.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-images" style="font-size: 3rem; color: var(--gold-light); margin-bottom: 1rem;"></i>
+                            <h3>More Photos Needed</h3>
+                            <p>You have ${totalItems} gallery item(s). Upload at least 4 photos to see them displayed here.</p>
+                            <p>Go to the admin panel to upload more photos.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Create folder cards for each album
+                Object.entries(folders).forEach(([albumName, folderData]) => {
+                    // Only show folders that have at least 1 item
+                    if (folderData.count > 0) {
+                        const folderCard = document.createElement('div');
+                        folderCard.className = 'folder-card';
+                        folderCard.dataset.folderName = albumName;
+                        
+                        folderCard.innerHTML = `
+                            <div class="folder-icon">
+                                <i class="fas fa-folder"></i>
+                            </div>
+                            <h3>${albumName}</h3>
+                            <div class="folder-count">${folderData.count} items</div>
+                        `;
+                        
+                        // Add click event
+                        folderCard.addEventListener('click', () => {
+                            openFolder(albumName, folderData.items);
+                        });
+                        
+                        foldersGrid.appendChild(folderCard);
+                    }
+                });
+                
+                // If we have items but no albums (all items are Uncategorized)
+                if (Object.keys(folders).length === 0 && totalItems >= 4) {
+                    // Create a default "All Photos" folder
+                    const folderCard = document.createElement('div');
+                    folderCard.className = 'folder-card';
+                    folderCard.dataset.folderName = 'All Photos';
+                    
+                    folderCard.innerHTML = `
+                        <div class="folder-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <h3>All Photos</h3>
+                        <div class="folder-count">${totalItems} items</div>
+                    `;
+                    
+                    // Add click event
+                    folderCard.addEventListener('click', () => {
+                        openFolder('All Photos', galleryItems);
+                    });
+                    
+                    foldersGrid.appendChild(folderCard);
+                }
+                
+                console.log(`Loaded ${totalItems} gallery items across ${Object.keys(folders).length} folders`);
+                
+            } catch (error) {
+                console.error('Error loading folders:', error);
+                showError('An error occurred while loading the gallery');
+            }
+        }
+        
+        // Function to load media items for a specific folder
+        async function loadFolderMedia(folderName) {
+            try {
+                if (!supabase) {
+                    console.log('Supabase not initialized');
+                    return;
+                }
+                
+                let mediaItems;
+                
+                if (folderName === 'All Photos') {
+                    // Fetch all media items
+                    const { data: items, error } = await supabase
+                        .from('gallery')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+                    
+                    if (error) throw error;
+                    mediaItems = items;
+                } else {
+                    // Fetch media items for this specific folder (album)
+                    const { data: items, error } = await supabase
+                        .from('gallery')
+                        .select('*')
+                        .eq('album_name', folderName)
+                        .order('created_at', { ascending: false });
+                    
+                    if (error) throw error;
+                    mediaItems = items;
+                }
+                
+                currentMediaItems = mediaItems || [];
+                displayFolderMedia(currentMediaItems);
+                
+            } catch (error) {
+                console.error('Error fetching media items:', error);
+            }
+        }
+        
+        // Function to display media items in the folder modal
+        function displayFolderMedia(mediaItems) {
+            const mediaGrid = document.getElementById('mediaGrid');
+            if (!mediaGrid) return;
+            
+            // Clear existing content
+            mediaGrid.innerHTML = '';
+            
+            if (!mediaItems || mediaItems.length === 0) {
+                // If no media items, show empty state
+                mediaGrid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-images" style="font-size: 3rem; color: var(--gold-light); margin-bottom: 1rem;"></i>
+                        <h3>No Media Items</h3>
+                        <p>This folder is empty. Add photos or videos from the admin panel.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Create media items
+            mediaItems.forEach((item, index) => {
+                const mediaItem = document.createElement('div');
+                mediaItem.className = 'media-item';
+                mediaItem.dataset.index = index;
+                
+                const type = item.type || 'image';
+                const typeText = type === 'video' ? 'VIDEO' : 'PHOTO';
+                const title = item.title || `Item ${index + 1}`;
+                
+                if (type === 'video') {
+                    mediaItem.innerHTML = `
+                        <video src="${item.url}" preload="metadata"></video>
+                        <div class="media-type-badge">${typeText}</div>
+                    `;
+                } else {
+                    mediaItem.innerHTML = `
+                        <img src="${item.url}" alt="${title}" loading="lazy">
+                        <div class="media-type-badge">${typeText}</div>
+                    `;
+                }
+                
+                // Add click event for lightbox
+                mediaItem.addEventListener('click', () => {
+                    openLightbox(index);
+                });
+                
+                mediaGrid.appendChild(mediaItem);
+            });
+            
+            console.log(`Displayed ${mediaItems.length} media items in folder view`);
+        }
+        
+        // ====================
+        // MODAL FUNCTIONS
+        // ====================
+        
+        // Function to open folder modal
+        function openFolder(folderName, items = null) {
+            currentFolderName = folderName;
+            
+            // Update modal title
+            const modalTitle = document.getElementById('modalTitle');
+            if (modalTitle) {
+                modalTitle.textContent = folderName;
+            }
+            
+            // Show modal
+            const folderModal = document.getElementById('folderModal');
+            if (folderModal) {
+                folderModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            if (items && items.length > 0) {
+                // Use provided items
+                currentMediaItems = items;
+                displayFolderMedia(items);
+            } else {
+                // Show loading state in media grid
+                const mediaGrid = document.getElementById('mediaGrid');
+                if (mediaGrid) {
+                    mediaGrid.innerHTML = `
+                        <div class="loading" style="grid-column: 1/-1;">
+                            <div class="loading-spinner"></div>
+                            <p>Loading media items...</p>
+                        </div>
+                    `;
+                }
+                
+                // Load media items from database
+                loadFolderMedia(folderName);
+            }
+        }
+        
+        // Function to close folder modal
+        function closeFolderModal() {
+            const folderModal = document.getElementById('folderModal');
+            if (folderModal) {
+                folderModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            currentFolderName = '';
+            currentMediaItems = [];
+        }
+        
+        // Function to open lightbox
+        function openLightbox(index) {
+            currentMediaIndex = parseInt(index);
+            updateLightbox();
+            
+            const lightboxModal = document.getElementById('lightboxModal');
+            if (lightboxModal) {
+                lightboxModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // Function to close lightbox
+        function closeLightbox() {
+            const lightboxModal = document.getElementById('lightboxModal');
+            if (lightboxModal) {
+                lightboxModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            // Pause video if playing
+            const video = document.getElementById('lightboxVideo');
+            if (video) {
+                video.pause();
+            }
+        }
+        
+        // Function to update lightbox content
+        function updateLightbox() {
+            if (!currentMediaItems || currentMediaItems.length === 0) return;
+            
+            const item = currentMediaItems[currentMediaIndex];
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxVideo = document.getElementById('lightboxVideo');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            
+            if (item.type === 'video') {
+                // Show video, hide image
+                lightboxImage.style.display = 'none';
+                lightboxVideo.style.display = 'block';
+                lightboxVideo.src = item.url;
+                lightboxVideo.load();
+            } else {
+                // Show image, hide video
+                lightboxVideo.style.display = 'none';
+                lightboxImage.style.display = 'block';
+                lightboxImage.src = item.url;
+                lightboxImage.alt = item.title || 'Gallery image';
+            }
+            
+            // Update caption
+            if (lightboxCaption) {
+                lightboxCaption.textContent = item.title || `${currentFolderName} - Item ${currentMediaIndex + 1} of ${currentMediaItems.length}`;
+            }
+        }
+        
+        // Function to navigate to previous media item
+        function prevMedia() {
+            if (currentMediaItems.length === 0) return;
+            
+            currentMediaIndex--;
+            if (currentMediaIndex < 0) {
+                currentMediaIndex = currentMediaItems.length - 1;
+            }
+            
+            updateLightbox();
+        }
+        
+        // Function to navigate to next media item
+        function nextMedia() {
+            if (currentMediaItems.length === 0) return;
+            
+            currentMediaIndex++;
+            if (currentMediaIndex >= currentMediaItems.length) {
+                currentMediaIndex = 0;
+            }
+            
+            updateLightbox();
+        }
+        
+        // ====================
+        // HELPER FUNCTIONS
+        // ====================
+        
+        // Function to show error message
+        function showError(message) {
+            const foldersGrid = document.getElementById('foldersGrid');
+            if (foldersGrid) {
+                foldersGrid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--red-light); margin-bottom: 1rem;"></i>
+                        <h3>Error Loading Content</h3>
+                        <p>${message}</p>
+                        <button class="btn" onclick="loadFolders()" style="margin-top: 1rem;">Try Again</button>
+                    </div>
+                `;
+            }
+        }
+        
+        // Function to escape HTML (for security)
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // ====================
+        // EVENT LISTENERS
+        // ====================
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load folders from Supabase
+            loadFolders();
+            
+            // Set current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Modal close buttons
+            const closeFolderModalBtn = document.getElementById('closeFolderModal');
+            if (closeFolderModalBtn) {
+                closeFolderModalBtn.addEventListener('click', closeFolderModal);
+            }
+            
+            const closeLightboxBtn = document.getElementById('closeLightbox');
+            if (closeLightboxBtn) {
+                closeLightboxBtn.addEventListener('click', closeLightbox);
+            }
+            
+            // Lightbox navigation
+            const prevMediaBtn = document.getElementById('prevMedia');
+            if (prevMediaBtn) {
+                prevMediaBtn.addEventListener('click', prevMedia);
+            }
+            
+            const nextMediaBtn = document.getElementById('nextMedia');
+            if (nextMediaBtn) {
+                nextMediaBtn.addEventListener('click', nextMedia);
+            }
+            
+            // Close modals on ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeFolderModal();
+                    closeLightbox();
+                }
+                
+                // Lightbox keyboard navigation
+                if (document.getElementById('lightboxModal').classList.contains('active')) {
+                    if (e.key === 'ArrowLeft') {
+                        prevMedia();
+                    } else if (e.key === 'ArrowRight') {
+                        nextMedia();
+                    }
+                }
+            });
+            
+            // Close folder modal when clicking outside content
+            const folderModal = document.getElementById('folderModal');
+            if (folderModal) {
+                folderModal.addEventListener('click', (e) => {
+                    if (e.target === folderModal) {
+                        closeFolderModal();
+                    }
+                });
+            }
+            
+            // Close lightbox when clicking outside content
+            const lightboxModal = document.getElementById('lightboxModal');
+            if (lightboxModal) {
+                lightboxModal.addEventListener('click', (e) => {
+                    if (e.target === lightboxModal) {
+                        closeLightbox();
+                    }
+                });
+            }
+        });
+        
+        // ====================
+        // EXISTING NAVIGATION FUNCTIONS
+        // ====================
+        
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+        }
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                if (hamburger) {
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Highlight current page in navigation
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                
+                if (targetId.startsWith('#') && targetId !== '#') {
+                    e.preventDefault();
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Handle window resize for better mobile experience
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                if (hamburger) {
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

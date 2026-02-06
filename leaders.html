@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Leaders - Victory Word of Faith Church International</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6AB;
+            --gold-dark: #B7950B;
+            --red: #AA0101;
+            --red-dark: #800000;
+            --red-light: #E8C8C8;
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --black: #333333;
+            --gray: #383636;
+            --light-gray: #EEEEEE;
+            
+            --header-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: var(--off-white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: var(--header-font);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--red-dark);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.4rem;
+            text-align: center;
+            margin: 1.5rem 0 1rem;
+            position: relative;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        p {
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--red-dark);
+            padding: 0.5rem 1.2rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 2rem 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Navigation - EXACTLY SAME AS EVENTS PAGE */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--red-dark);
+            padding: 0.75rem 0;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+        
+        /* Leaders Hero Section - Matching Events Page Style */
+        .leaders-hero {
+            height: 50vh;
+            min-height: 350px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('4.jpeg') no-repeat center center/cover;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            margin-top: 0;
+            padding-top: 60px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .leaders-hero h1 {
+            color: var(--white);
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .leaders-hero p {
+            color: var(--white);
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.9;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid var(--gold);
+        }
+        
+        /* Senior Pastor Section */
+        .senior-pastor {
+            background-color: var(--white);
+        }
+        
+        .pastor-profile {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1.5rem;
+            background-color: var(--off-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .pastor-image {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pastor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .pastor-profile:hover .pastor-image img {
+            transform: scale(1.02);
+        }
+        
+        .pastor-badge {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            background-color: var(--red);
+            color: var(--white);
+            padding: 0.4rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .pastor-content {
+            padding: 1.2rem;
+        }
+        
+        .pastor-content h2 {
+            text-align: left;
+            margin: 0 0 0.4rem 0;
+        }
+        
+        .pastor-content h2:after {
+            margin: 0.4rem 0 0 0;
+        }
+        
+        .pastor-title {
+            color: var(--gold-dark);
+            font-style: italic;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .pastor-quote {
+            background-color: var(--gold-light);
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            margin: 0.8rem 0;
+            border-left: 4px solid var(--red);
+            font-style: italic;
+        }
+        
+        .pastor-quote i {
+            color: var(--red);
+            font-size: 1.1rem;
+            margin-right: 0.4rem;
+        }
+        
+        .pastor-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin: 1.2rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 0.8rem;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--red-dark);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Biography Highlights */
+        .biography-highlights {
+            background-color: var(--off-white);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--gold);
+        }
+        
+        .biography-highlights h4 {
+            color: var(--red-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight-item i {
+            color: var(--gold);
+            margin-right: 0.5rem;
+            margin-top: 0.2rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Ministry Leaders Section - UPDATED: Now contains all leaders */
+        .ministry-leaders {
+            background-color: var(--off-white);
+        }
+        
+        /* SMALLER GRID WITH MORE COLUMNS */
+        .ministry-leaders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Much smaller cards */
+            gap: 0.8rem; /* Smaller gap */
+        }
+        
+        .ministry-leader-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 0.8rem; /* Smaller padding */
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            transform: scale(0.95); /* Slightly smaller */
+        }
+        
+        .ministry-leader-card:hover {
+            transform: scale(0.95) translateY(-5px); /* Adjusted for scaling */
+            box-shadow: var(--shadow-hover);
+        }
+        
+        /* SMALLER PROFILE IMAGE */
+        .ministry-leader-img {
+            width: 100%;
+            max-width: 70px; /* Smaller image */
+            height: auto;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            margin: 0 auto 0.6rem; /* Smaller margin */
+            overflow: hidden;
+            border: 2px solid var(--gold-light); /* Thinner border */
+        }
+        
+        .ministry-leader-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .ministry-leader-card h3 {
+            font-size: 0.9rem; /* Smaller font */
+            margin-bottom: 0.3rem; /* Smaller margin */
+        }
+        
+        .ministry-leader-card .leader-position {
+            font-size: 0.75rem; /* Smaller font */
+            margin-bottom: 0.4rem; /* Smaller margin */
+        }
+        
+        .ministry-leader-card p {
+            font-size: 0.75rem; /* Smaller font */
+            margin-bottom: 0.4rem; /* Smaller margin */
+            line-height: 1.4; /* Tighter line height */
+        }
+        
+        .event-badge {
+            display: inline-block;
+            background-color: var(--red-light);
+            color: var(--red-dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        /* Leadership Philosophy Section */
+        .leadership-philosophy {
+            background-color: var(--white);
+        }
+        
+        .philosophy-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Smaller min width */
+            gap: 1rem; /* Smaller gap */
+        }
+        
+        .philosophy-card {
+            text-align: center;
+            padding: 1rem; /* Smaller padding */
+            background-color: var(--off-white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transform: scale(0.95); /* Slightly smaller */
+        }
+        
+        .philosophy-icon {
+            font-size: 1.5rem; /* Smaller icon */
+            color: var(--gold-dark);
+            margin-bottom: 0.6rem; /* Smaller margin */
+        }
+        
+        .philosophy-card h3 {
+            font-size: 1rem; /* Smaller font */
+        }
+        
+        .philosophy-card p {
+            font-size: 0.8rem; /* Smaller font */
+        }
+        
+        /* CTA Section */
+        .leaders-cta {
+            background-color: var(--off-white);
+        }
+        
+        /* Fix for outline button in CTA section */
+.leaders-cta .btn-outline {
+    color: var(--gold-dark) !important;
+    border-color: var(--gold-dark);
+}
+
+.leaders-cta .btn-outline:hover {
+    background-color: var(--gold-dark);
+    color: var(--white) !important;
+}
+        .cta-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer - EXACTLY SAME AS EVENTS PAGE */
+        footer {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: var(--white);
+            opacity: 0.8;
+            transition: var(--transition);
+            margin-bottom: 0.4rem;
+            display: block;
+            font-size: 0.85rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--gold);
+            padding-left: 3px;
+        }
+        
+        .footer-column i {
+            margin-right: 0.5rem;
+            color: var(--gold);
+            width: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        
+        .social-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white) !important; /* ADD !important to force white color */
+            opacity: 0.9;
+            font-size: 0.8rem;
+        }
+
+        .copyright p {
+            color: var(--white) !important; /* ADD this to override paragraph color */
+        }
+        
+        /* NEW: Button text color for non-white backgrounds */
+.ministry-leaders .btn,
+.leaders-cta .btn,
+.leadership-philosophy .btn {
+    color: var(--white);
+}
+
+/* FIX: Outline button text color on white backgrounds */
+.senior-pastor .btn-outline {
+    color: var(--gold);
+}
+
+.senior-pastor .btn-outline:hover {
+    color: var(--red-dark);
+}
+        
+        /* Responsive Styles - EXACTLY SAME AS EVENTS PAGE */
+        @media (max-width: 992px) {
+            .philosophy-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--red-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                transition: var(--transition);
+                padding: 1.5rem 0;
+                overflow-y: auto;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .pastor-profile {
+                grid-template-columns: 1fr;
+            }
+            
+            .pastor-content {
+                padding: 1.2rem;
+            }
+            
+            .leaders-hero {
+                height: auto;
+                min-height: 40vh;
+                padding: 70px 0 2rem;
+            }
+            
+            .leaders-hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .cta-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .cta-buttons .btn {
+                flex: 0 0 calc(50% - 0.5rem);
+                max-width: calc(50% - 0.5rem);
+                text-align: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 220px;
+            }
+            
+            .footer-content {
+                gap: 1rem;
+            }
+            
+            /* Remove scale transform on mobile for better touch targets */
+            .ministry-leader-card,
+            .philosophy-card {
+                transform: scale(1);
+            }
+            
+            .ministry-leader-card:hover,
+            .philosophy-card:hover {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .philosophy-content,
+            .ministry-leaders-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px; /* Smaller max width */
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 1.5rem 0;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+                margin: 1.2rem 0 0.8rem;
+            }
+            
+            .philosophy-content,
+            .ministry-leaders-grid {
+                grid-template-columns: 1fr;
+                max-width: 280px; /* Smaller max width */
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            
+            .leaders-hero {
+                height: auto;
+                min-height: 40vh;
+                padding: 70px 0 1.5rem;
+            }
+            
+            .leaders-hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .footer-column {
+                margin-bottom: 0.5rem;
+            }
+            
+            .pastor-stats {
+                grid-template-columns: 1fr;
+                gap: 0.6rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .leaders-hero h1 {
+                font-size: 1.4rem;
+            }
+            
+            .cta-buttons .btn {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .footer-column {
+                padding: 0 0.5rem;
+            }
+            
+            .ministry-leaders-grid,
+            .philosophy-content {
+                max-width: 260px; /* Even smaller on very small screens */
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .leaders-hero h1 {
+                font-size: 1.3rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+            
+            .nav-logo {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .ministry-leaders-grid,
+            .philosophy-content {
+                max-width: 240px; /* Smallest width */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation - EXACTLY SAME AS EVENTS PAGE -->
+    <nav id="navbar">
+        <div class="nav-container container">
+            <a href="index.html" class="nav-logo">VWF<span>CI</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="ministries.html">Ministries</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="leaders.html" class="active">Leaders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Leaders Hero Section -->
+    <section class="leaders-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Meet Our Leadership Team</h1>
+                <p>Guided by the Holy Spirit and committed to serving God's people, our leadership team brings decades of experience, wisdom, and passion to shepherd Victory Word of Faith Church International.</p>
+                <div class="hero-badges">
+                    <span class="hero-badge"><i class="fas fa-hands-praying"></i> Servant Leaders</span>
+                    <span class="hero-badge"><i class="fas fa-graduation-cap"></i> Biblical Training</span>
+                    <span class="hero-badge"><i class="fas fa-language"></i> Multicultural</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Senior Pastor Section -->
+    <section class="senior-pastor">
+        <div class="container">
+            <div class="pastor-profile">
+                <div class="pastor-image">
+                    <img src="10.jpeg" alt="Pastor Dorothy Binwe Namahe Namahe">
+                    <div class="pastor-badge">Founder & Senior Pastor</div>
+                </div>
+                <div class="pastor-content">
+                    <h2>Pastor Dorothy Binwe Namahe Namahe</h2>
+                    <div class="pastor-title">Senior Pastor & Visionary Leader</div>
+                    
+                    <p>Pastor Dorothy Binwe Namahe Namahe, the founder and shepherd of Victory Word of Faith Church Nabbingo International, is a living testimony of God's faithfulness and transformative power. Born in Kitoba Village, Hoima District, Uganda, her early life was marked by hardship and loss.</p>
+                    
+                    <p>At just four years old, she lost her grandmother, her only caretaker. Left in the care of others who were unable or unwilling to nurture her, Dorothy faced neglect, hardship, and the heavy responsibility of caring for her younger siblings at an age when most children rely on adults for guidance.</p>
+                    
+                    <div class="biography-highlights">
+                        <h4>Early Life & Education</h4>
+                        <div class="highlight-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Despite these challenges, Dorothy's determination and faith in God never wavered. Through sheer perseverance, she pursued education, studying part-time at Kololo High School in Kampala and later enrolling in a catering course at the Young Women Christian Association (YWCA) in 1984.</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Even as she navigated the responsibilities of early parenthood and worked odd jobs—including co-founding a beauty salon with her husband, Charles Binwe—Dorothy's heart was increasingly drawn to God.</span>
+                        </div>
+                    </div>
+                    
+                    <p>In 1992, a pivotal moment changed her life forever. After suffering for years from a debilitating chest ailment, she attended a prayer and fasting session at a local church. During an evening of prayer, she experienced a sudden, miraculous healing. The pain that had tormented her for years vanished instantly. Overcome with gratitude and awe, she ran to the pastor leading the prayer, repented her sins, and embraced her calling as a born-again Christian. That divine encounter ignited a deep passion for ministry that could not be ignored.</p>
+                    
+                    <p>Guided by God, Pastor Dorothy began ministering in her local community, confronting the spiritual and moral challenges around her—including witchcraft, false religions, drunkenness, and immorality. She started humbly, sharing the gospel door to door, before hosting gatherings in her own home. Her commitment, faith, and courage laid the foundation for the birth of Victory Word of Faith Church Nabbingo International—a ministry born out of prayer, perseverance, and the relentless pursuit of God's vision.</p>
+                    
+                    <div class="pastor-quote">
+                        <i class="fas fa-quote-left"></i>
+                        "My passion is to see every believer walk in the fullness of their God-given destiny, equipped with the Word, empowered by the Spirit, and effective in their calling."
+                    </div>
+                    
+                    <p>Today, under Pastor Dorothy's leadership, Victory Word of Faith Church stands as a beacon of hope and spiritual transformation. Her story—marked by struggle, miraculous healing, and unwavering faith—is a powerful reminder that no circumstance is too difficult for God to turn into victory. Through her ministry, countless lives continue to be touched, empowered, and restored, locally and internationally.</p>
+                    
+                    <div class="pastor-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">25+</div>
+                            <div class="stat-label">Years in Ministry</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">30+</div>
+                            <div class="stat-label">Nations Reached</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Books Published</div>
+                        </div>
+                    </div>
+                    
+                    <div class="cta-buttons">
+                        <a href="contact.html" class="btn">Contact Pastor Dorothy</a>
+                        <a href="events.html" class="btn btn-outline">Hear Her Preach</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Ministry Leaders Section - NO REPETITIONS -->
+    <section class="ministry-leaders">
+        <div class="container">
+            <h2>Ministry Department Leaders</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                These dedicated leaders, pastors, elders, and deacons oversee all areas of church life, ensuring every ministry is well-shepherded and effectively managed.
+            </p>
+            
+            <div class="ministry-leaders-grid">
+                <!-- 1. Pr. Caleb Bigirwa -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Pr. Caleb Bigirwa">
+                    </div>
+                    <h3>Pr. Caleb Bigirwa</h3>
+                    <div class="leader-position">Youths, Media & Mass Choir Leader</div>
+                    <p>Leads V Walker Youths Ministry, Media Department, and Mass Choir.</p>
+                    <span class="event-badge">Pastor</span>
+                </div>
+                
+                <!-- 2. Pr. Norah Mukundane -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="WhatsApp%20Image%202026-02-02%20at%2017.53.04.jpeg" alt="Pr. Norah Mukundane">
+                    </div>
+                    <h3>Pr. Norah Mukundane</h3>
+                    <div class="leader-position">Women of the Faith & Intercession Leader</div>
+                    <p>Leads Women's Ministry and coordinates intercession prayer teams.</p>
+                    <span class="event-badge">Pastor</span>
+                </div>
+                
+                <!-- 3. Elder Moses Lutwama -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="WhatsApp%20Image%202026-02-02%20at%2017.53.06.jpg" alt="Elder Moses Lutwama">
+                    </div>
+                    <h3>Elder Moses Lutwama</h3>
+                    <div class="leader-position">Real Kingdom Men & Security Ministry</div>
+                    <p>Leads Men's Ministry and oversees church security operations.</p>
+                    <span class="event-badge">Elder</span>
+                </div>
+                
+                <!-- 4. Elder Halima Lutwama -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="Halima%20Lutwama.jpeg" alt="Elder Halima Lutwama">
+                    </div>
+                    <h3>Elder Halima Lutwama</h3>
+                    <div class="leader-position">Welfare & Excellency Ministry</div>
+                    <p>Oversees welfare ministry and ensures excellence in church operations.</p>
+                    <span class="event-badge">Elder</span>
+                </div>
+                
+                <!-- 5. Elder Fortunate Kyogabirwe -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Elder Fortunate Kyogabirwe">
+                    </div>
+                    <h3>Elder Fortunate Kyogabirwe</h3>
+                    <div class="leader-position">Ushering & Construction Ministry</div>
+                    <p>Leads ushering team and oversees construction/building projects.</p>
+                    <span class="event-badge">Elder</span>
+                </div>
+                
+                <!-- 6. Elder Samuel Kitandwe -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="Mr.%20Samuel%20Kitandwe.jpeg" alt="Elder Samuel Kitandwe">
+                    </div>
+                    <h3>Elder Samuel Kitandwe</h3>
+                    <div class="leader-position">Married Ministry Leader</div>
+                    <p>Oversees ministry to married couples and family enrichment programs.</p>
+                    <span class="event-badge">Elder</span>
+                </div>
+                
+                <!-- 7. Pr. Nelma John Derrick -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Pr. Nelma John Derrick">
+                    </div>
+                    <h3>Pr. Nalima John Derrick</h3>
+                    <div class="leader-position">Prayer, Intercession & Youths Ministry</div>
+                    <p>Coordinates prayer meetings and supports youth ministry activities.</p>
+                    <span class="event-badge">Pastor</span>
+                </div>
+                
+                <!-- 8. Mr. Lubega Abbey -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="Mr.%20Abbey%20Lubega%20.jpeg" alt="Mr. Lubega Abbey">
+                    </div>
+                    <h3>Mr. Lubega Abbey</h3>
+                    <div class="leader-position">Machines, Missions & Evangelism</div>
+                    <p>Oversees church machinery and leads evangelism/mission activities.</p>
+                    <span class="event-badge">Deacon</span>
+                </div>
+                
+                <!-- 9. Mr. Mukundane Perez -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mr. Mukundane Perez">
+                    </div>
+                    <h3>Mr. Mukundane Perez</h3>
+                    <div class="leader-position">Construction/Building Ministry</div>
+                    <p>Oversees church construction projects and building maintenance.</p>
+                    <span class="event-badge">Deacon</span>
+                </div>
+                
+                <!-- 10. Mr. Sendi Joshua -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mr. Sendi Joshua">
+                    </div>
+                    <h3>Mr. Sendi Joshua</h3>
+                    <div class="leader-position">Evangelism Ministry Leader</div>
+                    <p>Leads evangelism initiatives and outreach programs.</p>
+                    <span class="event-badge">Deacon</span>
+                </div>
+                
+                <!-- 11. Mrs. Ngabirano Patricia -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mrs. Ngabirano Patricia">
+                    </div>
+                    <h3>Mrs. Ngabirano Patricia</h3>
+                    <div class="leader-position">Women Ministry Co-Leader</div>
+                    <p>Co-leads the women's ministry with wisdom and dedication.</p>
+                    <span class="event-badge">Deacon</span>
+                </div>
+                
+                <!-- 12. Mr. Ddamulira Kizito -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mr. Ddamulira Kizito">
+                    </div>
+                    <h3>Mr. Ddamulira Kizito</h3>
+                    <div class="leader-position">Men Ministry Co-Leader</div>
+                    <p>Co-leads the men's ministry focusing on spiritual growth.</p>
+                    <span class="event-badge">Elder</span>
+                </div>
+                
+                <!-- 13. Sr. Ritah Nalubega -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sr. Ritah Nalubega">
+                    </div>
+                    <h3>Sr. Ritah Nalubega</h3>
+                    <div class="leader-position">Youths, Media & Administration</div>
+                    <p>Co-leads youth ministry, media, and supports administration.</p>
+                    <span class="event-badge">Pastor</span>
+                </div>
+                
+                <!-- 14. Mrs. Ssenyonjo Dorothy -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="Mrs.%20Dorothy%20Ssenyonjo.jpeg" alt="Mrs. Ssenyonjo Dorothy">
+                    </div>
+                    <h3>Mrs. Ssenyonjo Dorothy</h3>
+                    <div class="leader-position">Administration & Married Ministry</div>
+                    <p>Oversees church administration and supports married ministry.</p>
+                    <span class="event-badge">Deacon</span>
+                </div>
+                
+                <!-- 15. Mrs. Kamya Noeline -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mrs. Kamya Noeline">
+                    </div>
+                    <h3>Mrs. Kamya Noeline</h3>
+                    <div class="leader-position">Sunday School Director</div>
+                    <p>Leads children's Sunday school with creative teaching methods.</p>
+                    <span class="event-badge">Superintendent</span>
+                </div>
+                
+                <!-- 16. Mrs. Mack Daisy -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mrs. Mack Daisy">
+                    </div>
+                    <h3>Mrs. Mack Daisy</h3>
+                    <div class="leader-position">Administration Coordinator</div>
+                    <p>Coordinates church administration and office management.</p>
+                    <span class="event-badge">Admin</span>
+                </div>
+                
+                <!-- 17. Miss Birungi Donah -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Miss Birungi Donah">
+                    </div>
+                    <h3>Miss Birungi Donah</h3>
+                    <div class="leader-position">Music Ministry Leader</div>
+                    <p>Leads the music ministry and coordinates musical aspects of services.</p>
+                    <span class="event-badge">Choirmaster</span>
+                </div>
+                
+                <!-- 18. Ev. Teddy Nalubega -->
+                <div class="ministry-leader-card">
+                    <div class="ministry-leader-img">
+                        <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ev. Teddy Nalubega">
+                    </div>
+                    <h3>Ev. Teddy Nalubega</h3>
+                    <div class="leader-position">New Believers Ministry</div>
+                    <p>Leads discipleship programs for new believers and follow-up.</p>
+                    <span class="event-badge">Evangelist</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Leadership Philosophy Section -->
+    <section class="leadership-philosophy">
+        <div class="container">
+            <h2>Our Leadership Philosophy</h2>
+            <div class="philosophy-content">
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">
+                        <i class="fas fa-hands-praying"></i>
+                    </div>
+                    <h3>Servant Leadership</h3>
+                    <p>We follow Jesus' example of washing feet - leading by serving, not by lording over. Every leader is first a servant.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Team Ministry</h3>
+                    <p>We believe in collaborative leadership where each member's gifts complement others for effective ministry.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="philosophy-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Multiplication</h3>
+                    <p>We invest in raising new leaders, empowering the next generation to continue the work of ministry.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="leaders-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Become a Leader</h2>
+                <p>God is raising leaders in every generation. If you feel called to leadership or want to develop your leadership gifts, we have training and mentoring opportunities available.</p>
+                <p><strong>1 Timothy 3:1:</strong> "Here is a trustworthy saying: Whoever aspires to be an overseer desires a noble task."</p>
+                
+                <div class="cta-buttons">
+                    <a href="events.html" class="btn">Leadership Training Events</a>
+                    <a href="contact.html" class="btn btn-outline">Express Interest in Leadership</a>
+                    <a href="ministries.html" class="btn">Start by Serving</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer - EXACTLY SAME AS EVENTS PAGE -->
+    <footer id="contact">
+        <div class="container">
+            <!-- Current Date Display REMOVED as requested -->
+            
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Nabbingo, Kampala, Uganda</p>
+                    <p><i class="fas fa-phone"></i> +256 776 924 398</p>
+                    <p><i class="fas fa-phone"></i> +256 706 098 195</p>
+                    <p><i class="fas fa-envelope"></i> pastordorothy2002@yahoo.co.uk</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri 9AM-5PM</p>
+                    <a href="contact.html" class="btn btn-outline" style="margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.85rem;">Get Directions</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="ministries.html">Ministries</a>
+                    <a href="events.html">Events</a>
+                    <a href="leaders.html">Leaders</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday:</strong> 8:00 AM to 9:00 AM</p>
+                    <p><strong>Sunday:</strong> 9:30 AM to 1:00 PM</p>
+                    <p><strong>Wednesday:</strong> 4:00 PM to 8:00 PM</p>
+                    <p><strong>Friday:</strong> 6:00 PM to 10:00 PM</p>
+                    <p><strong>2nd Friday of the month:</strong> Overnight Prayer</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+    <a href="https://www.facebook.com/pastordorothybinwe" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://x.com/prdorothybinwe?lang=en" class="social-link" target="_blank"><i class="fa-brands fa-x"></i></a>
+    <a href="https://www.instagram.com/pastordorothybinwe_.dr/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/channel/UCoKA8sqPGdydNkciG8uex0A" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/256776924398" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Victory Word of Faith Church International. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Navigation - EXACTLY SAME AS EVENTS PAGE
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Set current year only (date removed as requested)
+        const now = new Date();
+        document.getElementById('currentYear').textContent = now.getFullYear();
+        
+        // Highlight current page in navigation - EXACTLY SAME AS EVENTS PAGE
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for anchor links - EXACTLY SAME AS EVENTS PAGE
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                
+                if (targetId.startsWith('#') && targetId !== '#') {
+                    e.preventDefault();
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Handle window resize for better mobile experience - EXACTLY SAME AS EVENTS PAGE
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        // Ministry leader card animation
+        const ministryCards = document.querySelectorAll('.ministry-leader-card');
+        ministryCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95) translateY(10px)';
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'scale(0.95) translateY(0)';
+            }, index * 30);
+        });
+    </script>
+</body>
+</html>

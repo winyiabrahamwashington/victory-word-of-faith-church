@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Victory Word of Faith Church International</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6AB;
+            --gold-dark: #B7950B;
+            --red: #AA0101;
+            --red-dark: #800000;
+            --red-light: #E8C8C8;
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --black: #333333;
+            --gray: #666666;
+            --light-gray: #EEEEEE;
+            
+            --header-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: var(--off-white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: var(--header-font);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--red-dark);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+            position: relative;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--red-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Navigation - EXACTLY SAME AS EVENTS PAGE */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--red-dark);
+            padding: 0.75rem 0;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+        
+        /* Contact Hero Section - Matching Events Page Style */
+        .contact-hero {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('g.jpeg') no-repeat center center/cover;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            margin-top: 0;
+            padding-top: 60px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-hero h1 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .contact-hero p {
+            color: var(--white);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--gold);
+        }
+        
+        /* Contact Information Section */
+        .contact-info {
+            background-color: var(--white);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .contact-card {
+            background-color: var(--off-white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: var(--red-dark);
+        }
+        
+        .contact-details {
+            margin-top: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .contact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .contact-item i {
+            color: var(--gold-dark);
+            font-size: 1rem;
+            margin-right: 0.75rem;
+            margin-top: 0.25rem;
+            min-width: 16px;
+        }
+        
+        /* Map Section */
+        .map-section {
+            background-color: var(--white);
+        }
+        
+        .map-container {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 400px;
+            position: relative;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--white);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            max-width: 300px;
+            z-index: 10;
+        }
+        
+        /* Departments Section - REMOVED AS REQUESTED */
+        
+        /* Office Hours Section */
+        .hours-section {
+            background-color: var(--white);
+        }
+        
+        .hours-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .hours-table th {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .hours-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .hours-table tr:hover {
+            background-color: var(--off-white);
+        }
+        
+        .hours-table .day {
+            font-weight: 600;
+            color: var(--red-dark);
+            width: 30%;
+        }
+        
+        .hours-table .time {
+            color: var(--gold-dark);
+            font-weight: 600;
+        }
+        
+        /* Emergency contact REMOVED as requested */
+        
+        /* FAQ Section */
+        .faq-section {
+            background-color: var(--off-white);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-question {
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--red-dark);
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--off-white);
+        }
+        
+        .faq-question i {
+            color: var(--gold-dark);
+            transition: var(--transition);
+        }
+        
+        .faq-answer {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 1rem 1rem;
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* CTA Section - REMOVED AS REQUESTED */
+        
+        /* Footer - EXACTLY SAME AS EVENTS PAGE */
+        footer {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: var(--white);
+            opacity: 0.8;
+            transition: var(--transition);
+            margin-bottom: 0.4rem;
+            display: block;
+            font-size: 0.85rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--gold);
+            padding-left: 3px;
+        }
+        
+        .footer-column i {
+            margin-right: 0.5rem;
+            color: var(--gold);
+            width: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        
+        .social-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--white) !important; /* ADD !important to force white color */
+    opacity: 0.9;
+    font-size: 0.8rem;
+}
+
+.copyright p {
+    color: var(--white) !important; /* ADD this to override paragraph color */
+}
+        
+        /* Responsive Styles - EXACTLY SAME AS EVENTS PAGE */
+        @media (max-width: 992px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--red-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                transition: var(--transition);
+                padding: 1.5rem 0;
+                overflow-y: auto;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hours-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-hero {
+                height: auto;
+                min-height: 50vh;
+                padding: 70px 0 2rem;
+            }
+            
+            .contact-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .footer-content {
+                gap: 1rem;
+            }
+            
+            .map-overlay {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 1rem;
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 2rem 0;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 1rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .contact-hero {
+                height: auto;
+                min-height: 50vh;
+                padding: 70px 0 2rem;
+            }
+            
+            .contact-hero h1 {
+                font-size: 1.7rem;
+            }
+            
+            .footer-column {
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .contact-hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .footer-column {
+                padding: 0 0.5rem;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .contact-hero h1 {
+                font-size: 1.4rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-logo {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation - EXACTLY SAME AS EVENTS PAGE -->
+    <nav id="navbar">
+        <div class="nav-container container">
+            <a href="index.html" class="nav-logo">VWF<span>CI</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="ministries.html">Ministries</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="leaders.html">Leaders</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Get in Touch With Us</h1>
+                <p>We're here to serve you. Whether you have questions, need prayer, want to visit, or are interested in joining our church family, we'd love to hear from you.</p>
+                <div class="hero-badges">
+                    <span class="hero-badge"><i class="fas fa-map-marker-alt"></i> Nabbingo, Kampala</span>
+                    <span class="hero-badge"><i class="fas fa-clock"></i> Open Mon-Fri 9AM-5PM</span>
+                    <span class="hero-badge"><i class="fas fa-language"></i> English & Luganda</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Information Section -->
+    <section class="contact-info">
+        <div class="container">
+            <h2>Contact Information</h2>
+            <p class="text-center" style="max-width: 800px; margin: 0 auto 2rem; color: var(--gray);">
+                Reach out to us through any of these channels. We're ready to assist you with whatever you need.
+            </p>
+            
+            <div class="contact-grid">
+                <!-- Main Church Contact - Modified as requested -->
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3>Church Headquarters</h3>
+                    <p>Our main church campus in Nabbingo, Kampala. All administrative offices are located here.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Phone Numbers</strong>
+                                <p>Main Office: +256 776 924 398<br>
+                                Admin Office: +256 706 098 195</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email Address</strong>
+                                <p>pastordorothy2002@yahoo.co.uk</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <h2>Visit Our Location</h2>
+            <p class="text-center" style="max-width: 800px; margin: 0 auto 2rem; color: var(--gray);">
+                Find us easily in Nabbingo, Kampala. We're located along the Kampala-Masaka Road, easily accessible by public transport or private vehicle.
+            </p>
+            
+            <div class="map-container">
+                <!-- Map Placeholder - In a real implementation, you would embed Google Maps here -->
+                <div style="width: 100%; height: 100%; background-color: var(--light-gray); display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center; padding: 2rem;">
+                        <i class="fas fa-map-marker-alt" style="font-size: 3rem; color: var(--red); margin-bottom: 1rem;"></i>
+                        <h3>Victory Word of Faith Church International</h3>
+                        <p>Nabbingo, Kampala - Masaka Road</p>
+                        <p>Kampala, Uganda</p>
+                        <a href="https://maps.google.com/?q=Victory+Word+of+Faith+Church+International,Nabbingo,Kampala,Uganda" 
+                           target="_blank" class="btn" style="margin-top: 1rem;">Open in Google Maps</a>
+                    </div>
+                </div>
+                
+                <div class="map-overlay">
+                    <h4>Directions</h4>
+                    <p><strong>From Kampala City:</strong> Take Masaka Road towards Masaka. Pass Nabbingo Trading center. We're 500m after Nabbingo Trading Centre on your right.</p>
+                    <p><strong>Public Transport:</strong> Take any taxi going to Masaka and alight at Nabbingo Trading Centre. Walk 5 minutes towards Kampala.</p>
+                    <p><strong>Parking:</strong> Ample parking available on church premises.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Office Hours Section -->
+    <section class="hours-section">
+        <div class="container">
+            <h2>Office & Service Hours</h2>
+            <div class="hours-container">
+                <div>
+                    <h3>Church Office Hours</h3>
+                    <p>Our administrative offices are open during these hours for in-person visits, counseling appointments, and administrative matters.</p>
+                    
+                    <table class="hours-table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Office Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="day">Monday - Thursday</td>
+                                <td class="time">9:00 AM - 5:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="day">Friday</td>
+                                <td class="time">9:00 AM - 4:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="day">Saturday</td>
+                                <td class="time">9:00 AM - 1:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="day">Sunday</td>
+                                <td class="time">Closed (Worship Services Only)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- After-Hours Emergency REMOVED as requested -->
+                </div>
+                
+                <div>
+                    <h3>Worship Service Times</h3>
+                    <p>Join us for worship, teaching, and fellowship at any of our regular services.</p>
+                    
+                    <table class="hours-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Day & Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="day">Sunday Morning Worship</td>
+                                <td class="time">8:00 AM & 9:00 AM</td>
+                            </tr>
+                            <tr>
+                                <td class="day">Wednesday Bible Study</td>
+                                <td class="time">6:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="day">Friday Night Prayer</td>
+                                <td class="time">6:00 PM</td>
+                            </tr>
+                            <tr>
+                                <td class="day">Monthly Overnight Night</td>
+                                <td class="time">2nd Friday, 6:00 PM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <p class="text-center" style="max-width: 800px; margin: 0 auto 2rem; color: var(--gray);">
+                Find quick answers to common questions about visiting, connecting, and getting involved with our church.
+            </p>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What should I expect on my first visit?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You'll be warmly welcomed by our hospitality team. Services include passionate worship (in English and Luganda), practical Bible teaching, and prayer ministry. Dress is casual to business casual - come as you are!</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you have programs for children and youth?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We have Victory Kids Ministry for ages 3-12 during all Sunday services. Youth Explosion Ministry meets Sundays at 3:00 PM for ages 13-25. All children's and youth workers are trained and background-checked for safety.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How can I get involved in ministry?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We have over 15 different ministries you can join! Visit our Ministries page to see them all. Check our contact page and reach out to us for more information.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer counseling services?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer biblical counseling for individuals, couples, and families. Counseling is by appointment only and is completely confidential. Contact our counseling department at pastordorothy2002@yahoo.co.uk or call +256 706 098 195 to schedule.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is the church accessible for people with disabilities?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, our facilities are wheelchair accessible with ramps, accessible restrooms, and reserved parking. Please contact us in advance if you need special accommodations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer - EXACTLY SAME AS EVENTS PAGE -->
+    <footer id="contact">
+        <div class="container">
+            <div class="current-date" id="currentDate"></div>
+            
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Nabbingo, Kampala, Uganda</p>
+                    <p><i class="fas fa-phone"></i> +256 776 924 398</p>
+                    <p><i class="fas fa-phone"></i> +256 706 098 195</p>
+                    <p><i class="fas fa-envelope"></i> pastordorothy2002@yahoo.co.uk</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri 9AM-5PM</p>
+                    <a href="contact.html" class="btn btn-outline" style="margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.85rem;">Get Directions</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="ministries.html">Ministries</a>
+                    <a href="events.html">Events</a>
+                    <a href="leaders.html">Leaders</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday:</strong> 8:00 AM to 9:00 AM</p>
+                    <p><strong>Sunday:</strong> 9:30 AM to 1:00 PM</p>
+                    <p><strong>Wednesday:</strong> 4:00 PM to 8:00 PM</p>
+                    <p><strong>Friday:</strong> 6:00 PM to 10:00 PM</p>
+                    <p><strong>2nd Friday of the month:</strong> Overnight Prayer</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+    <a href="https://www.facebook.com/pastordorothybinwe" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://x.com/prdorothybinwe?lang=en" class="social-link" target="_blank"><i class="fa-brands fa-x"></i></a>
+    <a href="https://www.instagram.com/pastordorothybinwe_.dr/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/channel/UCoKA8sqPGdydNkciG8uex0A" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/256776924398" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Victory Word of Faith Church International. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Navigation - EXACTLY SAME AS EVENTS PAGE
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Set current year only (date removed as requested)
+        const now = new Date();
+        document.getElementById('currentYear').textContent = now.getFullYear();
+        
+        // Set current date display
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+        
+        // Highlight current page in navigation - EXACTLY SAME AS EVENTS PAGE
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for anchor links - EXACTLY SAME AS EVENTS PAGE
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                
+                if (targetId.startsWith('#') && targetId !== '#') {
+                    e.preventDefault();
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Handle window resize for better mobile experience - EXACTLY SAME AS EVENTS PAGE
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Close other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Contact card animation
+        const contactCards = document.querySelectorAll('.contact-card');
+        contactCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(10px)';
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+        
+        // Office hours check
+        function checkOfficeHours() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Sunday, 1 = Monday, etc.
+            const hour = now.getHours();
+            
+            let isOpen = false;
+            let message = '';
+            
+            if (day === 0) { // Sunday
+                message = "Office is closed today (Sunday) - Join us for worship services!";
+            } else if (day === 6) { // Saturday
+                if (hour >= 9 && hour < 13) {
+                    isOpen = true;
+                    message = "Office is open until 1:00 PM today";
+                } else {
+                    message = "Office is closed - Opens Monday at 9:00 AM";
+                }
+            } else if (day >= 1 && day <= 4) { // Monday-Thursday
+                if (hour >= 9 && hour < 17) {
+                    isOpen = true;
+                    const closeHour = 17;
+                    const hoursLeft = closeHour - hour;
+                    message = `Office is open - Closes in ${hoursLeft} hour${hoursLeft !== 1 ? 's' : ''}`;
+                } else if (hour < 9) {
+                    message = "Office opens at 9:00 AM today";
+                } else {
+                    message = "Office is closed - Opens tomorrow at 9:00 AM";
+                }
+            } else if (day === 5) { // Friday
+                if (hour >= 9 && hour < 16) {
+                    isOpen = true;
+                    const closeHour = 16;
+                    const hoursLeft = closeHour - hour;
+                    message = `Office is open - Closes in ${hoursLeft} hour${hoursLeft !== 1 ? 's' : ''}`;
+                } else if (hour < 9) {
+                    message = "Office opens at 9:00 AM today (closes at 4:00 PM)";
+                } else {
+                    message = "Office is closed - Opens Monday at 9:00 AM";
+                }
+            }
+            
+            console.log(message);
+        }
+        
+        // Call office hours check
+        checkOfficeHours();
+        
+        // Make phone numbers clickable
+        document.querySelectorAll('p:contains("+256")').forEach(p => {
+            const text = p.textContent;
+            const phoneRegex = /(\+256\s\d{3}\s\d{6})/g;
+            const phoneNumbers = text.match(phoneRegex);
+            
+            if (phoneNumbers) {
+                let newHTML = text;
+                phoneNumbers.forEach(phone => {
+                    const cleanPhone = phone.replace(/\s/g, '');
+                    newHTML = newHTML.replace(phone, `<a href="tel:${cleanPhone}" style="color: var(--red); font-weight: 600;">${phone}</a>`);
+                });
+                p.innerHTML = newHTML;
+            }
+        });
+    </script>
+</body>
+</html>

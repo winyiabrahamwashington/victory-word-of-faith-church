@@ -1,0 +1,2016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Ministries - Victory Word of Faith Church International</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6AB;
+            --gold-dark: #B7950B;
+            --red: #AA0101;
+            --red-dark: #800000;
+            --red-light: #E8C8C8;
+            --white: #ffffff;
+            --off-white: #f9f9f9;
+            --black: #333333;
+            --gray: #201f1f;
+            --light-gray: #EEEEEE;
+            
+            --header-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: var(--off-white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: var(--header-font);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--red-dark);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+            position: relative;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--white) !important; /* CHANGED: Set text color to white */
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white) !important; /* CHANGED: Keep white on hover */
+        }
+        
+        /* FIX 1: Changed btn-outline to have proper background color */
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold) !important; /* FIX: Changed to gold text */
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--red-dark) !important; /* FIX: Changed to red-dark text on hover */
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Navigation - MATCHING INDEX.HTML */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--red-dark);
+            padding: 0.75rem 0;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* FIX 2: Removed margin-top from ministries-hero to eliminate white line */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+        
+        /* Ministries Hero Section - MATCHING INDEX.HTML STYLE */
+        .ministries-hero {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('623353036_1372552941551041_5972624907070935435_n.jpg') no-repeat center center/cover;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            /* FIX 2: Removed margin-top: 60px; to eliminate white line */
+            padding: 0;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%;
+        }
+        
+        .hero-content h1 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            /* FIX 3: Added text shadow for better visibility on mobile */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+        
+        .hero-content p {
+            color: var(--white);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            /* FIX 3: Added text shadow for better visibility on mobile */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .hero-badge {
+            background-color: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--gold);
+            /* FIX 3: Added text shadow for better visibility on mobile */
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* Ministry Categories */
+        .categories-section {
+            background-color: var(--white);
+        }
+        
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-tab {
+            padding: 0.6rem 1.2rem;
+            background-color: var(--off-white);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .category-tab:hover,
+        .category-tab.active {
+            background-color: var(--red-dark);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+        
+        /* Ministry Cards - SHORTER VERSION */
+        .ministry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .ministry-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border-top: 4px solid var(--gold);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ministry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        /* CHANGED: Removed ministry-badge styles */
+        .ministry-badge {
+            display: none; /* CHANGED: Hide the badges */
+        }
+        
+        .ministry-image {
+            height: 160px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ministry-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .ministry-card:hover .ministry-image img {
+            transform: scale(1.05);
+        }
+        
+        .ministry-content {
+            padding: 1.25rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ministry-content h3 {
+            color: var(--red-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .ministry-content p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        
+        .ministry-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.75rem 0;
+            padding: 0.75rem 0;
+            border-top: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .meta-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .meta-item i {
+            color: var(--gold-dark);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .meta-item span {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Ministry Detail Modal */
+        .ministry-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: modalFade 0.3s ease;
+        }
+        
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-header {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            color: var(--white);
+            text-align: left;
+            margin: 0;
+        }
+        
+        .modal-header h2:after {
+            display: none;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--gold);
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Featured Ministry Section */
+        .featured-ministry {
+            background-color: var(--off-white);
+        }
+        
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-text {
+            padding: 1.5rem;
+        }
+        
+        .featured-text h2 {
+            text-align: left;
+            margin: 0 0 1rem 0;
+        }
+        
+        .featured-text h2:after {
+            margin: 0.5rem 0 0 0;
+        }
+        
+        .ministry-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 0.75rem;
+            background-color: var(--off-white);
+            border-radius: var(--border-radius);
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--red-dark);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* CTA Section - NOW ABOVE INVOLVED SECTION */
+        .cta-section {
+            background-color: var(--off-white);
+        }
+        
+        .cta-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer - MATCHING INDEX.HTML */
+        footer {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: var(--white);
+            opacity: 0.8;
+            transition: var(--transition);
+            margin-bottom: 0.4rem;
+            display: block;
+            font-size: 0.85rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--gold);
+            padding-left: 3px;
+        }
+        
+        .footer-column i {
+            margin-right: 0.5rem;
+            color: var(--gold);
+            width: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 0.75rem;
+        }
+        
+        .newsletter-form input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            flex: 1;
+            font-family: var(--body-font);
+            font-size: 0.85rem;
+        }
+        
+        .newsletter-form button {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            border: none;
+            padding: 0 1rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: var(--gold-dark);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        
+        .social-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white) !important; /* ADD !important to force white color */
+            opacity: 0.9;
+            font-size: 0.8rem;
+        }
+        
+        .copyright p {
+            color: var(--white) !important; /* ADD this to override paragraph color */
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .teams-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--red-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                transition: var(--transition);
+                padding: 1.5rem 0;
+                overflow-y: auto;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            /* FIX 3: Adjusted hero section for mobile visibility */
+            .ministries-hero {
+                /* FIX 2: Removed margin-top: 60px; already done above */
+                height: 50vh;
+                min-height: 350px;
+                padding-top: 60px; /* FIX 3: Added padding to account for fixed nav */
+            }
+            
+            .hero-content h1 {
+                font-size: 1.8rem;
+                /* FIX 3: Increased text shadow for better mobile visibility */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+            }
+            
+            .hero-content p {
+                /* FIX 3: Increased text shadow for better mobile visibility */
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .ministry-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .modal-content {
+                max-height: 95vh;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 2rem 0;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 1rem;
+            }
+            
+            .ministry-grid,
+            .teams-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            /* FIX 3: Further adjustments for mobile hero section */
+            .ministries-hero {
+                height: 40vh;
+                min-height: 300px;
+                padding-top: 60px; /* FIX 3: Added padding to account for fixed nav */
+            }
+            
+            .hero-content h1 {
+                font-size: 1.7rem;
+                /* FIX 3: Increased text shadow for better mobile visibility */
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
+            }
+            
+            .hero-badge {
+                /* FIX 3: Increased text shadow for better mobile visibility */
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 4px;
+                margin-bottom: 0.5rem;
+            }
+            
+            .newsletter-form button {
+                border-radius: 4px;
+                padding: 0.5rem;
+            }
+            
+            .ministry-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.5rem;
+                /* FIX 3: Increased text shadow for better mobile visibility */
+                text-shadow: 2px 2px 6px rgba(0, 0, 0, 1);
+            }
+            
+            .hero-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-tabs {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 1rem;
+            }
+            
+            .cta-buttons .btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .footer-column {
+                padding: 0 0.5rem;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .hero-content h1 {
+                font-size: 1.4rem;
+                /* FIX 3: Increased text shadow for better mobile visibility */
+                text-shadow: 2px 2px 6px rgba(0, 0, 0, 1);
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-logo {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container container">
+            <a href="index.html" class="nav-logo">VWF<span>CI</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="ministries.html" class="active">Ministries</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="leaders.html">Leaders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Ministry Detail Modal -->
+    <div class="ministry-modal" id="ministryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Ministry Details</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Ministry" class="modal-image">
+                <div id="modalDetails"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ministries Hero Section -->
+    <section class="ministries-hero">
+        <div class="hero-content">
+            <h1>Discover Your Place in Ministry</h1>
+            <p>Find your ministry and join a community where you can grow, serve, and make a difference.</p>
+            <div class="hero-badges">
+                
+                <span class="hero-badge"><i class="fas fa-language"></i> English & Luganda</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Ministry Categories -->
+    <section class="categories-section">
+        <div class="container">
+            <h2>Our Ministry Categories</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Explore ministries designed for every age group and interest. Click on any ministry to learn more details.
+            </p>
+            
+            <div class="category-tabs">
+                <div class="category-tab active" data-category="all">All Ministries</div>
+                <div class="category-tab" data-category="service">Service Ministries</div>
+                <div class="category-tab" data-category="worship">Worship & Creative</div>
+                <div class="category-tab" data-category="groups">Group Ministries</div>
+                <div class="category-tab" data-category="support">Support Ministries</div>
+            </div>
+            
+            <div class="ministry-grid">
+                <!-- Ushering Ministry -->
+                <div class="ministry-card" data-category="service" data-ministry="ushering">
+                    <div class="ministry-image">
+                        <img src="yy.jpeg" alt="Ushering Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Ushering Ministry</h3>
+                        <p>Creating a welcoming environment by greeting attendees, assisting with seating, and ensuring smooth service flow.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Sundays</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>All Services</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>30+ Ushers</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Machines Ministry -->
+                <div class="ministry-card" data-category="service" data-ministry="machines">
+                    <div class="ministry-image">
+                        <img src="o.jpeg" alt="Machines Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Machines Ministry</h3>
+                        <p>Maintaining and operating church equipment and machinery to support all ministry activities and events.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Weekly</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Flexible</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>15+ Members</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Construction/Building Ministry -->
+                <div class="ministry-card" data-category="service" data-ministry="construction">
+                    <div class="ministry-image">
+                        <img src="zz.jpeg" alt="Construction Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Construction/Building</h3>
+                        <p>Maintaining church facilities and undertaking construction projects to support church growth and community needs.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Saturdays</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>8:00 AM</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>25+ Workers</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Evangelism Ministry -->
+                <div class="ministry-card" data-category="support" data-ministry="evangelism">
+                    <div class="ministry-image">
+                        <img src="m.jpeg" alt="Evangelism Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Evangelism Ministry</h3>
+                        <p>Sharing the Gospel through outreach programs, street evangelism, and community engagement activities.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Monthly</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Various Times</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>50+ Evangelists</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Security Ministry -->
+                <div class="ministry-card" data-category="service" data-ministry="security">
+                    <div class="ministry-image">
+                        <img src="hh.jpg" alt="Security Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Security Ministry</h3>
+                        <p>Ensuring the safety and security of all church members, visitors, and property during services and events.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>All Services</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>During Events</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>20+ Guards</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Excellency Ministry -->
+                <div class="ministry-card" data-category="support" data-ministry="excellency">
+                    <div class="ministry-image">
+                        <img src="ll.jpeg" alt="Excellency Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Excellency Ministry</h3>
+                        <p>Promoting excellence in all church activities through quality assurance, training, and continuous improvement.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Monthly</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Meetings</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>12+ Members</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Intercession Ministry -->
+                <div class="ministry-card" data-category="support" data-ministry="intercession">
+                    <div class="ministry-image">
+                        <img src="a.jpeg" alt="Intercession Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Intercession Ministry</h3>
+                        <p>Dedicated prayer warriors covering the church, leadership, members, and community in focused prayer.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Weekly</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>6:00 AM</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>40+ Intercessors</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Mass Choir Ministry -->
+                <div class="ministry-card" data-category="worship" data-ministry="masschoir">
+                    <div class="ministry-image">
+                        <img src="rr.jpeg" alt="Mass Choir Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Mass Choir Ministry</h3>
+                        <p>Large choir ministry leading congregational worship with powerful vocals and harmonious praise.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Sundays</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>During Services</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>60+ Members</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Youths Ministry -->
+                <div class="ministry-card" data-category="groups" data-ministry="youths">
+                    <div class="ministry-image">
+                        <img src="xx.jpeg" alt="Youths Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Youths Ministry</h3>
+                        <p>Engaging young people through relevant teaching, fellowship, and activities designed for spiritual growth.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Saturdays</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>5:00 PM</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>100+ Youth</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Marrieds Ministry -->
+                <div class="ministry-card" data-category="groups" data-ministry="marrieds">
+                    <div class="ministry-image">
+                        <img src="aa.jpeg" alt="Marrieds Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Marrieds Ministry</h3>
+                        <p>Strengthening marriages through biblical teaching, couple's fellowship, and marriage enrichment programs.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Monthly</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>3rd Saturday</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>50+ Couples</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Women Ministry -->
+                <div class="ministry-card" data-category="groups" data-ministry="women">
+                    <div class="ministry-image">
+                        <img src="tt.jpeg" alt="Women Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Women Ministry</h3>
+                        <p>Empowering women through Bible studies, fellowship, and activities that address women's unique needs.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Monthly</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>1st Saturday</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>80+ Women</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Men Ministry -->
+                <div class="ministry-card" data-category="groups" data-ministry="men">
+                    <div class="ministry-image">
+                        <img src="kk.jpeg" alt="Men Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Men Ministry</h3>
+                        <p>Building godly men through fellowship, accountability, and teaching on biblical manhood and leadership.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Monthly</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>2nd Saturday</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>60+ Men</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Media Ministry -->
+                <div class="ministry-card" data-category="worship" data-ministry="media">
+                    <div class="ministry-image">
+                        <img src="ss.jpeg" alt="Media Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Media Ministry</h3>
+                        <p>Managing sound, lighting, video recording, live streaming, and all church media communications.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>All Services</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Full Time</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>20+ Team</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Sunday School Ministry -->
+                <div class="ministry-card" data-category="groups" data-ministry="sundayschool">
+                    <div class="ministry-image">
+                        <img src="s.jpeg" alt="Sunday School Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Sunday School Ministry</h3>
+                        <p>Teaching children and adults Biblical principles through structured classes and age-appropriate curriculum.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Sundays</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>9:00 AM</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>15+ Teachers</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+                
+                <!-- Administration Ministry -->
+                <div class="ministry-card" data-category="support" data-ministry="administration">
+                    <div class="ministry-image">
+                        <img src="ww.jpeg" alt="Administration Ministry">
+                    </div>
+                    <div class="ministry-content">
+                        <h3>Administration Ministry</h3>
+                        <p>Supporting church operations through administrative tasks, record keeping, and office management.</p>
+                        
+                        <div class="ministry-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Weekdays</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>9AM-5PM</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>10+ Staff</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn view-details-btn" style="margin-top: 0.5rem;">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Ministry -->
+    <section class="featured-ministry">
+        <div class="container">
+            <div class="featured-content">
+                <div class="featured-image">
+                    <img src="a.jpeg" alt="Intercession Ministry">
+                </div>
+                <div class="featured-text">
+                    <h2>Intercession Ministry</h2>
+                    <p>The backbone of our church, the Intercession Ministry is dedicated to covering our church, community, and nation in prayer. We believe prayer changes everything.</p>
+                    
+                    <div class="ministry-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Prayer Chain</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Prayer Teams</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1000+</div>
+                            <div class="stat-label">Prayers Monthly</div>
+                        </div>
+                    </div>
+                    
+                    <p><strong>Meeting Times:</strong> Tuesday 6AM, Friday 7:30PM, and continuous prayer chain</p>
+                    <p><strong>Activities:</strong> Intercessory prayer, prayer walks, prayer retreats, and 24/7 prayer covering</p>
+                    
+                    <div class="cta-buttons">
+                        <a href="contact.html" class="btn">Join Prayer Team</a>
+                        <a href="contact.html" class="btn btn-outline">Submit Prayer Request</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Your Gifts Are Needed</h2>
+                <p>God has given you unique gifts and talents to serve His kingdom. Don't let them go unused. Join a ministry today and experience the joy of serving others.</p>
+                <p><strong>1 Peter 4:10:</strong> "Each of you should use whatever gift you have received to serve others, as faithful stewards of God's grace in its various forms."</p>
+                
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn">I Want to Serve</a>
+                    <a href="services.html" class="btn btn-outline">Attend a Service First</a>
+                    <a href="leaders.html" class="btn">Meet Ministry Leaders</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Nabbingo, Kampala, Uganda</p>
+                    <p><i class="fas fa-phone"></i> +256 776 924 398</p>
+                    <p><i class="fas fa-phone"></i> +256 706 098 195</p>
+                    <p><i class="fas fa-envelope"></i> pastordorothy2002@yahoo.co.uk</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri 9AM-5PM</p>
+                    <a href="contact.html" class="btn btn-outline" style="margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.85rem;">Get Directions</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="ministries.html">Ministries</a>
+                    <a href="events.html">Events</a>
+                    <a href="leaders.html">Leaders</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday:</strong> 8:00 AM to 9:00 AM</p>
+                    <p><strong>Sunday:</strong> 9:30 AM to 1:00 PM</p>
+                    <p><strong>Wednesday:</strong> 4:00 PM to 8:00 PM</p>
+                    <p><strong>Friday:</strong> 6:00 PM to 10:00 PM</p>
+                    <p><strong>2nd Friday of the month:</strong> Overnight Prayer</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+    <a href="https://www.facebook.com/pastordorothybinwe" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://x.com/prdorothybinwe?lang=en" class="social-link" target="_blank"><i class="fa-brands fa-x"></i></a>
+    <a href="https://www.instagram.com/pastordorothybinwe_.dr/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/channel/UCoKA8sqPGdydNkciG8uex0A" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/256776924398" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Victory Word of Faith Church International. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Set current year
+        const now = new Date();
+        document.getElementById('currentYear').textContent = now.getFullYear();
+        
+        // Highlight current page in navigation
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        // Ministry Category Filtering
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const ministryCards = document.querySelectorAll('.ministry-card');
+        
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.getAttribute('data-category');
+                
+                // Filter ministry cards
+                ministryCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 400);
+                    }
+                });
+            });
+        });
+        
+        // Ministry Modal Functionality
+        const ministryModal = document.getElementById('ministryModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalImage = document.getElementById('modalImage');
+        const modalDetails = document.getElementById('modalDetails');
+        const viewDetailsBtns = document.querySelectorAll('.view-details-btn');
+        
+        // Ministry details data for ALL 15 ministries
+        const ministryDetails = {
+            ushering: {
+                title: "Ushering Ministry",
+                image: "yy.jpeg",
+                description: `
+                    <p>The Ushering Ministry creates a welcoming environment by greeting attendees, assisting with seating, distributing materials, and ensuring smooth service flow throughout all church activities.</p>
+                    
+                    <h3>Responsibilities:</h3>
+                    <ul>
+                        <li>Greet and welcome all church attendees</li>
+                        <li>Assist with seating and crowd management</li>
+                        <li>Distribute church bulletins and materials</li>
+                        <li>Collect offerings and tithes</li>
+                        <li>Assist visitors and new members</li>
+                        <li>Maintain order during services</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Every Sunday before each service</p>
+                    <p><strong>Training:</strong> Monthly training sessions</p>
+                    <p><strong>Requirements:</strong> Friendly demeanor, punctuality, good communication skills</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Ushering Team</a>
+                    </div>
+                `
+            },
+            machines: {
+                title: "Machines Ministry",
+                image: "o.jpeg",
+                description: `
+                    <p>The Machines Ministry maintains and operates all church equipment and machinery to support ministry activities, ensuring everything functions properly for services and events.</p>
+                    
+                    <h3>Responsibilities:</h3>
+                    <ul>
+                        <li>Maintain church sound equipment</li>
+                        <li>Operate and maintain generators</li>
+                        <li>Manage air conditioning systems</li>
+                        <li>Maintain church vehicles</li>
+                        <li>Equipment setup for special events</li>
+                        <li>Regular maintenance scheduling</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Weekly maintenance sessions</p>
+                    <p><strong>Training:</strong> Technical training provided</p>
+                    <p><strong>Requirements:</strong> Technical skills, mechanical aptitude, reliability</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Machines Team</a>
+                    </div>
+                `
+            },
+            construction: {
+                title: "Construction/Building Ministry",
+                image: "zz.jpeg",
+                description: `
+                    <p>The Construction/Building Ministry maintains church facilities and undertakes construction projects to support church growth and meet community needs through practical service.</p>
+                    
+                    <h3>Responsibilities:</h3>
+                    <ul>
+                        <li>Building maintenance and repairs</li>
+                        <li>New construction projects</li>
+                        <li>Renovation work</li>
+                        <li>Landscaping and grounds keeping</li>
+                        <li>Community building projects</li>
+                        <li>Safety inspections</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Every Saturday at 8:00 AM</p>
+                    <p><strong>Projects:</strong> Ongoing maintenance and special projects</p>
+                    <p><strong>Requirements:</strong> Construction skills, teamwork, commitment</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Construction Team</a>
+                    </div>
+                `
+            },
+            evangelism: {
+                title: "Evangelism Ministry",
+                image: "m.jpeg",
+                description: `
+                    <p>The Evangelism Ministry focuses on sharing the Gospel through various outreach programs, street evangelism, and community engagement activities to reach the lost with the message of salvation.</p>
+                    
+                    <h3>Activities:</h3>
+                    <ul>
+                        <li>Street evangelism and outreach</li>
+                        <li>Door-to-door visitation</li>
+                        <li>Community evangelism events</li>
+                        <li>Evangelism training workshops</li>
+                        <li>Follow-up with new converts</li>
+                        <li>Open air crusades</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Monthly outreach events</p>
+                    <p><strong>Training:</strong> Evangelism training provided monthly</p>
+                    <p><strong>Requirements:</strong> Heart for the lost, willingness to share faith</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Evangelism Team</a>
+                    </div>
+                `
+            },
+            security: {
+                title: "Security Ministry",
+                image: "hh.jpg",
+                description: `
+                    <p>The Security Ministry ensures the safety and security of all church members, visitors, and property during services, events, and throughout the week.</p>
+                    
+                    <h3>Responsibilities:</h3>
+                    <ul>
+                        <li>Monitor church premises during services</li>
+                        <li>Parking lot security</li>
+                        <li>Crowd control for large events</li>
+                        <li>Emergency response coordination</li>
+                        <li>Property security monitoring</li>
+                        <li>First aid and emergency assistance</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> During all church services and events</p>
+                    <p><strong>Training:</strong> Security and first aid training provided</p>
+                    <p><strong>Requirements:</strong> Alertness, responsibility, good judgment</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Security Team</a>
+                    </div>
+                `
+            },
+            excellency: {
+                title: "Excellency Ministry",
+                image: "ll.jpeg",
+                description: `
+                    <p>The Excellency Ministry promotes excellence in all church activities through quality assurance, training, and continuous improvement initiatives.</p>
+                    
+                    <h3>Responsibilities:</h3>
+                    <ul>
+                        <li>Quality control for church services</li>
+                        <li>Training and development programs</li>
+                        <li>Process improvement initiatives</li>
+                        <li>Standards development and implementation</li>
+                        <li>Ministry evaluation and feedback</li>
+                        <li>Excellence culture promotion</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Monthly meetings</p>
+                    <p><strong>Focus:</strong> Continuous improvement and excellence</p>
+                    <p><strong>Requirements:</strong> Attention to detail, improvement mindset</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Excellency Team</a>
+                    </div>
+                `
+            },
+            intercession: {
+                title: "Intercession Ministry",
+                image: "a.jpeg",
+                description: `
+                    <p>The Intercession Ministry consists of dedicated prayer warriors who cover the church, leadership, members, and community in focused, strategic prayer.</p>
+                    
+                    <h3>Activities:</h3>
+                    <ul>
+                        <li>Early morning prayer sessions</li>
+                        <li>24/7 prayer chain</li>
+                        <li>Prayer walks around church and community</li>
+                        <li>Intercession for church leadership</li>
+                        <li>Prayer retreats and conferences</li>
+                        <li>Prayer request management</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Tuesday 6AM, Friday 7:30PM</p>
+                    <p><strong>Commitment:</strong> 24/7 prayer chain available</p>
+                    <p><strong>Requirements:</strong> Heart for prayer, commitment to intercession</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Intercession Team</a>
+                    </div>
+                `
+            },
+            masschoir: {
+                title: "Mass Choir Ministry",
+                image: "rr.jpeg",
+                description: `
+                    <p>The Mass Choir Ministry leads congregational worship with powerful vocals and harmonious praise through a large choir ensemble that ministers in both English and Luganda.</p>
+                    
+                    <h3>Activities:</h3>
+                    <ul>
+                        <li>Weekly choir rehearsals</li>
+                        <li>Leading worship during main services</li>
+                        <li>Special musical presentations</li>
+                        <li>Choir workshops and training</li>
+                        <li>Recording ministry songs</li>
+                        <li>Outreach through music</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Wednesdays 6:00 PM (Rehearsals)</p>
+                    <p><strong>Audition:</strong> Required for all positions</p>
+                    <p><strong>Requirements:</strong> Vocal ability, commitment to rehearsals</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Schedule Audition</a>
+                    </div>
+                `
+            },
+            youths: {
+                title: "Youths Ministry",
+                image: "xx.jpeg",
+                description: `
+                    <p>The Youths Ministry engages young people (ages 13-30) through relevant teaching, fellowship, and activities designed for spiritual growth, character development, and leadership training.</p>
+                    
+                    <h3>Activities:</h3>
+                    <ul>
+                        <li>Weekly youth meetings and Bible studies</li>
+                        <li>Youth conferences and retreats</li>
+                        <li>Leadership development programs</li>
+                        <li>Social and recreational activities</li>
+                        <li>Community service projects</li>
+                        <li>Career and educational guidance</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Saturdays at 5:00 PM</p>
+                    <p><strong>Age Group:</strong> 13-30 years</p>
+                    <p><strong>Focus:</strong> Spiritual growth and development</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Youths Ministry</a>
+                    </div>
+                `
+            },
+            marrieds: {
+                title: "Marrieds Ministry",
+                image: "aa.jpeg",
+                description: `
+                    <p>The Marrieds Ministry strengthens marriages through biblical teaching, couple's fellowship, and marriage enrichment programs designed to build godly families.</p>
+                    
+                    <h3>Activities:</h3>
+                    <ul>
+                        <li>Monthly couples fellowship</li>
+                        <li>Marriage enrichment seminars</li>
+                        <li>Couples retreats</li>
+                        <li>Pre-marital counseling</li>
+                        <li>Marriage mentorship programs</li>
+                        <li>Family-focused activities</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> 3rd Saturday of each month</p>
+                    <p><strong>Focus:</strong> Building strong Christian marriages</p>
+                    <p><strong>Requirements:</strong> Married couples of all ages</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Marrieds Ministry</a>
+                    </div>
+                `
+            },
+            women: {
+                title: "Women Ministry",
+                image: "tt.jpeg",
+                description: `
+                    <p>The Women Ministry empowers women through Bible studies, fellowship, and activities that address women's unique spiritual, emotional, and practical needs.</p>
+                    
+                    <h3>Activities:</h3>
+                    <ul>
+                        <li>Monthly women's Bible studies</li>
+                        <li>Women's conferences and retreats</li>
+                        <li>Skill development workshops</li>
+                        <li>Mentorship programs</li>
+                        <li>Outreach to women in need</li>
+                        <li>Prayer groups and fellowship</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> 1st Saturday of each month at 10:00 AM</p>
+                    <p><strong>Focus:</strong> Spiritual growth and empowerment</p>
+                    <p><strong>Requirements:</strong> All women welcome</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Women's Ministry</a>
+                    </div>
+                `
+            },
+            men: {
+                title: "Men Ministry",
+                image: "kk.jpeg",
+                description: `
+                    <p>The Men Ministry builds godly men through fellowship, accountability, and teaching on biblical manhood, leadership, and family responsibility.</p>
+                    
+                    <h3>Activities:</h3>
+                    <ul>
+                        <li>Monthly men's breakfast and Bible study</li>
+                        <li>Men's conferences and retreats</li>
+                        <li>Accountability groups</li>
+                        <li>Leadership training</li>
+                        <li>Fatherhood workshops</li>
+                        <li>Community service projects</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> 2nd Saturday of each month at 8:00 AM</p>
+                    <p><strong>Focus:</strong> Building godly character and leadership</p>
+                    <p><strong>Requirements:</strong> All men welcome</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Men's Ministry</a>
+                    </div>
+                `
+            },
+            media: {
+                title: "Media Ministry",
+                image: "ss.jpeg",
+                description: `
+                    <p>The Media Ministry manages all aspects of church media including sound, lighting, video recording, live streaming, and multimedia communications.</p>
+                    
+                    <h3>Responsibilities:</h3>
+                    <ul>
+                        <li>Sound engineering for services</li>
+                        <li>Lighting design and operation</li>
+                        <li>Video recording and editing</li>
+                        <li>Live streaming services</li>
+                        <li>Social media management</li>
+                        <li>Graphic design and production</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> All services and special events</p>
+                    <p><strong>Training:</strong> Technical training provided</p>
+                    <p><strong>Requirements:</strong> Technical skills or willingness to learn</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Media Team</a>
+                    </div>
+                `
+            },
+            sundayschool: {
+                title: "Sunday School Ministry",
+                image: "s.jpeg",
+                description: `
+                    <p>The Sunday School Ministry teaches Biblical principles to children, youth, and adults through structured classes and age-appropriate curriculum.</p>
+                    
+                    <h3>Activities:</h3>
+                    <ul>
+                        <li>Age-graded Bible classes</li>
+                        <li>Curriculum development</li>
+                        <li>Teacher training and development</li>
+                        <li>Children's activities and crafts</li>
+                        <li>Adult discipleship classes</li>
+                        <li>Special Sunday school events</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Sundays at 9:00 AM</p>
+                    <p><strong>Classes:</strong> Children, Youth, and Adult divisions</p>
+                    <p><strong>Requirements:</strong> Teaching ability, love for people</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Sunday School Team</a>
+                    </div>
+                `
+            },
+            administration: {
+                title: "Administration Ministry",
+                image: "ww.jpeg",
+                description: `
+                    <p>The Administration Ministry supports church operations through administrative tasks, record keeping, office management, and coordination of church activities.</p>
+                    
+                    <h3>Responsibilities:</h3>
+                    <ul>
+                        <li>Office administration and management</li>
+                        <li>Record keeping and documentation</li>
+                        <li>Communication coordination</li>
+                        <li>Event planning support</li>
+                        <li>Volunteer coordination</li>
+                        <li>Resource management</li>
+                    </ul>
+                    
+                    <h3>Meeting Details:</h3>
+                    <p><strong>When:</strong> Weekdays 9AM-5PM</p>
+                    <p><strong>Training:</strong> Administrative training provided</p>
+                    <p><strong>Requirements:</strong> Organizational skills, attention to detail</p>
+                    
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn">Join Administration Team</a>
+                    </div>
+                `
+            }
+        };
+        
+        // Open modal when clicking "Learn More" button
+        viewDetailsBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const ministryCard = this.closest('.ministry-card');
+                const ministryId = ministryCard.getAttribute('data-ministry');
+                const ministry = ministryDetails[ministryId];
+                
+                if (ministry) {
+                    modalTitle.textContent = ministry.title;
+                    modalImage.src = ministry.image;
+                    modalImage.alt = ministry.title;
+                    modalDetails.innerHTML = ministry.description;
+                    ministryModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            ministryModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside
+        ministryModal.addEventListener('click', (e) => {
+            if (e.target === ministryModal) {
+                ministryModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && ministryModal.style.display === 'flex') {
+                ministryModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Ministry card animation on load
+        ministryCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+        
+        // Handle window resize for better mobile experience
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VWFCI - Victory Word of Faith Church International</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6AB;
+            --gold-dark: #B7950B;
+            --red: #AA0101;
+            --red-dark: #800000;
+            --red-light: #E8C8C8;
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --black: #333333;
+            --gray: #383838;
+            --light-gray: #EEEEEE;
+            
+            --header-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: var(--off-white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: var(--header-font);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--red-dark);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+            position: relative;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--red-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Navigation - SAME AS ABOUT */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--red-dark);
+            padding: 0.75rem 0;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+        
+        /* Hero Section - SCALED TO MATCH ABOUT HERO */
+        .hero-section {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('6.jpeg') no-repeat center center/cover;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            margin-top: 0;
+            padding-top: 60px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-section h1 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero-tagline {
+            color: var(--gold-light);
+            font-size: 1rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero-description {
+            color: var(--white);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        /* Welcome Section */
+        .welcome-section {
+            background-color: var(--white);
+        }
+        
+        .welcome-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .welcome-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .welcome-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        
+        .welcome-content h2 {
+            text-align: left;
+            margin: 0 0 1.5rem;
+        }
+        
+        .welcome-content h2:after {
+            margin: 0.5rem 0;
+        }
+        
+        .bible-verse {
+            font-family: var(--header-font);
+            font-style: italic;
+            color: var(--gold-dark);
+            font-size: 1rem;
+            margin: 1.5rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid var(--gold);
+        }
+        
+        /* Services Section */
+        .services-section {
+            background-color: var(--off-white);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .service-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--gold);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-time {
+            display: inline-block;
+            background: var(--gold-light);
+            color: var(--red-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .service-time.secondary {
+            margin-left: 0.5rem;
+            background: var(--red-light);
+        }
+        
+        /* Ministries Section */
+        .ministries-section {
+            background-color: var(--white);
+        }
+        
+        .ministries-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .ministry-card {
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .ministry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .ministry-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+        
+        .ministry-age {
+            display: inline-block;
+            background: var(--red-light);
+            color: var(--red-dark);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        /* Gallery Section */
+        .gallery-section {
+            background-color: var(--off-white);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-item {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 180px;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Events Preview Section - FIXED WIDTH */
+        .events-preview-section {
+            background-color: var(--white);
+        }
+        
+        .events-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .event-preview-card {
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            padding: 0;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            max-width: 250px;
+        }
+        
+        .event-preview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .event-image {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .event-preview-card:hover .event-image img {
+            transform: scale(1.05);
+        }
+        
+        .event-date-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gold-light);
+            color: var(--red-dark);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.85rem;
+            z-index: 2;
+            box-shadow: var(--shadow);
+        }
+        
+        .event-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        
+        .event-content h3 {
+            margin-bottom: 0.75rem;
+            color: var(--red-dark);
+        }
+        
+        .event-content p {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        /* Support Section */
+        .support-section {
+            background-color: var(--white);
+        }
+        
+        .support-card {
+            background: var(--off-white);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            align-items: stretch;
+        }
+        
+        .support-column {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .support-item {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            text-align: left;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .support-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .support-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .support-icon {
+            font-size: 1.5rem;
+            color: var(--gold-dark);
+            min-width: 45px;
+            height: 45px;
+            background: var(--gold-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .support-header h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--red-dark);
+        }
+        
+        .contact-info {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold-dark);
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: var(--gold-light);
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        
+        .contact-info.small {
+            font-size: 0.95rem;
+            background: transparent;
+            padding: 0;
+            text-align: left;
+        }
+        
+        .payment-codes {
+            display: flex;
+            gap: 0.75rem;
+            margin: 0.75rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .payment-code {
+            background: var(--gold-light);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            color: var(--red-dark);
+            font-family: monospace;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .support-email {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--gold);
+            text-align: left;
+        }
+        
+        .bible-verse-line {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--gold-light);
+            font-style: italic;
+            color: var(--gray);
+            font-size: 1rem;
+            font-family: var(--header-font);
+        }
+        
+        /* Footer - SAME AS ABOUT */
+        footer {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: var(--white);
+            opacity: 0.8;
+            transition: var(--transition);
+            margin-bottom: 0.4rem;
+            display: block;
+            font-size: 0.85rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--gold);
+            padding-left: 3px;
+        }
+        
+        .footer-column i {
+            margin-right: 0.5rem;
+            color: var(--gold);
+            width: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        
+        .social-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white) !important;
+            opacity: 0.9;
+            font-size: 0.8rem;
+        }
+        
+        .copyright p {
+            color: var(--white) !important;
+        }
+        
+        /* Responsive Styles - MATCHING ABOUT PAGE */
+        @media (max-width: 992px) {
+            .support-grid,
+            .gallery-grid,
+            .events-preview-grid,
+            .services-grid,
+            .ministries-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero-section {
+                height: 60vh;
+                min-height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--red-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                transition: var(--transition);
+                padding: 1.5rem 0;
+                overflow-y: auto;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .welcome-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .welcome-content h2 {
+                text-align: center;
+            }
+            
+            .welcome-content h2:after {
+                margin: 0.5rem auto;
+            }
+            
+            .hero-btns {
+                flex-wrap: wrap;
+            }
+            
+            .hero-btns .btn {
+                flex: 0 0 calc(50% - 0.5rem);
+                max-width: calc(50% - 0.5rem);
+                text-align: center;
+            }
+            
+            .hero-btns .events-btn {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-top: 0.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .footer-content {
+                gap: 1rem;
+            }
+            
+            .hero-section {
+                height: auto;
+                min-height: 50vh;
+                padding: 70px 0 2rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 1.8rem;
+            }
+            
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .events-preview-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+                margin-top: 2rem;
+                justify-content: center;
+                justify-items: center;
+            }
+
+            .event-preview-card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .support-grid,
+            .gallery-grid,
+            .services-grid,
+            .ministries-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-btns .btn {
+                flex: 0 0 100%;
+                max-width: 250px;
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 2rem 0;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 1rem;
+            }
+            
+            .support-grid,
+            .gallery-grid,
+            .events-preview-grid,
+            .services-grid,
+            .ministries-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .hero-section {
+                height: auto;
+                min-height: 50vh;
+                padding: 70px 0 2rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 1.7rem;
+            }
+            
+            .footer-column {
+                margin-bottom: 0.5rem;
+            }
+            
+            .welcome-image img {
+                height: 250px;
+            }
+            
+            .service-card,
+            .ministry-card,
+            .support-item {
+                padding: 1.25rem;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-tagline {
+                font-size: 0.95rem;
+            }
+            
+            .hero-description {
+                font-size: 0.95rem;
+            }
+            
+            .hero-btns .btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .service-card,
+            .ministry-card,
+            .support-item {
+                padding: 1rem;
+            }
+            
+            .footer-column {
+                padding: 0 0.5rem;
+            }
+            
+            .welcome-image img {
+                height: 200px;
+            }
+            
+            .gallery-item {
+                height: 160px;
+            }
+            
+            .event-image {
+                height: 180px;
+            }
+            
+            .payment-code {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .hero-section h1 {
+                font-size: 1.4rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-logo {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .support-grid,
+            .gallery-grid,
+            .events-preview-grid,
+            .services-grid,
+            .ministries-grid {
+                max-width: 300px;
+            }
+            
+            .event-preview-card {
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container container">
+            <a href="index.html" class="nav-logo">VWF<span>CI</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="ministries.html">Ministries</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="leaders.html">Leaders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Victory Word of Faith Church International</h1>
+                <p class="hero-tagline">A place where everyone is somebody </p>
+                <p class="hero-description">A vibrant Pentecostal community in Nabbingo, Kampala, transforming lives through God's Word and the Holy Spirit since 2005.</p>
+                <div class="hero-btns">
+                    <a href="services.html" class="btn">Join Us This Sunday</a>
+                    <a href="about.html" class="btn btn-outline">Learn More</a>
+                    <a href="events.html" class="btn btn-outline events-btn">Upcoming Events</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Welcome Section -->
+    <section id="welcome" class="welcome-section">
+        <div class="container">
+            <div class="welcome-grid">
+                <div class="welcome-image">
+                    <img src="c.jpeg" alt="Church Community">
+                </div>
+                <div class="welcome-content">
+                    <h2>Welcome to Our Family</h2>
+                    <p>Founded in the early 1990s by Pastor Dorothy Binwe Namahe, Victory Word of Faith Church Nabbingo International (VWFCI) began as a small living‑room fellowship and has grown into a thriving international ministry. We are a diverse community united by faith in Jesus Christ.</p>
+                    
+                    <p class="bible-verse">" For whatsoever is born of God overcometh the world: and this is the victory that overcometh the world, even our faith." – 1 John 5:4</p>
+                    
+                    <p>From humble beginnings, Pastor Dorothy faithfully pursued God's call, and in 2005, the ministry was blessed with land dedicated for the church. Today, VWFCI continues to flourish, bringing people into the saving grace of our Lord Jesus Christ. Our mission is to equip believers with God's Word and send them out to impact communities through faith, prayer, and the power of the Holy Spirit.</p>
+                    
+                    <a href="about.html" class="btn">Our Story →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2>Join Us For Worship</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Experience powerful, Spirit-filled services designed to uplift and transform.
+            </p>
+            
+            <div class="services-grid">
+                <!-- Sunday Worship Services -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="5.jpeg" alt="Sunday Worship">
+                    </div>
+                    <div class="service-content">
+                        <div>
+                            <span class="service-time">8:00 AM to 9:00 AM</span>
+                            <span class="service-time secondary">9:30 AM to 1:00 PM</span>
+                        </div>
+                        <h3>Sunday Worship Services</h3>
+                        <p>Powerful worship, prayer, and dynamic preaching of God's Word. Join us for our main weekly gatherings on Sundays.</p>
+                        <a href="services.html" class="btn btn-outline">Service Details</a>
+                    </div>
+                </div>
+                
+                <!-- Midweek Bible Study -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="4.jpeg" alt="Bible Study">
+                    </div>
+                    <div class="service-content">
+                        <span class="service-time">Altar Speaks</span>
+                        <h3>Midweek Bible Study</h3>
+                        <p>Wednesday: 6:00 PM to 8:00 PM. In-depth Scripture study with practical application for daily living. The altar speaks to our hearts.</p>
+                        <a href="services.html" class="btn btn-outline">Join Study</a>
+                    </div>
+                </div>
+                
+                <!-- Friday Evening Altar -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="3.jpeg" alt="Prayer Meeting">
+                    </div>
+                    <div class="service-content">
+                        <span class="service-time">6:00 PM to 10:00 PM</span>
+                        <h3>Friday Evening Altar</h3>
+                        <p>Corporate prayer and intercession every Friday evening. Second Friday of each month: Overnight prayer service for deeper spiritual connection.</p>
+                        <a href="services.html" class="btn btn-outline">Pray With Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Ministries Section -->
+    <section id="ministries" class="ministries-section">
+        <div class="container">
+            <h2>Find Your Place</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Connect with others in ministries for every age and stage of life.
+            </p>
+            
+            <div class="ministries-grid">
+                <div class="ministry-card">
+                    <div class="ministry-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <span class="ministry-age">Ages 3-12</span>
+                    <h3>Children</h3>
+                    <p>Fun, engaging programs teaching kids about Jesus through games and Bible stories.</p>
+                    <a href="ministries.html" class="btn btn-outline">Learn More</a>
+                </div>
+                
+                <div class="ministry-card">
+                    <div class="ministry-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="ministry-age">Ages 13-25</span>
+                    <h3>Youth</h3>
+                    <p>Dynamic gatherings with relevant teaching and fellowship for teens and young adults.</p>
+                    <a href="ministries.html" class="btn btn-outline">Learn More</a>
+                </div>
+                
+                <div class="ministry-card">
+                    <div class="ministry-icon">
+                        <i class="fas fa-person-dress"></i>
+                    </div>
+                    <h3>Women</h3>
+                    <p>Sisterhood growing together in faith through Bible study, prayer, and encouragement.</p>
+                    <a href="ministries.html" class="btn btn-outline">Learn More</a>
+                </div>
+                
+                <div class="ministry-card">
+                    <div class="ministry-icon">
+                        <i class="fas fa-person"></i>
+                    </div>
+                    <h3>Men</h3>
+                    <p>Building godly men through fellowship, accountability, and practical teaching.</p>
+                    <a href="ministries.html" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2>Church Life</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Glimpses of our community in worship, fellowship, and service.
+            </p>
+            
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be loaded dynamically from Supabase -->
+            </div>
+            
+            <!-- Change this line in index.html -->
+<div style="text-align: center;">
+    <a href="gallery.html" class="btn">View More Photos →</a>
+</div>
+        </div>
+    </section>
+    
+    <!-- Events Preview Section -->
+    <section id="events-preview" class="events-preview-section">
+        <div class="container">
+            <h2>Upcoming Events</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Join us for our upcoming church events and activities.
+            </p>
+            
+            <div class="events-preview-grid" id="eventsPreviewGrid">
+                <!-- Events will be loaded dynamically from Supabase -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="events.html" class="btn">View All Events →</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Support Section -->
+    <section id="support" class="support-section">
+        <div class="container">
+            <h2>Partner With Us</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Your support enables us to spread the Gospel and serve our community.
+            </p>
+            
+            <div class="support-card">
+                <div class="support-grid">
+                    <!-- First Column: Call/WhatsApp -->
+                    <div class="support-column">
+                        <div class="support-item">
+                            <div class="support-header">
+                                <div class="support-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <h4>Call/WhatsApp</h4>
+                            </div>
+                            <p class="contact-info">+256 776 924 398</p>
+                            <p class="contact-info">+256 706 098 195</p>
+                            <p style="margin-top: 0.75rem; font-size: 0.9rem;">Available during office hours for prayer requests, counseling, and inquiries.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Second Column: Mobile Money -->
+                    <div class="support-column">
+                        <div class="support-item">
+                            <div class="support-header">
+                                <div class="support-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <h4>Mobile Money</h4>
+                            </div>
+                            <p style="font-size: 0.9rem;">Support our ministry through mobile money payments:</p>
+                            <div class="payment-codes">
+                                <div class="payment-code">MTN: 725437</div>
+                                <div class="payment-code">Airtel: 6596479</div>
+                            </div>
+                            <p style="margin-top: 0.75rem; font-size: 0.9rem;">Your contributions help us continue our mission and outreach programs.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Third Column: Email -->
+                    <div class="support-column">
+                        <div class="support-item">
+                            <div class="support-header">
+                                <div class="support-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <h4>Email</h4>
+                            </div>
+                            <p class="contact-info small">pastordorothy2002@yahoo.co.uk</p>
+                            <p style="margin-top: 0.75rem; font-size: 0.9rem;">For general inquiries, prayer requests, counseling appointments, and more information about our ministry programs. We aim to respond within 24-48 hours.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bible Verse with line above -->
+                <div class="bible-verse-line">
+                    "Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver." - 2 Corinthians 9:7
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Nabbingo, Kampala, Uganda</p>
+                    <p><i class="fas fa-phone"></i> +256 776 924 398</p>
+                    <p><i class="fas fa-phone"></i> +256 706 098 195</p>
+                    <p><i class="fas fa-envelope"></i> pastordorothy2002@yahoo.co.uk</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri 9AM-5PM</p>
+                    <a href="contact.html" class="btn btn-outline" style="margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.85rem;">Get Directions</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="ministries.html">Ministries</a>
+                    <a href="events.html">Events</a>
+                    <a href="leaders.html">Leaders</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday:</strong> 8:00 AM to 9:00 AM</p>
+                    <p><strong>Sunday:</strong> 9:30 AM to 1:00 PM</p>
+                    <p><strong>Wednesday:</strong> 4:00 PM to 8:00 PM</p>
+                    <p><strong>Friday:</strong> 6:00 PM to 10:00 PM</p>
+                    <p><strong>2nd Friday of the month:</strong> Overnight Prayer</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+    <a href="https://www.facebook.com/pastordorothybinwe" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://x.com/prdorothybinwe?lang=en" class="social-link" target="_blank"><i class="fa-brands fa-x"></i></a>
+    <a href="https://www.instagram.com/pastordorothybinwe_.dr/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/channel/UCoKA8sqPGdydNkciG8uex0A" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/256776924398" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Victory Word of Faith Church International. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // ====================
+        // SUPABASE CONFIGURATION
+        // ====================
+        
+        // Supabase configuration (same as admin.html)
+        const supabaseUrl = 'https://lgosscisacpafjwkhngb.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxnb3NzY2lzYWNwYWZqd2tobmdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwNzcyOTQsImV4cCI6MjA4NTY1MzI5NH0.uxQZSFdI1C_yWheUpRHsaHCV7ejrnK0oiFxZZPDf718';
+        
+        // Initialize Supabase client
+        let supabaseClient;
+        
+        try {
+            if (window.supabase && window.supabase.createClient) {
+                supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+                console.log('Supabase client initialized successfully');
+            } else {
+                console.error('Supabase library not loaded');
+            }
+        } catch (error) {
+            console.error('Failed to initialize Supabase:', error);
+        }
+        
+        // ====================
+        // DATA FETCHING FUNCTIONS
+        // ====================
+        
+        // Function to load gallery images from Supabase
+        async function loadGalleryImages() {
+            try {
+                if (!supabase) {
+                    console.log('Supabase not initialized');
+                    return;
+                }
+                
+                // Fetch gallery items from Supabase (only images, limit to 4)
+                const { data: galleryItems, error } = await supabase
+                    .from('gallery')
+                    .select('*')
+                    .eq('type', 'image')
+                    .order('created_at', { ascending: false })
+                    .limit(4);
+                
+                if (error) {
+                    console.error('Error fetching gallery items:', error);
+                    return;
+                }
+                
+                const galleryGrid = document.getElementById('galleryGrid');
+                if (!galleryGrid) return;
+                
+                // Clear existing content
+                galleryGrid.innerHTML = '';
+                
+                if (!galleryItems || galleryItems.length === 0) {
+                    // If no gallery items, show empty state
+                    galleryGrid.innerHTML = '<p class="text-center" style="grid-column: 1/-1; padding: 2rem;">Gallery images will appear here once added.</p>';
+                    return;
+                }
+                
+                // Create gallery items from database
+                galleryItems.forEach(item => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    galleryItem.innerHTML = `
+                        <img src="${item.url}" alt="${item.alt || item.title}" loading="lazy">
+                    `;
+                    galleryGrid.appendChild(galleryItem);
+                });
+                
+            } catch (error) {
+                console.error('Error loading gallery images:', error);
+            }
+        }
+        
+        // Function to load events from Supabase
+        async function loadEvents() {
+            try {
+                if (!supabase) {
+                    console.log('Supabase not initialized');
+                    return;
+                }
+                
+                // Fetch events from Supabase (featured first, then by date, EXACTLY 3 events)
+                const { data: events, error } = await supabase
+                    .from('events')
+                    .select('*')
+                    .order('featured', { ascending: false })
+                    .order('date', { ascending: true })
+                    .limit(3); // Only get 3 events
+                
+                if (error) {
+                    console.error('Error fetching events:', error);
+                    return;
+                }
+                
+                const eventsPreviewGrid = document.getElementById('eventsPreviewGrid');
+                if (!eventsPreviewGrid) return;
+                
+                // Clear existing content
+                eventsPreviewGrid.innerHTML = '';
+                
+                if (!events || events.length === 0) {
+                    console.log('No events found in database');
+                    eventsPreviewGrid.innerHTML = '<p class="text-center" style="grid-column: 1/-1; padding: 2rem;">Upcoming events will appear here once added.</p>';
+                    return;
+                }
+                
+                console.log('Loaded events:', events.length);
+                
+                // Create event cards with data from Supabase
+                events.forEach((event, index) => {
+                    const eventCard = document.createElement('div');
+                    eventCard.className = 'event-preview-card';
+                    
+                    // Format the date
+                    const eventDate = new Date(event.date);
+                    const formattedDate = eventDate.toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+                    
+                    // Truncate description if too long
+                    let description = event.description || 'No description available.';
+                    if (description.length > 120) {
+                        description = description.substring(0, 120) + '...';
+                    }
+                    
+                    eventCard.innerHTML = `
+                        <div class="event-image">
+                            <div class="event-date-badge">${formattedDate}</div>
+                            <img src="${event.image || 'https://images.unsplash.com/photo-1542272201-b1ca555f8505?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'}" alt="${event.title}">
+                        </div>
+                        <div class="event-content">
+                            <h3>${event.title}</h3>
+                            <p>${description}</p>
+                            <a href="events.html" class="btn btn-outline" style="margin-top: auto;">View Details</a>
+                        </div>
+                    `;
+                    
+                    // Highlight featured events
+                    if (event.featured) {
+                        eventCard.style.border = '2px solid var(--gold)';
+                        eventCard.style.boxShadow = '0 5px 15px rgba(212, 175, 55, 0.3)';
+                    }
+                    
+                    eventsPreviewGrid.appendChild(eventCard);
+                });
+                
+            } catch (error) {
+                console.error('Error loading events:', error);
+            }
+        }
+        
+        // ====================
+        // INITIALIZATION
+        // ====================
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load data from Supabase
+            loadGalleryImages();
+            loadEvents();
+            
+            // Set current year
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+        
+        // ====================
+        // EXISTING FUNCTIONS
+        // ====================
+        
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+        }
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                if (hamburger) {
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Highlight current page in navigation
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                
+                if (targetId.startsWith('#') && targetId !== '#') {
+                    e.preventDefault();
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Handle window resize for better mobile experience
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                if (hamburger) {
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

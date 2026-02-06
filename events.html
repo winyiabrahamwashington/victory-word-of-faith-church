@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Calendar - Victory Word of Faith Church International</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6AB;
+            --gold-dark: #B7950B;
+            --red: #AA0101;
+            --red-dark: #800000;
+            --red-light: #E8C8C8;
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --black: #333333;
+            --gray: #666666;
+            --light-gray: #EEEEEE;
+            
+            --header-font: 'Merriweather', serif;
+            --body-font: 'Open Sans', sans-serif;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 5px 20px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body {
+            font-family: var(--body-font);
+            background-color: var(--off-white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: var(--header-font);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--red-dark);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 2rem 0 1.5rem;
+            position: relative;
+        }
+        
+        h2:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--red-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        section {
+            padding: 3rem 0;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Navigation - EXACTLY SAME AS INDEX AND ABOUT */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--red-dark);
+            padding: 0.75rem 0;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-logo span {
+            color: var(--gold);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+        
+        /* Events Hero Section - Matching About Page Style */
+        .events-hero {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('cc.jpeg') no-repeat center center/cover;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            margin-top: 0;
+            padding-top: 60px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .events-hero h1 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .events-hero p {
+            color: var(--white);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--gold);
+        }
+        
+        /* Calendar Section */
+        .calendar-section {
+            background-color: var(--white);
+        }
+        
+        .calendar-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+        
+        .calendar-sidebar {
+            background-color: var(--off-white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .calendar-main {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        /* Calendar Header */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: var(--red-dark);
+            color: var(--white);
+            position: relative;
+        }
+        
+        .current-datetime {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            color: var(--gold-light);
+            font-size: 0.8rem;
+            line-height: 1.2;
+            transition: var(--transition);
+        }
+        
+        .current-datetime.hidden {
+            display: none;
+        }
+        
+        .current-date-display {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .current-time-display {
+            font-weight: 400;
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .calendar-nav button {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.4rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        .calendar-nav button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .calendar-month-center {
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: none;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .calendar-month-center.active {
+            display: block;
+        }
+        
+        /* Calendar Grid */
+        .calendar-grid {
+            padding: 1rem;
+        }
+        
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 600;
+            color: var(--red-dark);
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.25rem;
+        }
+        
+        .calendar-day {
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.25rem;
+            position: relative;
+        }
+        
+        .calendar-day:hover {
+            background-color: var(--off-white);
+        }
+        
+        .calendar-day.empty {
+            background-color: transparent;
+            cursor: default;
+        }
+        
+        .calendar-day.empty:hover {
+            background-color: transparent;
+        }
+        
+        .calendar-day.today {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            font-weight: 700;
+        }
+        
+        .calendar-day.event-day {
+            border: 2px solid var(--red);
+        }
+        
+        .calendar-day-number {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .event-dot {
+            width: 5px;
+            height: 5px;
+            background-color: var(--red);
+            border-radius: 50%;
+            margin-top: 3px;
+        }
+        
+        /* Events List */
+        .events-list {
+            margin-top: 1.5rem;
+        }
+        
+        /* Container for horizontal scrolling on mobile */
+        .events-list-container {
+            position: relative;
+        }
+        
+        /* Arrow buttons for mobile horizontal scrolling */
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--red-dark);
+            color: var(--white);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .scroll-arrow:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+        }
+        
+        .scroll-arrow-left {
+            left: -18px;
+        }
+        
+        .scroll-arrow-right {
+            right: -18px;
+        }
+        
+        .event-item {
+            display: flex;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .event-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .event-date {
+            min-width: 80px;
+            background-color: var(--red-dark);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem;
+        }
+        
+        .event-month {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+        
+        .event-day {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .event-content {
+            padding: 1rem;
+            flex: 1;
+        }
+        
+        .event-time {
+            display: inline-block;
+            background-color: var(--gold-light);
+            color: var(--red-dark);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+        
+        .event-category-badge {
+            display: inline-block;
+            background-color: var(--red-light);
+            color: var(--red-dark);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            font-size: 0.75rem;
+        }
+        
+        /* Upcoming Events Section - IMPROVED CARD DESIGN */
+        .upcoming-events {
+            background-color: var(--off-white);
+        }
+        
+        .event-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .event-filter {
+            padding: 0.4rem 1.25rem;
+            background-color: var(--white);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            font-size: 0.85rem;
+        }
+        
+        .event-filter:hover,
+        .event-filter.active {
+            background-color: var(--red-dark);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        /* Container for upcoming events horizontal scrolling on mobile */
+        .events-grid-container {
+            position: relative;
+        }
+        
+        /* IMPROVED EVENT CARD DESIGN */
+        .event-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .event-card.featured {
+            border: 2px solid var(--gold);
+        }
+        
+        /* IMPROVED IMAGE CONTAINER - No cropping, proper scaling */
+        .event-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--light-gray);
+        }
+        
+        .event-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: var(--transition);
+            background-color: var(--light-gray);
+        }
+        
+        .event-card:hover .event-image-container img {
+            transform: scale(1.05);
+        }
+        
+        .event-ribbon {
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background-color: var(--red);
+            color: var(--white);
+            padding: 0.4rem 1.5rem;
+            transform: rotate(45deg);
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .event-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--red-dark);
+            font-family: var(--header-font);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .event-image-placeholder i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* IMPROVED CARD CONTENT - Better spacing and sizing */
+        .event-card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .event-card-content h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.15rem;
+            line-height: 1.3;
+            min-height: 2.8rem;
+        }
+        
+        .event-time-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold-dark);
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .event-time-display i {
+            font-size: 0.9rem;
+        }
+        
+        .event-card-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        
+        .event-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin: 1rem 0;
+            padding: 0.75rem 0;
+            border-top: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .meta-item i {
+            color: var(--gold-dark);
+            font-size: 0.95rem;
+            min-width: 16px;
+            text-align: center;
+        }
+        
+        .meta-item span {
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.3;
+        }
+        
+        /* Loading States */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+        }
+        
+        .loading i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .no-events {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+            grid-column: 1 / -1;
+        }
+        
+        /* Footer - EXACTLY SAME AS INDEX AND ABOUT */
+        footer {
+            background-color: var(--red-dark);
+            color: var(--white);
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+        
+        .footer-column p,
+        .footer-column a {
+            color: var(--white);
+            opacity: 0.8;
+            transition: var(--transition);
+            margin-bottom: 0.4rem;
+            display: block;
+            font-size: 0.85rem;
+        }
+        
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--gold);
+            padding-left: 3px;
+        }
+        
+        .footer-column i {
+            margin-right: 0.5rem;
+            color: var(--gold);
+            width: 14px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1rem 0;
+        }
+        
+        .social-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--gold);
+            color: var(--red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--white) !important; /* ADD !important to force white color */
+    opacity: 0.9;
+    font-size: 0.8rem;
+}
+
+.copyright p {
+    color: var(--white) !important; /* ADD this to override paragraph color */
+}
+        
+        /* Responsive Styles - EXACTLY SAME AS INDEX AND ABOUT */
+        @media (max-width: 992px) {
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background-color: var(--red-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                transition: var(--transition);
+                padding: 1.5rem 0;
+                overflow-y: auto;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            /* CHANGED: Calendar container grid removed, sidebar appears before calendar */
+            .calendar-container {
+                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            /* NEW: Order calendar sidebar first on mobile */
+            .calendar-sidebar {
+                order: 1;
+                margin-bottom: 2rem;
+            }
+            
+            /* NEW: Order calendar main second on mobile */
+            .calendar-main {
+                order: 2;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .events-hero {
+                height: auto;
+                min-height: 50vh;
+                padding: 70px 0 2rem;
+            }
+            
+            .events-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .cta-buttons .btn {
+                flex: 0 0 calc(50% - 0.5rem);
+                max-width: calc(50% - 0.5rem);
+                text-align: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .footer-content {
+                gap: 1rem;
+            }
+            
+            /* REMOVED: Hiding current-datetime on mobile */
+            /* .current-datetime {
+                display: none;
+            } */
+            
+            .event-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            /* MODIFIED: Calendar header layout for mobile */
+            .calendar-header {
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.8rem 1rem;
+            }
+            
+            /* MODIFIED: Current datetime styling for mobile */
+            .current-datetime {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                color: var(--gold-light);
+                font-size: 0.7rem;
+                line-height: 1.1;
+                min-width: 100px;
+            }
+            
+            .current-date-display {
+                font-weight: 600;
+                font-size: 0.75rem;
+            }
+            
+            .current-time-display {
+                font-weight: 400;
+                font-size: 0.65rem;
+                opacity: 0.9;
+            }
+            
+            .calendar-month-center {
+                position: static;
+                transform: none;
+                flex: 1;
+                text-align: center;
+                font-size: 0.9rem;
+                margin: 0 0.5rem;
+                display: none;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .calendar-month-center.active {
+                display: block;
+            }
+            
+            .calendar-nav {
+                display: flex;
+                gap: 0.3rem;
+                margin-left: auto;
+                width: auto;
+                justify-content: flex-end;
+            }
+            
+            .calendar-nav button {
+                padding: 0.3rem;
+                font-size: 0.9rem;
+            }
+            
+            /* CHANGED: Upcoming events grid changed to horizontal scroll on mobile */
+            .events-grid {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                gap: 1.5rem;
+                padding: 0.5rem 0.5rem 1.5rem;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: var(--gold) var(--light-gray);
+                max-width: none;
+                margin-left: 0;
+                margin-right: 0;
+                grid-template-columns: none;
+            }
+            
+            .events-grid::-webkit-scrollbar {
+                height: 6px;
+            }
+            
+            .events-grid::-webkit-scrollbar-track {
+                background: var(--light-gray);
+                border-radius: 10px;
+            }
+            
+            .events-grid::-webkit-scrollbar-thumb {
+                background-color: var(--gold);
+                border-radius: 10px;
+            }
+            
+            .events-grid::-webkit-scrollbar-thumb:hover {
+                background-color: var(--gold-dark);
+            }
+            
+            .event-card {
+                flex: 0 0 300px;
+                max-width: 300px;
+                scroll-snap-align: start;
+            }
+            
+            /* CHANGED: This Month's Events changed to horizontal scroll on mobile */
+            .events-list-container {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .events-list {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                gap: 1rem;
+                padding: 0.5rem 0.5rem 1.5rem;
+                margin-top: 0;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: var(--gold) var(--light-gray);
+            }
+            
+            .events-list::-webkit-scrollbar {
+                height: 6px;
+            }
+            
+            .events-list::-webkit-scrollbar-track {
+                background: var(--light-gray);
+                border-radius: 10px;
+            }
+            
+            .events-list::-webkit-scrollbar-thumb {
+                background-color: var(--gold);
+                border-radius: 10px;
+            }
+            
+            .events-list::-webkit-scrollbar-thumb:hover {
+                background-color: var(--gold-dark);
+            }
+            
+            .event-item {
+                flex: 0 0 300px;
+                max-width: 300px;
+                margin-bottom: 0;
+                scroll-snap-align: start;
+            }
+            
+            /* Show scroll arrows on mobile */
+            .scroll-arrow {
+                display: flex;
+            }
+            
+            /* Container styling */
+            .events-grid-container,
+            .events-list-container {
+                position: relative;
+                padding: 0 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 2rem 0;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin: 1.5rem 0 1rem;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .events-hero {
+                height: auto;
+                min-height: 50vh;
+                padding: 70px 0 2rem;
+            }
+            
+            .events-hero h1 {
+                font-size: 1.7rem;
+            }
+            
+            .footer-column {
+                margin-bottom: 0.5rem;
+            }
+            
+            .event-card-content {
+                padding: 1rem;
+            }
+            
+            .event-image-container {
+                height: 180px;
+            }
+            
+            /* MODIFIED: Further adjustments for very small screens */
+            .current-datetime {
+                font-size: 0.65rem;
+                min-width: 90px;
+            }
+            
+            .current-date-display {
+                font-size: 0.7rem;
+            }
+            
+            .current-time-display {
+                font-size: 0.6rem;
+            }
+            
+            .calendar-nav button {
+                font-size: 0.8rem;
+                padding: 0.25rem;
+            }
+            
+            /* CHANGED: Adjust card widths for smaller screens */
+            .event-card {
+                flex: 0 0 280px;
+                max-width: 280px;
+            }
+            
+            .event-item {
+                flex: 0 0 280px;
+                max-width: 280px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+            
+            .events-hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .cta-buttons .btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .event-card-content {
+                padding: 0.75rem;
+            }
+            
+            .footer-column {
+                padding: 0 0.5rem;
+            }
+            
+            .event-image-container {
+                height: 160px;
+            }
+            
+            /* MODIFIED: Calendar header adjustments for very small screens */
+            .calendar-header {
+                padding: 0.7rem 0.8rem;
+            }
+            
+            .current-datetime {
+                min-width: 85px;
+                font-size: 0.6rem;
+            }
+            
+            .current-date-display {
+                font-size: 0.65rem;
+            }
+            
+            .current-time-display {
+                font-size: 0.55rem;
+            }
+            
+            .calendar-nav {
+                gap: 0.2rem;
+            }
+            
+            .calendar-nav button {
+                font-size: 0.75rem;
+                padding: 0.2rem;
+            }
+            
+            /* CHANGED: Adjust card widths for very small screens */
+            .event-card {
+                flex: 0 0 260px;
+                max-width: 260px;
+            }
+            
+            .event-item {
+                flex: 0 0 260px;
+                max-width: 260px;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            .events-hero h1 {
+                font-size: 1.4rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-logo {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            /* CHANGED: Adjust card widths for smallest screens */
+            .event-card {
+                flex: 0 0 240px;
+                max-width: 240px;
+            }
+            
+            .event-item {
+                flex: 0 0 240px;
+                max-width: 240px;
+            }
+            
+            /* MODIFIED: Calendar header adjustments for smallest screens */
+            .calendar-header {
+                padding: 0.6rem 0.7rem;
+            }
+            
+            .current-datetime {
+                min-width: 80px;
+                font-size: 0.55rem;
+            }
+            
+            .current-date-display {
+                font-size: 0.6rem;
+            }
+            
+            .current-time-display {
+                font-size: 0.5rem;
+            }
+            
+            .calendar-month-center {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation - EXACTLY SAME AS ABOUT PAGE -->
+    <nav id="navbar">
+        <div class="nav-container container">
+            <a href="index.html" class="nav-logo">VWF<span>CI</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="ministries.html">Ministries</a></li>
+                <li><a href="events.html" class="active">Events</a></li>
+                <li><a href="leaders.html">Leaders</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Events Hero Section -->
+    <section class="events-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Church Events & Calendar</h1>
+                <p>Stay connected with what's happening at Victory Word of Faith. Join us for worship services, special events, conferences, and community gatherings throughout the year.</p>
+                <div class="hero-badges">
+                    <span class="hero-badge"><i class="fas fa-calendar-alt"></i> Monthly Events</span>
+                    <span class="hero-badge"><i class="fas fa-users"></i> Community Gatherings</span>
+                    <span class="hero-badge"><i class="fas fa-language"></i> English</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Calendar Section -->
+    <section class="calendar-section">
+        <div class="container">
+            <h2>Church Calendar</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                View our upcoming events, mark your calendar, and never miss an important gathering at our church.
+            </p>
+            
+            <div class="calendar-container">
+                <div class="calendar-sidebar">
+                    <h3>This Month's Events</h3>
+                    <div class="events-list-container">
+                        <div class="scroll-arrow scroll-arrow-left" id="monthEventsLeftArrow">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="events-list" id="month-events-list">
+                            <div class="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading events...</p>
+                            </div>
+                        </div>
+                        <div class="scroll-arrow scroll-arrow-right" id="monthEventsRightArrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="calendar-main">
+                    <div class="calendar-header">
+                        <div class="current-datetime" id="currentDatetimeDisplay">
+                            <span class="current-date-display" id="currentDateDisplay">Loading date...</span>
+                            <span class="current-time-display" id="currentTimeDisplay">Loading time...</span>
+                        </div>
+                        
+                        <div class="calendar-nav">
+                            <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                            <button id="today-btn">Today</button>
+                            <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        
+                        <div class="calendar-month-center" id="calendarMonthCenter">
+                            <!-- Month/Year will be shown here when not on current month -->
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-grid">
+                        <div class="calendar-weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        
+                        <div class="calendar-days" id="calendar-days">
+                            <!-- Calendar days will be generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Upcoming Events Section -->
+    <section class="upcoming-events">
+        <div class="container">
+            <h2>Upcoming Events</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 1rem;">
+                Join us for these exciting upcoming events. All are welcome – bring your friends and family!
+            </p>
+            
+            <div class="event-filters" id="event-filters">
+                <!-- Dynamic filters will be loaded here -->
+                <div class="event-filter active" data-category="all">All Events</div>
+            </div>
+            
+            <div class="events-grid-container">
+                <div class="scroll-arrow scroll-arrow-left" id="upcomingEventsLeftArrow">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="events-grid" id="upcoming-events-grid">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading upcoming events...</p>
+                    </div>
+                </div>
+                <div class="scroll-arrow scroll-arrow-right" id="upcomingEventsRightArrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer - EXACTLY SAME AS ABOUT PAGE -->
+    <footer id="contact">
+        <div class="container">
+            
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Nabbingo, Kampala, Uganda</p>
+                    <p><i class="fas fa-phone"></i> +256 776 924 398</p>
+                    <p><i class="fas fa-phone"></i> +256 706 098 195</p>
+                    <p><i class="fas fa-envelope"></i> pastordorothy2002@yahoo.co.uk</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri 9AM-5PM</p>
+                    <a href="contact.html" class="btn btn-outline" style="margin-top: 0.75rem; padding: 0.5rem 1rem; font-size: 0.85rem;">Get Directions</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="ministries.html">Ministries</a>
+                    <a href="events.html">Events</a>
+                    <a href="leaders.html">Leaders</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service Times</h3>
+                    <p><strong>Sunday:</strong> 8:00 AM to 9:00 AM</p>
+                    <p><strong>Sunday:</strong> 9:30 AM to 1:00 PM</p>
+                    <p><strong>Wednesday:</strong> 4:00 PM to 8:00 PM</p>
+                    <p><strong>Friday:</strong> 6:00 PM to 10:00 PM</p>
+                    <p><strong>2nd Friday of the month:</strong> Overnight Prayer</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+    <a href="https://www.facebook.com/pastordorothybinwe" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://x.com/prdorothybinwe?lang=en" class="social-link" target="_blank"><i class="fa-brands fa-x"></i></a>
+    <a href="https://www.instagram.com/pastordorothybinwe_.dr/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.youtube.com/channel/UCoKA8sqPGdydNkciG8uex0A" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
+    <a href="https://wa.me/256776924398" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Victory Word of Faith Church International. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Supabase initialization - wrapped in IIFE to prevent scope issues
+        (function() {
+            // Check if Supabase is already initialized
+            if (!window.supabaseClient) {
+                // Initialize Supabase only if not already initialized
+                const SUPABASE_URL = 'https://lgosscisacpafjwkhngb.supabase.co';
+                const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxnb3NzY2lzYWNwYWZqd2tobmdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwNzcyOTQsImV4cCI6MjA4NTY1MzI5NH0.uxQZSFdI1C_yWheUpRHsaHCV7ejrnK0oiFxZZPDf718';
+                
+                window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            }
+            
+            // Use the global supabaseClient
+            const supabase = window.supabaseClient;
+            
+            // Store events globally
+            let allEvents = [];
+            let currentDateObj = new Date();
+            let uniqueCategories = new Set(); // Store unique categories
+            
+            // Mobile Navigation - EXACTLY SAME AS ABOUT PAGE
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Set current year only (date removed as requested)
+            const now = new Date();
+            document.getElementById('currentYear').textContent = now.getFullYear();
+            
+            // Highlight current page in navigation - EXACTLY SAME AS ABOUT PAGE
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Smooth scrolling for anchor links - EXACTLY SAME AS ABOUT PAGE
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    
+                    if (targetId.startsWith('#') && targetId !== '#') {
+                        e.preventDefault();
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 70,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Handle window resize for better mobile experience - EXACTLY SAME AS ABOUT PAGE
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    navLinks.classList.remove('active');
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+            
+            // Function to update the current date and time display
+            function updateCurrentDateTime() {
+                const now = new Date();
+                
+                // Format the date
+                const dateOptions = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+                const formattedDate = now.toLocaleDateString('en-US', dateOptions);
+                
+                // Format the time with hours, minutes, and seconds
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const formattedTime = `${hours}:${minutes}:${seconds}`;
+                
+                // Update the display
+                const dateDisplay = document.getElementById('currentDateDisplay');
+                const timeDisplay = document.getElementById('currentTimeDisplay');
+                
+                if (dateDisplay) dateDisplay.textContent = formattedDate;
+                if (timeDisplay) timeDisplay.textContent = formattedTime;
+            }
+            
+            // Start updating the date and time every second
+            updateCurrentDateTime(); // Initial call
+            setInterval(updateCurrentDateTime, 1000); // Update every second
+            
+            // Fetch all events from Supabase
+            async function fetchEvents() {
+                try {
+                    const { data, error } = await supabase
+                        .from('events')
+                        .select('*')
+                        .order('date', { ascending: true });
+                    
+                    if (error) throw error;
+                    
+                    allEvents = data || [];
+                    
+                    // Collect unique categories for dynamic filtering
+                    collectUniqueCategories();
+                    
+                    // Initialize calendar and other sections
+                    renderCalendar(currentDateObj);
+                    renderMonthEvents();
+                    renderUpcomingEvents();
+                    createDynamicFilters();
+                    
+                    // Initialize horizontal scroll functionality for mobile
+                    initializeHorizontalScroll();
+                    
+                } catch (error) {
+                    console.error('Error fetching events:', error);
+                    showError('Unable to load events. Please try again later.');
+                }
+            }
+            
+            // Initialize horizontal scroll functionality for mobile
+            function initializeHorizontalScroll() {
+                // Get scroll containers and arrows
+                const monthEventsList = document.getElementById('month-events-list');
+                const upcomingEventsGrid = document.getElementById('upcoming-events-grid');
+                const monthEventsLeftArrow = document.getElementById('monthEventsLeftArrow');
+                const monthEventsRightArrow = document.getElementById('monthEventsRightArrow');
+                const upcomingEventsLeftArrow = document.getElementById('upcomingEventsLeftArrow');
+                const upcomingEventsRightArrow = document.getElementById('upcomingEventsRightArrow');
+                
+                // Only initialize if we're on mobile view
+                if (window.innerWidth <= 768) {
+                    // Month events scroll functionality
+                    if (monthEventsList && monthEventsLeftArrow && monthEventsRightArrow) {
+                        const scrollAmount = 320; // Approximate width of event item + gap
+                        
+                        monthEventsLeftArrow.addEventListener('click', () => {
+                            monthEventsList.scrollBy({
+                                left: -scrollAmount,
+                                behavior: 'smooth'
+                            });
+                        });
+                        
+                        monthEventsRightArrow.addEventListener('click', () => {
+                            monthEventsList.scrollBy({
+                                left: scrollAmount,
+                                behavior: 'smooth'
+                            });
+                        });
+                        
+                        // Show/hide arrows based on scroll position
+                        updateMonthEventsArrowsVisibility();
+                        
+                        monthEventsList.addEventListener('scroll', () => {
+                            updateMonthEventsArrowsVisibility();
+                        });
+                    }
+                    
+                    // Upcoming events scroll functionality
+                    if (upcomingEventsGrid && upcomingEventsLeftArrow && upcomingEventsRightArrow) {
+                        const scrollAmount = 320; // Approximate width of event card + gap
+                        
+                        upcomingEventsLeftArrow.addEventListener('click', () => {
+                            upcomingEventsGrid.scrollBy({
+                                left: -scrollAmount,
+                                behavior: 'smooth'
+                            });
+                        });
+                        
+                        upcomingEventsRightArrow.addEventListener('click', () => {
+                            upcomingEventsGrid.scrollBy({
+                                left: scrollAmount,
+                                behavior: 'smooth'
+                            });
+                        });
+                        
+                        // Show/hide arrows based on scroll position
+                        updateUpcomingEventsArrowsVisibility();
+                        
+                        upcomingEventsGrid.addEventListener('scroll', () => {
+                            updateUpcomingEventsArrowsVisibility();
+                        });
+                    }
+                }
+                
+                // Update arrow visibility based on scroll position for month events
+                function updateMonthEventsArrowsVisibility() {
+                    if (!monthEventsList || !monthEventsLeftArrow || !monthEventsRightArrow) return;
+                    
+                    const scrollLeft = monthEventsList.scrollLeft;
+                    const scrollWidth = monthEventsList.scrollWidth;
+                    const clientWidth = monthEventsList.clientWidth;
+                    
+                    // Show/hide left arrow
+                    if (scrollLeft <= 10) {
+                        monthEventsLeftArrow.style.opacity = '0.5';
+                        monthEventsLeftArrow.style.cursor = 'default';
+                    } else {
+                        monthEventsLeftArrow.style.opacity = '1';
+                        monthEventsLeftArrow.style.cursor = 'pointer';
+                    }
+                    
+                    // Show/hide right arrow
+                    if (scrollLeft + clientWidth >= scrollWidth - 10) {
+                        monthEventsRightArrow.style.opacity = '0.5';
+                        monthEventsRightArrow.style.cursor = 'default';
+                    } else {
+                        monthEventsRightArrow.style.opacity = '1';
+                        monthEventsRightArrow.style.cursor = 'pointer';
+                    }
+                }
+                
+                // Update arrow visibility based on scroll position for upcoming events
+                function updateUpcomingEventsArrowsVisibility() {
+                    if (!upcomingEventsGrid || !upcomingEventsLeftArrow || !upcomingEventsRightArrow) return;
+                    
+                    const scrollLeft = upcomingEventsGrid.scrollLeft;
+                    const scrollWidth = upcomingEventsGrid.scrollWidth;
+                    const clientWidth = upcomingEventsGrid.clientWidth;
+                    
+                    // Show/hide left arrow
+                    if (scrollLeft <= 10) {
+                        upcomingEventsLeftArrow.style.opacity = '0.5';
+                        upcomingEventsLeftArrow.style.cursor = 'default';
+                    } else {
+                        upcomingEventsLeftArrow.style.opacity = '1';
+                        upcomingEventsLeftArrow.style.cursor = 'pointer';
+                    }
+                    
+                    // Show/hide right arrow
+                    if (scrollLeft + clientWidth >= scrollWidth - 10) {
+                        upcomingEventsRightArrow.style.opacity = '0.5';
+                        upcomingEventsRightArrow.style.cursor = 'default';
+                    } else {
+                        upcomingEventsRightArrow.style.opacity = '1';
+                        upcomingEventsRightArrow.style.cursor = 'pointer';
+                    }
+                }
+                
+                // Initial call to set correct arrow visibility
+                updateMonthEventsArrowsVisibility();
+                updateUpcomingEventsArrowsVisibility();
+            }
+            
+            // Collect unique categories from events
+            function collectUniqueCategories() {
+                uniqueCategories.clear();
+                allEvents.forEach(event => {
+                    if (event.category && event.category.trim() !== '') {
+                        uniqueCategories.add(event.category.trim());
+                    }
+                });
+            }
+            
+            // Create dynamic filter buttons based on unique categories
+            function createDynamicFilters() {
+                const filtersContainer = document.getElementById('event-filters');
+                if (!filtersContainer) return;
+                
+                // Start with "All Events" button
+                let filtersHTML = '<div class="event-filter active" data-category="all">All Events</div>';
+                
+                filtersContainer.innerHTML = filtersHTML;
+                
+                // Re-attach event listeners
+                initializeEventFiltering();
+            }
+            
+            // Show error message
+            function showError(message) {
+                const monthEventsList = document.getElementById('month-events-list');
+                const eventsGrid = document.getElementById('upcoming-events-grid');
+                
+                monthEventsList.innerHTML = `<div class="no-events"><i class="fas fa-exclamation-triangle"></i><p>${message}</p></div>`;
+                eventsGrid.innerHTML = `<div class="no-events"><i class="fas fa-exclamation-triangle"></i><p>${message}</p></div>`;
+            }
+            
+            // Format date for display
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+                return {
+                    month: monthNames[date.getMonth()],
+                    day: date.getDate(),
+                    year: date.getFullYear(),
+                    fullDate: date.toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                    }),
+                    fullDateShort: date.toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric',
+                        year: 'numeric'
+                    })
+                };
+            }
+            
+            // Format time for display
+            function formatTime(timeString) {
+                if (!timeString) return '';
+                
+                // Convert 24-hour format to 12-hour format if needed
+                if (timeString.includes(':')) {
+                    const [hours, minutes] = timeString.split(':');
+                    const hour = parseInt(hours);
+                    const ampm = hour >= 12 ? 'PM' : 'AM';
+                    const hour12 = hour % 12 || 12;
+                    return `${hour12}:${minutes} ${ampm}`;
+                }
+                
+                return timeString;
+            }
+            
+            // Get category icon class
+            function getCategoryIcon(category) {
+                if (!category) return 'fas fa-calendar-alt';
+                
+                const categoryLower = category.toLowerCase();
+                if (categoryLower.includes('worship')) return 'fas fa-cross';
+                if (categoryLower.includes('conference') || categoryLower.includes('meeting')) return 'fas fa-users';
+                if (categoryLower.includes('youth')) return 'fas fa-user-friends';
+                if (categoryLower.includes('prayer')) return 'fas fa-pray';
+                if (categoryLower.includes('bible')) return 'fas fa-book';
+                if (categoryLower.includes('community')) return 'fas fa-hands-helping';
+                if (categoryLower.includes('special')) return 'fas fa-baby';
+                if (categoryLower.includes('healing')) return 'fas fa-heart';
+                if (categoryLower.includes('celebration')) return 'fas fa-birthday-cake';
+                return 'fas fa-calendar-alt';
+            }
+            
+            // Get placeholder text based on category
+            function getPlaceholderText(category, title) {
+                if (!category) return title || 'Church Event';
+                
+                const categoryLower = category.toLowerCase();
+                if (categoryLower.includes('worship')) return 'Worship Service';
+                if (categoryLower.includes('conference')) return 'Conference';
+                if (categoryLower.includes('youth')) return 'Youth Event';
+                if (categoryLower.includes('prayer')) return 'Prayer Meeting';
+                if (categoryLower.includes('bible')) return 'Bible Study';
+                if (categoryLower.includes('community')) return 'Community Gathering';
+                if (categoryLower.includes('special')) return 'Special Event';
+                if (categoryLower.includes('healing')) return 'Healing Service';
+                if (categoryLower.includes('celebration')) return 'Celebration';
+                return 'Church Event';
+            }
+            
+            // Render calendar
+            function renderCalendar(date) {
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                                   "July", "August", "September", "October", "November", "December"];
+                
+                const currentMonth = date.getMonth();
+                const currentYear = date.getFullYear();
+                
+                const today = new Date();
+                const isCurrentMonth = today.getMonth() === currentMonth && today.getFullYear() === currentYear;
+                
+                // Get elements
+                const datetimeDisplay = document.getElementById('currentDatetimeDisplay');
+                const monthCenter = document.getElementById('calendarMonthCenter');
+                const calendarNav = document.querySelector('.calendar-nav');
+                
+                // Update month/year display
+                const monthYearText = `${monthNames[currentMonth]} ${currentYear}`;
+                
+                // Toggle displays based on whether we're in the current month
+                if (isCurrentMonth) {
+                    // Show datetime on left, hide center month display
+                    datetimeDisplay.classList.remove('hidden');
+                    if (monthCenter) {
+                        monthCenter.classList.remove('active');
+                        monthCenter.textContent = '';
+                    }
+                    
+                    // Position calendar-nav to the right
+                    if (calendarNav) {
+                        calendarNav.style.marginLeft = 'auto';
+                    }
+                } else {
+                    // Hide datetime, show month in center
+                    datetimeDisplay.classList.add('hidden');
+                    if (monthCenter) {
+                        monthCenter.classList.add('active');
+                        monthCenter.textContent = monthYearText;
+                    }
+                    
+                    // Position calendar-nav to the left
+                    if (calendarNav) {
+                        calendarNav.style.marginLeft = '0';
+                    }
+                }
+                
+                // Get first day of month and total days
+                const firstDay = new Date(currentYear, currentMonth, 1);
+                const lastDay = new Date(currentYear, currentMonth + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const startingDay = firstDay.getDay(); // 0 = Sunday
+                
+                // Clear previous calendar
+                const calendarDays = document.getElementById('calendar-days');
+                calendarDays.innerHTML = '';
+                
+                // Add empty days for previous month
+                for (let i = 0; i < startingDay; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.className = 'calendar-day empty';
+                    calendarDays.appendChild(emptyDay);
+                }
+                
+                // Add days of current month
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    dayElement.innerHTML = `<div class="calendar-day-number">${day}</div>`;
+                    
+                    // Check if today
+                    if (isCurrentMonth && day === today.getDate()) {
+                        dayElement.classList.add('today');
+                    }
+                    
+                    // Check if has event
+                    const hasEvent = allEvents.some(event => {
+                        const eventDate = new Date(event.date);
+                        return eventDate.getDate() === day && 
+                               eventDate.getMonth() === currentMonth && 
+                               eventDate.getFullYear() === currentYear;
+                    });
+                    
+                    if (hasEvent) {
+                        dayElement.classList.add('event-day');
+                        const eventDot = document.createElement('div');
+                        eventDot.className = 'event-dot';
+                        dayElement.appendChild(eventDot);
+                        
+                        // Add event title as tooltip
+                        const event = allEvents.find(event => {
+                            const eventDate = new Date(event.date);
+                            return eventDate.getDate() === day && 
+                                   eventDate.getMonth() === currentMonth && 
+                                   eventDate.getFullYear() === currentYear;
+                        });
+                        
+                        if (event) {
+                            const formattedDate = formatDate(event.date);
+                            dayElement.title = `${event.title}\n${formattedDate.fullDate}`;
+                        }
+                    }
+                    
+                    calendarDays.appendChild(dayElement);
+                }
+            }
+            
+            // Render month events list
+            function renderMonthEvents() {
+                const monthEventsList = document.getElementById('month-events-list');
+                
+                // Filter events for current month
+                const currentMonth = currentDateObj.getMonth();
+                const currentYear = currentDateObj.getFullYear();
+                
+                const monthEvents = allEvents.filter(event => {
+                    const eventDate = new Date(event.date);
+                    return eventDate.getMonth() === currentMonth && 
+                           eventDate.getFullYear() === currentYear;
+                }).slice(0, 4); // Show only 4 events
+                
+                if (monthEvents.length === 0) {
+                    monthEventsList.innerHTML = '<div class="no-events"><i class="fas fa-calendar-times"></i><p>No events scheduled for this month</p></div>';
+                    return;
+                }
+                
+                monthEventsList.innerHTML = '';
+                
+                monthEvents.forEach(event => {
+                    const formattedDate = formatDate(event.date);
+                    const formattedTime = formatTime(event.time);
+                    
+                    const eventItem = document.createElement('div');
+                    eventItem.className = 'event-item';
+                    eventItem.innerHTML = `
+                        <div class="event-date">
+                            <span class="event-month">${formattedDate.month}</span>
+                            <span class="event-day">${formattedDate.day}</span>
+                        </div>
+                        <div class="event-content">
+                            ${formattedTime ? `<div class="event-time">${formattedTime}</div>` : ''}
+                            <h4>${event.title}</h4>
+                            <p>${event.description ? (event.description.substring(0, 80) + (event.description.length > 80 ? '...' : '')) : ''}</p>
+                            ${event.category ? `<span class="event-category-badge">${event.category}</span>` : ''}
+                        </div>
+                    `;
+                    
+                    monthEventsList.appendChild(eventItem);
+                });
+                
+                // Reinitialize horizontal scroll functionality after rendering
+                if (window.innerWidth <= 768) {
+                    initializeHorizontalScroll();
+                }
+            }
+            
+            // Render upcoming events with improved card design
+            function renderUpcomingEvents() {
+                const eventsGrid = document.getElementById('upcoming-events-grid');
+                
+                // Filter upcoming events (from today onwards)
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                const upcomingEvents = allEvents.filter(event => {
+                    const eventDate = new Date(event.date);
+                    eventDate.setHours(0, 0, 0, 0);
+                    return eventDate >= today;
+                }).slice(0, 6); // Show only 6 upcoming events
+                
+                if (upcomingEvents.length === 0) {
+                    eventsGrid.innerHTML = '<div class="no-events"><i class="fas fa-calendar-times"></i><p>No upcoming events scheduled</p></div>';
+                    return;
+                }
+                
+                eventsGrid.innerHTML = '';
+                
+                upcomingEvents.forEach((event, index) => {
+                    const formattedDate = formatDate(event.date);
+                    const formattedTime = formatTime(event.time);
+                    const categoryIcon = getCategoryIcon(event.category);
+                    const placeholderText = getPlaceholderText(event.category, event.title);
+                    
+                    const eventCard = document.createElement('div');
+                    eventCard.className = `event-card ${event.featured ? 'featured' : ''}`;
+                    eventCard.setAttribute('data-category', event.category || 'all');
+                    eventCard.style.opacity = '0';
+                    eventCard.style.transform = 'translateY(10px)';
+                    eventCard.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    
+                    // Check if event has an image
+                    const hasImage = event.image && event.image.trim() !== '';
+                    
+                    eventCard.innerHTML = `
+                        <div class="event-image-container">
+                            ${hasImage ? 
+                                `<img src="${event.image}" alt="${event.title}" loading="lazy" onerror="this.style.display='none'; this.parentNode.querySelector('.event-image-placeholder').style.display='flex';">` : 
+                                ''
+                            }
+                            <div class="event-image-placeholder" style="${hasImage ? 'display: none;' : ''}">
+                                <i class="${categoryIcon}"></i>
+                                <span>${placeholderText}</span>
+                            </div>
+                            ${event.featured ? '<div class="event-ribbon">FEATURED</div>' : ''}
+                        </div>
+                        <div class="event-card-content">
+                            <h3>${event.title}</h3>
+                            <div class="event-time-display">
+                                <i class="far fa-calendar-alt"></i>
+                                <span>${formattedDate.fullDateShort}</span>
+                            </div>
+                            <div class="event-card-description">
+                                ${event.description ? (event.description.substring(0, 100) + (event.description.length > 100 ? '...' : '')) : 'Join us for this special event.'}
+                            </div>
+                            
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>${event.location || 'Main Sanctuary'}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="far fa-clock"></i>
+                                    <span>${formattedTime || 'TBA'}</span>
+                                </div>
+                                ${event.category ? `
+                                <div class="meta-item">
+                                    <i class="${categoryIcon}"></i>
+                                    <span>${event.category}</span>
+                                </div>
+                                ` : ''}
+                            </div>
+                            
+                            <a href="contact.html" class="btn" style="margin-top: 0.75rem; width: 100%; background: white; color: var(--red-dark); border: 2px solid var(--red-dark);">Contact</a>
+                        </div>
+                    `;
+                    
+                    eventsGrid.appendChild(eventCard);
+                    
+                    // Animate card appearance
+                    setTimeout(() => {
+                        eventCard.style.opacity = '1';
+                        eventCard.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+                
+                // Reinitialize horizontal scroll functionality after rendering
+                if (window.innerWidth <= 768) {
+                    initializeHorizontalScroll();
+                }
+            }
+            
+            // Initialize event filtering
+            function initializeEventFiltering() {
+                const eventFilters = document.querySelectorAll('.event-filter');
+                const eventCards = document.querySelectorAll('.event-card');
+                
+                eventFilters.forEach(filter => {
+                    filter.addEventListener('click', () => {
+                        // Update active filter
+                        eventFilters.forEach(f => f.classList.remove('active'));
+                        filter.classList.add('active');
+                        
+                        const category = filter.getAttribute('data-category');
+                        
+                        // Filter event cards
+                        eventCards.forEach(card => {
+                            const cardCategory = card.getAttribute('data-category');
+                            
+                            if (category === 'all' || cardCategory === category) {
+                                card.style.display = 'flex';
+                                setTimeout(() => {
+                                    card.style.opacity = '1';
+                                    card.style.transform = 'translateY(0)';
+                                }, 50);
+                            } else {
+                                card.style.opacity = '0';
+                                card.style.transform = 'translateY(10px)';
+                                setTimeout(() => {
+                                    card.style.display = 'none';
+                                }, 300);
+                            }
+                        });
+                    });
+                });
+            }
+            
+            // Calendar navigation
+            document.getElementById('prev-month').addEventListener('click', () => {
+                currentDateObj.setMonth(currentDateObj.getMonth() - 1);
+                renderCalendar(currentDateObj);
+                renderMonthEvents();
+            });
+            
+            document.getElementById('next-month').addEventListener('click', () => {
+                currentDateObj.setMonth(currentDateObj.getMonth() + 1);
+                renderCalendar(currentDateObj);
+                renderMonthEvents();
+            });
+            
+            document.getElementById('today-btn').addEventListener('click', () => {
+                currentDateObj = new Date();
+                renderCalendar(currentDateObj);
+                renderMonthEvents();
+            });
+            
+            // Reinitialize horizontal scroll on window resize
+            window.addEventListener('resize', function() {
+                initializeHorizontalScroll();
+            });
+            
+            // Initialize everything when page loads
+            document.addEventListener('DOMContentLoaded', () => {
+                fetchEvents();
+            });
+        })();
+    </script>
+</body>
+</html>
